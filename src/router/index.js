@@ -12,6 +12,29 @@ const router = createRouter({
       path: '/about',
       name: 'about',
       component: () => import('../views/AboutView.vue')
+    },
+    {
+      path: '/editions',
+      name: 'editions',
+      component: () => import('../views/EditionView.vue')
+    },
+    {
+      path: '/editions/:year',
+      name: 'yearEdition',
+      component: () => import('../views/EditionYearView.vue'),
+      params: true
+    },
+    {
+      path: '/editions/:year/projects',
+      name: 'projectsYearEdition',
+      component: () => import('../views/EditionYearProjectsView.vue'),
+      params: true
+    },
+    {
+      path: '/editions/:year/projects/:id',
+      name: 'DetailsProject',
+      component: () => import('../views/ProjectDetailsView.vue'),
+      params: true
     }
   ]
 })

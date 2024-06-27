@@ -2,7 +2,7 @@
 </script>
 
 <template>
-    <div>Home</div>
+    <div>Editions Year Projects</div>
 </template>
 
 <style scoped>
