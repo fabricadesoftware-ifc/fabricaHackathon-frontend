@@ -27,7 +27,7 @@ const router = createRouter({
     {
       path: '/editions/:year/projects',
       name: 'projectsYearEdition',
-      component: () => import('../views/EditionYearProjectView.vue'),
+      component: () => import('../views/EditionYearProjectsView.vue'),
       params: true
     },
     {
