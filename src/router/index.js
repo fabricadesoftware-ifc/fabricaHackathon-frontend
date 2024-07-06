@@ -19,7 +19,7 @@ const router = createRouter({
       component: () => import('../views/EditionView.vue')
     },
     {
-      path: '/editions/:year',
+      path: '/editions/:edition',
       name: 'yearEdition',
       component: () => import('../views/EditionYearView.vue'),
       params: true
@@ -31,10 +31,36 @@ const router = createRouter({
       params: true
     },
     {
-      path: '/editions/:year/projects/:id',
-      name: 'DetailsProject',
+      path: '/editions/:edition/teams/:id',
+      name: 'detailsProject',
       component: () => import('../views/ProjectDetailsView.vue'),
       params: true
+    },
+    {
+      path: '/editions/:edition/add',
+      name: 'addEdition',
+      component: () => import('../views/AddEditionView.vue'),
+      params: true
+    },
+    {
+      path: '/auth',
+      name: 'auth',
+      component: () => import('../views/AuthView.vue')
+    },
+    {
+      path: '/evaluate',
+      name: 'evaluate',
+      component: () => import('../views/EvaluateView.vue')
+    },
+    {
+      path: '/evaluate/:edition',
+      name: 'evaluateEdition',
+      component: () => import('../views/EvaluateEditionView.vue')
+    },
+    {
+      path: '/evaluate/:edition/teams/:id',
+      name: 'evaluateTeam',
+      component: () => import('../views/EvaluateTeamView.vue')
     }
   ]
 })
