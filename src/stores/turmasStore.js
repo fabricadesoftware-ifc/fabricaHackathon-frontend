@@ -15,7 +15,7 @@ export const useTurmaStore = defineStore('turma', () => {
         } catch (error) {
             console.error(error);
         }
-    }
+    };
 
     const getTurma = async (id) => {
         try {
@@ -25,7 +25,7 @@ export const useTurmaStore = defineStore('turma', () => {
         } catch (error) {
             console.error(error);
         }
-    }
+    };
 
     const createTurma = async (turma) => {
         try {
@@ -35,7 +35,7 @@ export const useTurmaStore = defineStore('turma', () => {
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     const updateTurma = async (turma) => {
         try {
@@ -45,7 +45,7 @@ export const useTurmaStore = defineStore('turma', () => {
         } catch (error) {
             console.error(error);
         }
-    }
+    };
 
     const deleteTurma = async (id) => {
         try {
@@ -54,7 +54,7 @@ export const useTurmaStore = defineStore('turma', () => {
         } catch (error) {
             console.error(error);
         }
-    }
+    };
 
     return {turmas, turma, novaTurma, getTurmas, getTurma, createTurma, updateTurma, deleteTurma};
 })
