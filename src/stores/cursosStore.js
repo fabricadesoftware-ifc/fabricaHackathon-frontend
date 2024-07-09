@@ -6,7 +6,6 @@ export const useCursoStore = defineStore('cursos', () => {
     const cursos = ref([]);
     const curso = ref([]);
     const newCurso = ref([]);
-    const updatedCurso = ref([]);
     
     const getCursos = async () => {
         try {
@@ -41,8 +40,8 @@ export const useCursoStore = defineStore('cursos', () => {
     const updateCurso = async (curso) => {
         try {
             const data = cursosService.updateCurso(curso);
-            updatedCurso.value = data;
-            console.log(updatedCurso.value);
+            curso.value = data;
+            console.log(curso.value);
         } catch(error) {
             console.error(error);
         }
@@ -57,5 +56,5 @@ export const useCursoStore = defineStore('cursos', () => {
         }
     };
 
-    return {cursos, curso, newCurso, updatedCurso, getCursos, getCurso, createCurso, updateCurso, deleteCurso};
+    return {cursos, curso, newCurso, getCursos, getCurso, createCurso, updateCurso, deleteCurso};
 })
