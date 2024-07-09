@@ -6,19 +6,19 @@ class CursoService {
         return data;
     }
     async getCurso(id) {
-        const { data } = await api.get(`/api/cursos/${id}`);
+        const { data } = await api.get(`/api/cursos/${id}/`);
         return data;
     }
-    async createCurso(turma) {
-        const { data } = await api.post('/api/cursos/', turma);
+    async createCurso(curso) {
+        const { data } = await api.post('/api/cursos/', curso);
         return data;
     }
-    async updateCurso(turma) {
-        const { data } = await api.patch('/api/cursos/', turma);
+    async updateCurso(curso) {
+        const { data } = await api.patch(`/api/cursos/${curso.id}/`, curso);
         return data;
     }
     async deleteCurso(id) {
-        const { data } = await api.delete(`/api/cursos/${id}`);
+        const { data } = await api.delete(`/api/cursos/${id}/`);
         return data;
     }
 }
