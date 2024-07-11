@@ -14,7 +14,7 @@ class TurmaService {
         return data;
     }
     async updateTurma(turma) {
-        const { data } = await api.patch('/turmas/', turma);
+        const { data } = await api.patch(`/turmas/${turma.id}/`, turma);
         return data;
     }
     async deleteTurma(id) {
