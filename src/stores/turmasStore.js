@@ -4,8 +4,8 @@ import turmasService from '@/services/turmasService';
 
 export const useTurmaStore = defineStore('turma', () => {
     const turmas = ref([]);
-    const turma = ref(null);
-    const novaTurma = ref(null);
+    const turma = ref({});
+    const novaTurma = ref({});
 
     const getTurmas = async () => {
         try {
@@ -49,7 +49,7 @@ export const useTurmaStore = defineStore('turma', () => {
 
     const deleteTurma = async (id) => {
         try {
-            const data = await turmasService.deleteTurma(id);
+            await turmasService.deleteTurma(id);
             return true;
         } catch (error) {
             console.error(error);
