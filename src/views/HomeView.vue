@@ -1,16 +1,16 @@
 <script setup>
-import { useTurmaStore } from '@/stores/turmasStore';
+import { useCursoStore } from '@/stores/cursosStore';
 import { ref, onMounted } from 'vue';
 
-const useTurma = useTurmaStore()
-const createTurma = {nome: '2INFO3', curso: 1}
+const useCurso = useCursoStore()
+const newCurso = {id: 1, nome: 'Informática', carga_horaria: 100, sigla: 'Info', nivel_curso: 'tecn'};
 const data = ref(null);
 
 onMounted(async () => {
-    let response1 = await useTurma.createTurma(createTurma);
-    let response2 = await useTurma.getTurmas();
+    let response1 = await useCurso.deleteCurso(1);
+    // let response2 = await useCurso.deleteCurso(1);
 
-    console.log('Feito!');
+    console.log('Feito!', response1);
 })
 </script>
 
