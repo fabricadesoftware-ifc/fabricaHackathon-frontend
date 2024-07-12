@@ -1,16 +1,15 @@
 <script setup>
-import { useCursoStore } from '@/stores/cursosStore';
-import { ref, onMounted } from 'vue';
+import { useApoiadorStore } from '@/stores/apoiadoresStore';
+import { onMounted } from 'vue';
 
-const useCurso = useCursoStore()
-const newCurso = {id: 1, nome: 'Informática', carga_horaria: 100, sigla: 'Info', nivel_curso: 'tecn'};
-const data = ref(null);
+const useApoiador = useApoiadorStore()
+const newApoiador = {id: 1, empresa: 'LATAM', link: 'https://www.latamairlines.com/br/pt'};
 
 onMounted(async () => {
-    let response1 = await useCurso.deleteCurso(1);
-    // let response2 = await useCurso.deleteCurso(1);
+    // let response1 = await useApoiador.updateApoiador(newApoiador);
+    // let response2 = await useApoiador.deleteApoiador(8);
 
-    console.log('Feito!', response1);
+    console.log('Feito!', response2);
 })
 </script>
 
