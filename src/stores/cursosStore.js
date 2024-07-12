@@ -11,7 +11,6 @@ export const useCursoStore = defineStore('cursos', () => {
         try {
             const data = await cursosService.getCursos();
             cursos.value = data;
-            console.log(cursos.value);
         } catch(error) {
             console.error(error);
         }
@@ -21,7 +20,6 @@ export const useCursoStore = defineStore('cursos', () => {
         try {
             const data = await cursosService.getCurso(id);
             curso.value = data;
-            console.log(curso.value);
         } catch(error) {
             console.error(error);
         }
@@ -31,7 +29,6 @@ export const useCursoStore = defineStore('cursos', () => {
         try {
             const data = cursosService.createCurso(curso);
             newCurso.value = data;
-            console.log(newCurso.value);
         } catch(error) {
             console.error(error);
         }
@@ -41,7 +38,6 @@ export const useCursoStore = defineStore('cursos', () => {
         try {
             const data = cursosService.updateCurso(curso);
             curso.value = data;
-            console.log(curso.value);
         } catch(error) {
             console.error(error);
         }
@@ -49,7 +45,7 @@ export const useCursoStore = defineStore('cursos', () => {
 
     const deleteCurso = async (id) => {
         try {
-            const data = cursosService.deleteCurso(id);
+            await cursosService.deleteCurso(id);
             return true;
         } catch(error) {
             console.error(error);

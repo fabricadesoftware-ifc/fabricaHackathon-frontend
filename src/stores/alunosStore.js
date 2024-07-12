@@ -11,7 +11,6 @@ export const useAlunosStore = defineStore('alunos', () => {
         try {
             const data = await alunosService.getAlunos();
             alunos.value = data;
-            console.log(alunos.value);
         } catch(error) {
             console.error(error);
         }
@@ -20,7 +19,6 @@ export const useAlunosStore = defineStore('alunos', () => {
         try {
             const data = await alunosService.getAluno(id);
             aluno.value = data;
-            console.log(aluno.value);
         } catch(error) {
             console.error(error);
         }
@@ -29,16 +27,14 @@ export const useAlunosStore = defineStore('alunos', () => {
         try {
             const data = await alunosService.createAluno(aluno);
             newAluno.value = data;
-            console.log(newAluno.value);
         } catch(error) {
             console.error(error);
         }
     };
     const updateAluno = async (updateAluno) => {
         try {
-            const data = await alunosService.updateAluno(updateAluno);
+            await alunosService.updateAluno(updateAluno);
             getAluno(updateAluno.id);
-            console.log(data, aluno.value);
         } catch(error) {
             console.error(error);
         }
