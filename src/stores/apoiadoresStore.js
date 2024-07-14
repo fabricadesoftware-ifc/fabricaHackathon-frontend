@@ -19,7 +19,6 @@ export const useApoiadorStore = defineStore('apoiadores', () => {
         try {
             const data = await apoiadoresService.getApoiador(id);
             apoiador.value = data;
-            console.log(apoiador.value);
         } catch(error) {
             console.error(error);
         }
