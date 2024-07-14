@@ -4,14 +4,13 @@ import turmasService from '@/services/turmasService';
 
 export const useTurmaStore = defineStore('turma', () => {
     const turmas = ref([]);
-    const turma = ref(null);
-    const novaTurma = ref(null);
+    const turma = ref({});
+    const novaTurma = ref({});
 
     const getTurmas = async () => {
         try {
             const data = await turmasService.getTurmas();
             turmas.value = data;
-            console.log(turmas.value);
         } catch (error) {
             console.error(error);
         }
@@ -21,7 +20,6 @@ export const useTurmaStore = defineStore('turma', () => {
         try {
             const data = await turmasService.getTurma(id);
             turma.value = data;
-            console.log(turma.value)
         } catch (error) {
             console.error(error);
         }
@@ -31,9 +29,8 @@ export const useTurmaStore = defineStore('turma', () => {
         try {
             const data = await turmasService.createTurma(turma);
             novaTurma.value = data;
-            console.log(novaTurma.value);
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     };
 
@@ -41,7 +38,6 @@ export const useTurmaStore = defineStore('turma', () => {
         try {
             const data = await turmasService.updateTurma(turma);
             turma.value = data;
-            console.log(turma.value);
         } catch (error) {
             console.error(error);
         }
@@ -49,7 +45,7 @@ export const useTurmaStore = defineStore('turma', () => {
 
     const deleteTurma = async (id) => {
         try {
-            const data = await turmasService.deleteTurma(id);
+            await turmasService.deleteTurma(id);
             return true;
         } catch (error) {
             console.error(error);
