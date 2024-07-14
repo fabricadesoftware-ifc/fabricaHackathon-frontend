@@ -11,7 +11,6 @@ export const useAvaliacaoStore = defineStore('avaliacoes', () => {
         try {
             const data = await avaliacoesService.getAvaliacoes();
             avaliations.value = data;
-            console.log(avaliations.value);
         } catch(error) {
             console.error(error);
         }
@@ -20,7 +19,6 @@ export const useAvaliacaoStore = defineStore('avaliacoes', () => {
         try {
             const data = await avaliacoesService.getAvaliacao(id);
             avaliation.value = data;
-            console.log(avaliation.value);
         } catch(error) {
             console.error(error);
         }
@@ -29,7 +27,6 @@ export const useAvaliacaoStore = defineStore('avaliacoes', () => {
         try {
             const data = await avaliacoesService.createAvaliacao(avaliacao);
             newAvaliation.value = data;
-            console.log(newAvaliation.value);
         } catch(error) {
             console.error(error);
         }

@@ -30,7 +30,7 @@ export const useTurmaStore = defineStore('turma', () => {
             const data = await turmasService.createTurma(turma);
             novaTurma.value = data;
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     };
 
