@@ -4,8 +4,8 @@ import turmasService from '@/services/turmasService';
 
 export const useTurmaStore = defineStore('turma', () => {
     const turmas = ref([]);
-    const turma = ref(null);
-    const novaTurma = ref(null);
+    const turma = ref({});
+    const novaTurma = ref({});
 
     const getTurmas = async () => {
         try {
