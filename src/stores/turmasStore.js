@@ -36,8 +36,8 @@ export const useTurmaStore = defineStore('turma', () => {
 
     const updateTurma = async (turma) => {
         try {
-            const data = await turmasService.updateTurma(turma);
-            turma.value = data;
+            await turmasService.updateTurma(turma);
+            getTurma(turma.id);
         } catch (error) {
             console.error(error);
         }

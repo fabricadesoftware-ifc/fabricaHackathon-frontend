@@ -36,8 +36,8 @@ export const useCursoStore = defineStore('cursos', () => {
 
     const updateCurso = async (curso) => {
         try {
-            const data = await cursosService.updateCurso(curso);
-            curso.value = data;
+            await cursosService.updateCurso(curso);
+            getCurso(curso.id);
         } catch(error) {
             console.error(error);
         }
