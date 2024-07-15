@@ -27,7 +27,7 @@ export const useCursoStore = defineStore('cursos', () => {
 
     const createCurso = async (curso) => {
         try {
-            const data = cursosService.createCurso(curso);
+            const data = await cursosService.createCurso(curso);
             newCurso.value = data;
         } catch(error) {
             console.error(error);
@@ -36,7 +36,7 @@ export const useCursoStore = defineStore('cursos', () => {
 
     const updateCurso = async (curso) => {
         try {
-            const data = cursosService.updateCurso(curso);
+            const data = await cursosService.updateCurso(curso);
             curso.value = data;
         } catch(error) {
             console.error(error);
