@@ -11,7 +11,6 @@ export const useCriterionStore = defineStore('criteria', () => {
         try {
             const data = await criterionService.getCriteria();
             criteria.value = data;
-            console.log(criteria.value);
         } catch(error) {
             console.error(error);
         }
@@ -20,7 +19,6 @@ export const useCriterionStore = defineStore('criteria', () => {
         try {
             const data = await criterionService.getCriterion(id);
             criterion.value = data;
-            console.log(criterion.value);
         } catch(error) {
             console.error(error);
         }
@@ -29,7 +27,6 @@ export const useCriterionStore = defineStore('criteria', () => {
         try {
             const data = await criterionService.createCriterion(criterion);
             newCriterion.value = data;
-            console.log(newCriterion.value);
         } catch(error) {
             console.error(error);
         }
