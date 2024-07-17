@@ -1,56 +1,56 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import turmasService from '@/services/turmasService';
+import classService from '@/services/classService';
 
-export const useTurmaStore = defineStore('turma', () => {
-    const turmas = ref([]);
-    const turma = ref({});
-    const novaTurma = ref({});
+export const useClassInfoStore = defineStore('classes', () => {
+    const classesInfo = ref([]);
+    const classInfo = ref({});
+    const newClassInfo = ref({});
 
-    const getTurmas = async () => {
+    const getClassesInfo = async () => {
         try {
-            const data = await turmasService.getTurmas();
-            turmas.value = data;
+            const data = await classService.getClassesInfo();
+            classesInfo.value = data;
         } catch (error) {
             console.error(error);
         }
     };
 
-    const getTurma = async (id) => {
+    const getClassInfo = async (id) => {
         try {
-            const data = await turmasService.getTurma(id);
-            turma.value = data;
+            const data = await classService.getClassInfo(id);
+            classInfo.value = data;
         } catch (error) {
             console.error(error);
         }
     };
 
-    const createTurma = async (turma) => {
+    const createClassInfo = async (classInfo) => {
         try {
-            const data = await turmasService.createTurma(turma);
-            novaTurma.value = data;
+            const data = await classService.createClassInfo(classInfo);
+            newClassInfo.value = data;
         } catch (error) {
             console.error(error);
         }
     };
 
-    const updateTurma = async (turma) => {
+    const updateClassInfo = async (classInfo) => {
         try {
-            await turmasService.updateTurma(turma);
-            getTurma(turma.id);
+            await classService.updateClassInfo(classInfo);
+            getClassInfo(classInfo.id);
         } catch (error) {
             console.error(error);
         }
     };
 
-    const deleteTurma = async (id) => {
+    const deleteClassInfo = async (id) => {
         try {
-            await turmasService.deleteTurma(id);
+            await classService.deleteClassInfo(id);
             return true;
         } catch (error) {
             console.error(error);
         }
     };
 
-    return {turmas, turma, novaTurma, getTurmas, getTurma, createTurma, updateTurma, deleteTurma};
-})
+    return {classesInfo, classInfo, newClassInfo, getClassesInfo, getClassInfo, createClassInfo, updateClassInfo, deleteClassInfo};
+});

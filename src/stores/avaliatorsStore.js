@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import avaliadorService from '@/services/avaliadoresService';
+import avaliatorService from '@/services/avaliatorsService';
 
 export const useAvaliadorStore = defineStore('avaliadores', () => {
     const avaliators = ref([]);
@@ -9,7 +9,7 @@ export const useAvaliadorStore = defineStore('avaliadores', () => {
 
     const getAvaliators = async () => {
         try {
-            const data = await avaliadorService.getAvaliadores();
+            const data = await avaliatorService.getAvaliators();
             avaliators.value = data;
         } catch(error) {
             console.error(error);
@@ -17,7 +17,7 @@ export const useAvaliadorStore = defineStore('avaliadores', () => {
     };
     const getAvaliator = async (id) => {
         try {
-            const data = await avaliadorService.getAvaliador(id);
+            const data = await avaliatorService.getAvaliator(id);
             avaliator.value = data;
 
         } catch(error) {
@@ -26,23 +26,23 @@ export const useAvaliadorStore = defineStore('avaliadores', () => {
     };
     const createAvaliator = async (avaliator) => {
         try {
-            const data = await avaliadorService.createAvaliador(avaliator);
+            const data = await avaliatorService.createAvaliator(avaliator);
             newAvaliator.value = data;
         } catch(error) {
             console.error(error);
         }
     };
-    const updateAvaliator = async (updateAvaliator) => {
+    const updateAvaliator = async (avaliator) => {
         try {
-            await avaliadorService.updateAvaliador(updateAvaliator);
-            getAvaliator(updateAvaliator.id);
+            await avaliatorService.updateAvaliator(avaliator);
+            getAvaliator(avaliator.id);
         } catch(error) {
             console.error(error);
         }
     };
     const deleteAvaliator = async (id) => {
         try {
-            await avaliadorService.deleteAvaliador(id);
+            await avaliatorService.deleteAvaliator(id);
             return true;
         } catch(error) {
             console.error(error);
