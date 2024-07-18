@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import avaliatorService from '@/services/avaliatorsService';
+import avaliatorService from '@/services/avaliator';
 
-export const useAvaliadorStore = defineStore('avaliadores', () => {
+export const useAvaliatorStore = defineStore('avaliator', () => {
     const avaliators = ref([]);
     const avaliator = ref({});
     const newAvaliator = ref({});

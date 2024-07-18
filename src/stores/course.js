@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import courseService from '@/services/coursesService';
+import courseService from '@/services/course';
 
-export const useCourseStore = defineStore('courses', () => {
+export const useCourseStore = defineStore('course', () => {
     const courses = ref([]);
     const course = ref([]);
     const newCourse = ref([]);

@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import criterionService from '@/services/criteriaService';
+import criterionService from '@/services/criterion';
 
-export const useCriterionStore = defineStore('criteria', () => {
+export const useCriterionStore = defineStore('criterion', () => {
     const criteria = ref([]);
     const criterion = ref([]);
     const newCriterion = ref([]);
