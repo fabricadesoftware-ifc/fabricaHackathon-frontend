@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import teamService from '@/services/teamServices';
+import teamService from '@/services/team';
 
-export const useTeamStore = defineStore('teams', () => {
+export const useTeamStore = defineStore('team', () => {
     const teams = ref([]);
     const team = ref([]);
     const newTeam = ref([]);

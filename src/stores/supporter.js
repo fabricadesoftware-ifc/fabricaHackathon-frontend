@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import supporterService from '@/services/supportersService';
+import supporterService from '@/services/supporter';
 
-export const useSupporterStore = defineStore('supporters', () => {
+export const useSupporterStore = defineStore('supporter', () => {
     const supporters = ref([]);
     const supporter = ref([]);
     const newSupporter = ref([]);

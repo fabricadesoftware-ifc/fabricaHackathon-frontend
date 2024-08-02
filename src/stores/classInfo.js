@@ -1,15 +1,15 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import classService from '@/services/classService';
+import classInfoService from '@/services/classInfo';
 
-export const useClassInfoStore = defineStore('classes', () => {
+export const useClassInfoStore = defineStore('classInfo', () => {
     const classesInfo = ref([]);
     const classInfo = ref({});
     const newClassInfo = ref({});
 
     const getClassesInfo = async () => {
         try {
-            const data = await classService.getClassesInfo();
+            const data = await classInfoService.getClassesInfo();
             classesInfo.value = data;
         } catch (error) {
             console.error(error);
@@ -18,7 +18,7 @@ export const useClassInfoStore = defineStore('classes', () => {
 
     const getClassInfo = async (id) => {
         try {
-            const data = await classService.getClassInfo(id);
+            const data = await classInfoService.getClassInfo(id);
             classInfo.value = data;
         } catch (error) {
             console.error(error);
@@ -27,7 +27,7 @@ export const useClassInfoStore = defineStore('classes', () => {
 
     const createClassInfo = async (classInfo) => {
         try {
-            const data = await classService.createClassInfo(classInfo);
+            const data = await classInfoService.createClassInfo(classInfo);
             newClassInfo.value = data;
         } catch (error) {
             console.error(error);
@@ -36,7 +36,7 @@ export const useClassInfoStore = defineStore('classes', () => {
 
     const updateClassInfo = async (classInfo) => {
         try {
-            await classService.updateClassInfo(classInfo);
+            await classInfoService.updateClassInfo(classInfo);
             getClassInfo(classInfo.id);
         } catch (error) {
             console.error(error);
@@ -45,7 +45,7 @@ export const useClassInfoStore = defineStore('classes', () => {
 
     const deleteClassInfo = async (id) => {
         try {
-            await classService.deleteClassInfo(id);
+            await classInfoService.deleteClassInfo(id);
             return true;
         } catch (error) {
             console.error(error);

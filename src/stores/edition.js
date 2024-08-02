@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import editionService from '@/services/editionsService';
+import editionService from '@/services/edition';
 
-export const useEditionStore = defineStore('editions', () => {
+export const useEditionStore = defineStore('edition', () => {
     const editions = ref([]);
     const edition = ref([]);
     const newEdition = ref([]);
