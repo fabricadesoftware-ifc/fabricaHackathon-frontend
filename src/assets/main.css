@@ -1,0 +1,9 @@
+* {
+    background-color: var(--background-color);
+}
+
+:root {
+    --primary-color: #FE5C2B;
+    --primary-color-gradient: radial-gradient(147.74% 409.03% at -2.67% 59.14%, rgba(254, 92, 43, 0.37) 0%, #FE5C2B 100%);
+    --background-color: #131316;
+  }
