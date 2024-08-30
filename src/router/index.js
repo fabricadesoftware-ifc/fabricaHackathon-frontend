@@ -5,62 +5,65 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: () => import('../views/HomeView.vue')
+      name: 'default',
+      component: () => import('../layouts/DefaultLayout.vue'),
+      children: [
+        {
+          path: '/home',
+          name: 'home',
+          component: () => import('../pages/global/HomeView.vue')
+        },
+        {
+          path: '/editions',
+          name: 'editions',
+          component: () => import('../pages/edition/Editions.vue')
+        },
+        {
+          path: '/editions/:edition',
+          name: 'yearEdition',
+          component: () => import('../pages/edition/DetailEdition.vue'),
+          params: true
+        },
+        {
+          path: '/editions/:edition/teams/:id',
+          name: 'detailsProject',
+          component: () => import('../pages/team/DetailTeam.vue'),
+          params: true
+        },
+        {
+          path: '/evaluate',
+          name: 'evaluate',
+          component: () => import('../pages/avaliator/EditionsAvaliator.vue')
+        },
+        {
+          path: '/evaluate/:edition',
+          name: 'evaluateEdition',
+          component: () => import('../pages/avaliator/DetailEditionAvaliator.vue')
+        },
+        {
+          path: '/evaluate/:edition/teams/:id',
+          name: 'evaluateTeam',
+          component: () => import('../pages/avaliator/EvaluateTeamAvaliator.vue')
+        },
+      ]
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue')
-    },
-    {
-      path: '/editions',
-      name: 'editions',
-      component: () => import('../views/EditionView.vue')
-    },
-    {
-      path: '/editions/:edition',
-      name: 'yearEdition',
-      component: () => import('../views/EditionYearView.vue'),
-      params: true
-    },
-    {
-      path: '/editions/:year/projects',
-      name: 'projectsYearEdition',
-      component: () => import('../views/EditionYearProjectsView.vue'),
-      params: true
-    },
-    {
-      path: '/editions/:edition/teams/:id',
-      name: 'detailsProject',
-      component: () => import('../views/ProjectDetailsView.vue'),
-      params: true
-    },
-    {
-      path: '/editions/:edition/add',
-      name: 'addEdition',
-      component: () => import('../views/AddEditionView.vue'),
-      params: true
-    },
-    {
-      path: '/auth',
-      name: 'auth',
-      component: () => import('../views/AuthView.vue')
-    },
-    {
-      path: '/evaluate',
-      name: 'evaluate',
-      component: () => import('../views/EvaluateView.vue')
-    },
-    {
-      path: '/evaluate/:edition',
-      name: 'evaluateEdition',
-      component: () => import('../views/EvaluateEditionView.vue')
-    },
-    {
-      path: '/evaluate/:edition/teams/:id',
-      name: 'evaluateTeam',
-      component: () => import('../views/EvaluateTeamView.vue')
+      path: '/',
+      name: 'blank',
+      component: () => import('../layouts/BlankLayout.vue'),
+      children: [
+        {
+          path: '/auth',
+          name: 'auth',
+          component: () => import('../pages/avaliator/AuthAvaliator.vue')
+        },
+        {
+          path: '/editions/:edition/teams/add',
+          name: 'addTeam',
+          component: () => import('../pages/team/AddTeam.vue'),
+          params: true
+        },
+      ]
     }
   ]
 })
