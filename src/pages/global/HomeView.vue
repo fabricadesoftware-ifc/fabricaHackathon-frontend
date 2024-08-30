@@ -1,13 +1,12 @@
 <script setup>
-import FooterComp from '@/components/FooterComp.vue';
-import HeaderComp from '@/components/HeaderComp.vue';
+import { FooterComp, HeaderComp} from '@/components'
 </script>
 
 <template>
     <HeaderComp />
     <div class="fundo">
         
-    <FooterComp colorFooter="radial-gradient(97.57% 210.75% at 0.9% 2.98%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 100%);" />
+    <FooterComp />
 </div>
 </template>
 

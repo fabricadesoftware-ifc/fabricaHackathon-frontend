@@ -1,12 +1,12 @@
 <script setup>
-import GradientInput from '../global/inputs/GradientInput.vue';
-import GradientSelect from '../global/inputs/GradientSelect.vue';
-import OrangeButton from '../global/buttons/OrangeButton.vue';
+import GradientInput from '@/components/global/inputs/GradientInput.vue';
+import GradientSelect from '@/components/global/inputs/GradientSelect.vue';
+import OrangeButton from '@/components/global/buttons/OrangeButton.vue';
 </script>
 <template>
     <section>
         <router-link to="/" class="logo">
-            <img src="../../public/logoHackaton.png" alt="teams">
+            <img src="/public/logoHackaton.png" alt="teams">
         </router-link>
         <div class="form">
             <h1>Cadastro</h1>

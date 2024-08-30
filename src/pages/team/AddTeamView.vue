@@ -1,6 +1,6 @@
 <script setup>
-import ImageComp from '@/components/registerTeams/ImageComp.vue'
-import FormComp from '@/components/registerTeams/FormComp.vue';
+import ImageComp from '@/components/team/add/ImageComp.vue'
+import FormComp from '@/components/team/add/FormComp.vue';
 </script>
 
 <template>

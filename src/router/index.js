@@ -4,63 +4,63 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+      path: '',
       name: 'default',
       component: () => import('../layouts/DefaultLayout.vue'),
       children: [
         {
-          path: '/home',
+          path: '/',
           name: 'home',
           component: () => import('../pages/global/HomeView.vue')
         },
         {
           path: '/editions',
           name: 'editions',
-          component: () => import('../pages/edition/Editions.vue')
+          component: () => import('../pages/edition/EditionsView.vue')
         },
         {
           path: '/editions/:edition',
           name: 'yearEdition',
-          component: () => import('../pages/edition/DetailEdition.vue'),
+          component: () => import('../pages/edition/DetailEditionView.vue'),
           params: true
         },
         {
           path: '/editions/:edition/teams/:id',
           name: 'detailsProject',
-          component: () => import('../pages/team/DetailTeam.vue'),
+          component: () => import('../pages/team/DetailTeamView.vue'),
           params: true
         },
         {
           path: '/evaluate',
           name: 'evaluate',
-          component: () => import('../pages/avaliator/EditionsAvaliator.vue')
+          component: () => import('../pages/avaliator/EditionsAvaliatorView.vue')
         },
         {
           path: '/evaluate/:edition',
           name: 'evaluateEdition',
-          component: () => import('../pages/avaliator/DetailEditionAvaliator.vue')
+          component: () => import('../pages/avaliator/DetailEditionAvaliatorView.vue')
         },
         {
           path: '/evaluate/:edition/teams/:id',
           name: 'evaluateTeam',
-          component: () => import('../pages/avaliator/EvaluateTeamAvaliator.vue')
+          component: () => import('../pages/avaliator/EvaluateTeamAvaliatorView.vue')
         },
       ]
     },
     {
-      path: '/',
+      path: '',
       name: 'blank',
       component: () => import('../layouts/BlankLayout.vue'),
       children: [
         {
           path: '/auth',
           name: 'auth',
-          component: () => import('../pages/avaliator/AuthAvaliator.vue')
+          component: () => import('../pages/avaliator/AuthAvaliatorView.vue')
         },
         {
           path: '/editions/:edition/teams/add',
           name: 'addTeam',
-          component: () => import('../pages/team/AddTeam.vue'),
+          component: () => import('../pages/team/AddTeamView.vue'),
           params: true
         },
       ]

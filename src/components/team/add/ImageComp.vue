@@ -22,7 +22,7 @@ section {
 .img {
     width: 100%;
     height: 100%;
-    background-image: url('../../public/imageRegister.png');
+    background-image: url('/public/imageRegister.png');
     background-size: cover; /* Faz com que a imagem preencha toda a área da div */
     background-position: center;
     background-repeat: no-repeat;
