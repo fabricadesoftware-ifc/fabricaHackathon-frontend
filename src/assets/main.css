@@ -14,12 +14,13 @@
 }
 
 body{
-    background-color: #131316;
+    background-color: var(--background-color);
 }
 
 h1.gradientOrange {
     background: linear-gradient(90deg, #FE5C2B 0%, #98371A 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 35px;
     font-weight: 500;
