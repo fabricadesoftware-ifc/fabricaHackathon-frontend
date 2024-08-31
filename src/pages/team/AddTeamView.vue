@@ -14,6 +14,6 @@ import FormComp from '@/components/team/add/FormComp.vue';
 main {
     width: 100%;
     display: grid;
-    grid-template-columns: 4fr 4fr;
+    grid-template-columns: 4.5fr 4fr;
 }
 </style>

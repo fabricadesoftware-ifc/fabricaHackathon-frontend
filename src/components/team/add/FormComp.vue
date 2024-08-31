@@ -1,22 +1,30 @@
 <script setup>
+import { reactive } from 'vue';
 import GradientInput from '@/components/global/inputs/GradientInput.vue';
 import GradientSelect from '@/components/global/inputs/GradientSelect.vue';
 import OrangeButton from '@/components/global/buttons/OrangeButton.vue';
+
+const dados = reactive({
+    equipe: '',
+    turma: '',
+    integrantes: []
+});
 </script>
+
 <template>
     <section>
-        <router-link to="/" class="logo">
+        <router-link to="/home" class="logo">
             <img src="/public/logoHackaton.png" alt="teams">
         </router-link>
         <div class="form">
             <h1>Cadastro</h1>
             <form @submit.prevent>
-                <GradientInput label="Nome da Equipe" />
-                <GradientInput label="Turma" />
-                <GradientSelect label="Equipe" />
+                <GradientInput label="Nome da Equipe" v-model="dados.equipe" />
+                <GradientInput label="Turma" v-model="dados.turma" />
+                <GradientSelect label="Equipe" v-model="dados.equipe" />
 
                 <div class="select-with-button">
-                    <GradientSelect label="Integrante" />
+                    <GradientSelect label="Integrante" v-model="dados.integrantes" />
                     <button class="round-button">+</button>
                 </div>
 
@@ -25,6 +33,10 @@ import OrangeButton from '@/components/global/buttons/OrangeButton.vue';
         </div>
     </section>
 </template>
+
+<style scoped>
+/* Estilos aqui */
+</style>
 
 <style scoped>
 section {

@@ -1,10 +1,17 @@
 <script setup>
+import CardComp1 from '@/components/global/cards/CardComp1.vue';
+import CardComp2 from '@/components/global/cards/CardComp2.vue';
 </script>
 
 <template>
     <section>
         <div class="img">
-
+            <div class="position1">
+                <CardComp2 />
+            </div>
+            <div class="position4">
+                <CardComp1 />
+            </div>
         </div>
     </section>
 </template>
@@ -23,12 +30,33 @@ section {
     width: 100%;
     height: 100%;
     background-image: url('/public/imageRegister.png');
-    background-size: cover; /* Faz com que a imagem preencha toda a área da div */
+    background-size: cover;
+    /* Faz com que a imagem preencha toda a área da div */
     background-position: center;
     background-repeat: no-repeat;
 
     border-radius: 9px;
     overflow: hidden;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+
+    /* Define as áreas do grid */
+    position: relative;
 }
 
+.position1 {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    justify-self: center;
+}
+
+.position4 {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: center;
+    justify-self: center;
+}
 </style>

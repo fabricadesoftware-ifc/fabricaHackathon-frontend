@@ -9,7 +9,7 @@ defineProps({
         <button>
             {{ text }}
         </button>
-        <span>></span>
+        <router-link>></router-link>
     </div>
 </template>
 
@@ -28,16 +28,32 @@ button {
     display: flex;
     align-items: center;
     position: relative;
+    transition: .5s ease-in-out;
+    cursor: pointer;
 }
 
-span {
+button:hover{
+    background: #fff;
+    color: #000;
+}
+
+a {
+    text-decoration: none;
     width: 53px;
     height: 53px;
     background: #fff;
     border-radius: 50%;
+    color: #000;
     margin-left: -10px;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: .5s ease-in-out;
+}
+
+a:hover {
+    background: transparent;
+    color: #fff;
+    border: 2px solid #fff;
 }
 </style>

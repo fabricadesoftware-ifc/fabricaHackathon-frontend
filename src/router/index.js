@@ -4,12 +4,12 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '',
+      path: '/',
       name: 'default',
       component: () => import('../layouts/DefaultLayout.vue'),
       children: [
         {
-          path: '/',
+          path: 'home',
           name: 'home',
           component: () => import('../pages/global/HomeView.vue')
         },

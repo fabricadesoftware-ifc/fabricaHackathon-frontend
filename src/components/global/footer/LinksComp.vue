@@ -17,13 +17,14 @@
 </template>
 
 <style scoped>
-
-a{
+a {
     color: #848895;
     text-decoration: none;
     font-weight: 400;
+    transition: .2s ease-in-out;
 }
-.infos{
+
+.infos {
     display: flex;
     gap: 1rem;
     color: white;
@@ -32,9 +33,13 @@ a{
     justify-content: center;
 }
 
-.infos > div{
+.infos>div {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+}
+
+a:hover {
+    color: #fff;
 }
 </style>
