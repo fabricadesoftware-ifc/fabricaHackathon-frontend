@@ -15,5 +15,6 @@ import ImageAvaliator from '@/components/avaliator/image/ImageAvaliator.vue';
 .main-container {
     display: flex;
     height: 100vh;
+    background-color: var(--background-color);
 }
 </style>

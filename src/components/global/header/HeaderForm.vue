@@ -2,13 +2,13 @@
 </script>
 
 <template>
-    <header>
+    <div>
         <img src="@/assets/global/logo.png" alt="">
-    </header>
+    </div>
 </template>
 
 <style scoped>
-header {
+div {
     margin-bottom: 100px;
     padding: 40px 0 0 60px;
 }
