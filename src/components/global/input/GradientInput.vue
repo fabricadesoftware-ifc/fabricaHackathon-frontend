@@ -1,13 +1,16 @@
 <script setup>
+import { defineModel } from 'vue';
 defineProps({
     label: String
 })
+
+const model = defineModel("text")
 </script>
 
 <template>
     <div>
         <label for="">{{ label }}:</label>
-        <input type="text" name="" id="">
+        <input type="text" name="" id="" v-model="model">
     </div>
 
 </template>
@@ -27,10 +30,9 @@ input {
     color: white;
     width: 100%;
     border: 1px solid #535353;
- 
+
     /* border: 1px solid transparent;
     border-image-source: linear-gradient(90deg, #FFFFFF 0%, #999999 100%);
     border-image-slice: 1; */
 }
-
 </style>
