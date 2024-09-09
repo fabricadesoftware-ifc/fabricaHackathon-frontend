@@ -1,18 +1,100 @@
 <script setup>
+import { reactive, computed, watch } from 'vue';
+import { useClassInfoStore } from '@/stores/classInfo';
+import { useStudentStore } from '@/stores/student';
+import TrashCanOutline from 'vue-material-design-icons/TrashCanOutline.vue';
+import GradientSelect from '@/components/global/input/GradientSelect.vue';
+import RoundButton from '@/components/global/buttons/RoundButton.vue';
+
+// eslint-disable-next-line no-unused-vars
+const props = defineProps({
+    isOpen: Boolean
+});
+
+const emit = defineEmits(["addStudent", "update:isOpen"]);
+
+const store = { classInfo: useClassInfoStore(), student: useStudentStore() };
+const infoData = reactive({ selectedItem: '', searchTerm: '', selectedStudents: [], turma: '', students: [] });
+
+const addMember = () => {
+    const alreadyAdded = infoData.students.includes(infoData.selectedItem.id) || infoData.selectedStudents.includes(infoData.selectedItem);
+    if (!alreadyAdded && infoData.selectedItem) {
+        infoData.students.push(infoData.selectedItem.id);
+        infoData.selectedStudents.push(infoData.selectedItem);
+        emit("addStudent", infoData);
+    } else {
+        alert('Este membro já foi adicionado ou nenhum membro foi selecionado.');
+    }
+};
+
+watch(() => infoData.turma, async (newTurmaId) => {
+    if (newTurmaId) await store.student.getStudentsByClass(newTurmaId);
+});
+
+const filteredStudents = computed(() => {
+    const filtered = store.student.studentsClass.filter(s => s.name.toLowerCase().includes(infoData.searchTerm.toLowerCase()));
+    return filtered.length ? filtered : [{ id: null, name: 'Nenhum aluno encontrado' }];
+});
+
+const removeMember = (index) => {
+    infoData.students.splice(index, 1);
+    infoData.selectedStudents.splice(index, 1);
+};
+
+const closeModal = () => {
+    emit("update:isOpen", false);
+};
 </script>
 
 <template>
-    <main>
+    <main v-if="isOpen">
         <article>
-            <slot>
-
-            </slot>
+            <div class="modalForm">
+                <div class="inputs">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h1 class="gradientOrange">Adicionar Equipe</h1>
+                        <RoundButton @click="closeModal">
+                            <template v-slot:default>x</template>
+                        </RoundButton>
+                    </div>
+                    <GradientSelect label="Turma" v-model:option="infoData.turma">
+                        <option disabled value="">Selecione uma turma</option>
+                        <option v-for="item in store.classInfo.classesInfo" :key="item.id" :value="item.id">{{ item.name
+                            }}</option>
+                    </GradientSelect>
+                    <div class="buttonAdd">
+                        <GradientSelect label="Integrantes" v-model:option="infoData.selectedItem">
+                            <option disabled value="">Selecione um Integrante:</option>
+                            <option v-for="item in filteredStudents" :key="item.id" :value="item">{{ item.name }}
+                            </option>
+                        </GradientSelect>
+                        <div class="position1">
+                            <RoundButton @click="addMember">
+                                <template v-slot:default>+</template>
+                            </RoundButton>
+                        </div>
+                    </div>
+                    <div class="listMembers">
+                        <div v-for="(item, index) in infoData.selectedStudents" :key="item.id" class="itemMember">
+                            <p>{{ item.name }}</p>
+                            <p>{{ item.classInfo.name }}</p>
+                            <RoundButton @click="removeMember(index)">
+                                <template v-slot:default>
+                                    <div class="alignSpan">
+                                        <TrashCanOutline />
+                                    </div>
+                                </template>
+                            </RoundButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </article>
-    </main>    
+    </main>
 </template>
 
 <style scoped>
-main{
+main {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -22,7 +104,7 @@ main{
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);  
+    backdrop-filter: blur(10px);
     z-index: 10;
 }
 
@@ -32,10 +114,85 @@ article {
     background-color: #131316;
     border-radius: 15px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 1);
-    border-radius: 10px;
     display: flex;
     padding: 1rem;
     flex-direction: column;
+}
+
+.listMembers {
+    width: 100%;
+    display: flex;
+    background-color: #1A1A1E;
+    height: 25vh;
+    margin: 10px auto;
+    border: 1px solid #535353;
+    flex-direction: column;
+    overflow-y: auto;
+    border-radius: 9px;
+}
+
+.listMembers::-webkit-scrollbar {
+    width: 0px;
+}
+
+.listMembers>div>button {
+    justify-self: end;
+}
+
+.listMembers>div {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    align-items: center;
+    padding: .5rem .5rem;
+    border-bottom: 1px solid #535353;
+    color: white;
+
+}
+
+.buttonAdd {
+    display: grid;
+    grid-template-columns: 90% 10%;
+    gap: 1rem;
+    width: 100%;
+    margin: 0 auto;
+    align-items: center;
     justify-content: space-between;
+}
+
+.position1 {
+    grid-column: 2;
+    padding-top: 1.3rem;
+    display: flex;
+    justify-content: end;
+    width: 80%;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.modalForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.select-with-button {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    color: white;
+}
+
+.alignSpan>span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>

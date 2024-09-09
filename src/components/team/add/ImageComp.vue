@@ -31,18 +31,13 @@ section {
     height: 100%;
     background-image: url('/public/imageRegister.png');
     background-size: cover;
-    /* Faz com que a imagem preencha toda a área da div */
     background-position: center;
     background-repeat: no-repeat;
-
     border-radius: 9px;
     overflow: hidden;
-
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-
-    /* Define as áreas do grid */
     position: relative;
 }
 

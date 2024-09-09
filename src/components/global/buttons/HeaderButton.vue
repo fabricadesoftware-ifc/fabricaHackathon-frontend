@@ -32,7 +32,7 @@ button {
     cursor: pointer;
 }
 
-button:hover{
+button:hover {
     background: #fff;
     color: #000;
 }

@@ -20,11 +20,14 @@ button {
     border-radius: 52px;
     position: relative;
     overflow: hidden;
+    text-align: center;
 }
 
 span {
     position: relative;
     z-index: 1;
+    margin: auto;
+    width: 0;
 }
 
 button::before {
@@ -34,8 +37,8 @@ button::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(147.74% 409.03% at -2.67% 59.14%, #FE5C2B 0%, rgba(254, 92, 43, 0.37) 100%);
-    transition: opacity .5s ease-in-out;
+    background: radial-gradient(147.74% 409.03% at -2.67% 59.14%, #FE5C2B 0%, rgba(254, 92, 43, 0.37) 50%);
+    transition: opacity .4s ease-in-out;
     opacity: 0;
     border-radius: inherit;
 }

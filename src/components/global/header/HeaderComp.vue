@@ -13,21 +13,21 @@ import HeaderButton from '../buttons/HeaderButton.vue';
                 <router-link to="/">Sou Avaliador</router-link>
             </div>
             <div>
-                <HeaderButton text="Cadastrar-Se"/>
+                <HeaderButton text="Cadastrar-Se" />
             </div>
         </div>
     </header>
 </template>
 
 <style scoped>
-header{
+header {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.container{
+.container {
     width: 90%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -35,27 +35,27 @@ header{
     padding: 1rem;
 }
 
-.container div{
+.container div {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.logoImg{
+.logoImg {
     width: 100%;
     display: flex;
     align-items: center;
 }
 
-img{
+img {
     width: 50%;
-    background-color:#161617;
+    background-color: #161617;
     border-radius: 27px;
     padding: .5rem;
     margin: 0 auto;
 }
 
-a{
+a {
     color: #FFFFFF;
     text-decoration: none;
     font-size: 16px;
