@@ -3,6 +3,7 @@ import { reactive, ref, onMounted, watch } from 'vue';
 import { useTeamStore } from '@/stores/team';
 import { useClassInfoStore } from '@/stores/classInfo';
 import { useStudentStore } from '@/stores/student';
+import { useCategoryStore } from '@/stores/category';
 import GradientInput from '@/components/global/input/GradientInput.vue';
 import GradientSelect from '@/components/global/input/GradientSelect.vue';
 import OrangeButton from '@/components/global/buttons/OrangeButton.vue';
@@ -13,6 +14,7 @@ import RoundButton from '@/components/global/buttons/RoundButton.vue';
 const teamStore = useTeamStore();
 const classInfoStore = useClassInfoStore();
 const studentStore = useStudentStore();
+const categoryStore = useCategoryStore();
 const showModal = ref(false);
 
 const dados = reactive({
@@ -20,18 +22,14 @@ const dados = reactive({
     categoria: '',
     turma: '',
     students: [],
+    leader: '',
     edition: router.currentRoute.value.params.edition
 });
-
-const categories = ref([
-    'Serviços',
-    'Vendas',
-    'Locação',
-]);
 
 function addMember(data) {
     dados.students = data.students;
     dados.turma = data.turma;
+    dados.leader = data.selectedLeader;
 }
 
 watch(() => dados.turma, async (newTurmaId) => {
@@ -43,6 +41,7 @@ watch(() => dados.turma, async (newTurmaId) => {
 onMounted(async () => {
     await classInfoStore.getClassesInfo();
     await studentStore.getStudents();
+    await categoryStore.getCategories();
 });
 </script>
 
@@ -59,8 +58,8 @@ onMounted(async () => {
                 <GradientInput v-model:text="dados.name" label="Nome da Equipe" />
                 <GradientSelect label="Categoria" v-model:option="dados.categoria">
                     <option disabled value="">Selecione uma categoria</option>
-                    <option v-for="item in categories" :key="item" :value="item">
-                        {{ item }}
+                    <option v-for="category in categoryStore.categories" :key="category.id" :value="category.id">
+                        {{ category.name }}
                     </option>
                 </GradientSelect>
 

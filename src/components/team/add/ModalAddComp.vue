@@ -14,7 +14,7 @@ const props = defineProps({
 const emit = defineEmits(["addStudent", "update:isOpen"]);
 
 const store = { classInfo: useClassInfoStore(), student: useStudentStore() };
-const infoData = reactive({ selectedItem: '', searchTerm: '', selectedStudents: [], turma: '', students: [] });
+const infoData = reactive({ selectedItem: '', searchTerm: '', selectedStudents: [], turma: '', students: [], selectedLeader: '' });
 
 const addMember = () => {
     const alreadyAdded = infoData.students.includes(infoData.selectedItem.id) || infoData.selectedStudents.includes(infoData.selectedItem);
@@ -74,10 +74,15 @@ const closeModal = () => {
                             </RoundButton>
                         </div>
                     </div>
+                    <GradientSelect label="Líder da Equipe" v-model:option="infoData.selectedLeader">
+                        <option disabled value="">Selecione um líder:</option>
+                        <option v-for="item in infoData.selectedStudents" :key="item.id" :value="item.id">{{ item.name }}
+                        </option>
+                    </GradientSelect>
                     <div class="listMembers">
                         <div v-for="(item, index) in infoData.selectedStudents" :key="item.id" class="itemMember">
                             <p>{{ item.name }}</p>
-                            <p>{{ item.classInfo.name }}</p>
+                            <p>{{ item.class_info.name }}</p>
                             <RoundButton @click="removeMember(index)">
                                 <template v-slot:default>
                                     <div class="alignSpan">
@@ -110,7 +115,6 @@ main {
 
 article {
     width: 50%;
-    height: 70%;
     background-color: #131316;
     border-radius: 15px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 1);
