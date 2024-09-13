@@ -4,7 +4,7 @@ import { useClassInfoStore } from '@/stores/classInfo';
 import { useStudentStore } from '@/stores/student';
 import TrashCanOutline from 'vue-material-design-icons/TrashCanOutline.vue';
 import GradientSelect from '@/components/global/input/GradientSelect.vue';
-import RoundButton from '@/components/global/buttons/RoundButton.vue';
+import RoundButton from '@/components/global/button/RoundButton.vue';
 
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({

@@ -6,10 +6,10 @@ import { useStudentStore } from '@/stores/student';
 import { useCategoryStore } from '@/stores/category';
 import GradientInput from '@/components/global/input/GradientInput.vue';
 import GradientSelect from '@/components/global/input/GradientSelect.vue';
-import OrangeButton from '@/components/global/buttons/OrangeButton.vue';
+import OrangeButton from '@/components/global/button/OrangeButton.vue';
 import ModalAddComp from '@/components/team/add/ModalAddComp.vue';
 import router from '@/router';
-import RoundButton from '@/components/global/buttons/RoundButton.vue';
+import RoundButton from '@/components/global/button/RoundButton.vue';
 
 const teamStore = useTeamStore();
 const classInfoStore = useClassInfoStore();

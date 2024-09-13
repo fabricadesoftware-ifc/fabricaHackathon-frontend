@@ -1,6 +1,6 @@
 <script setup>
-import CardComp1 from '@/components/global/cards/CardComp1.vue';
-import CardComp2 from '@/components/global/cards/CardComp2.vue';
+import CardComp1 from '@/components/global/card/CardComp1.vue';
+import CardComp2 from '@/components/global/card/CardComp2.vue';
 </script>
 
 <template>
