@@ -1,13 +1,12 @@
 <script setup>
-import { FooterComp, HeaderComp } from '@/components';
+import { FooterComp, HeaderCompDefault} from '@/components';
 
 </script>
 
 <template>
     <main>
-        <HeaderComp />
+        <HeaderCompDefault />
         <router-view />
         <FooterComp />
-        
     </main>
 </template>
