@@ -5,13 +5,17 @@ import BallCard from '../global/cards/BallCard.vue';
 
 import CubeOutline from "vue-material-design-icons/CubeOutline.vue";
 import ConsoleLine from "vue-material-design-icons/ConsoleLine.vue";
+
+import { useScreen } from '@/composables/hero';
+const { hero } = useScreen();
+
 </script>
 
 <template>
     <section>
         <BallCard y="50%" x="20%" />
         <BallCard y="70%" x="90%" />
-        <BallCard y="70%" x="40%" />
+        <BallCard y="75%" x="60%" />
         <BallCard y="20%" x="75%" />
         <div class="cards1">
             <RoundCardCode />
@@ -19,7 +23,8 @@ import ConsoleLine from "vue-material-design-icons/ConsoleLine.vue";
             <SquareCardBox :component="CubeOutline" />
         </div>
         <div class="text">
-            <h1 class="gradient">EDIÇÕES DO HACKATON</h1>
+
+            <component :is="hero" />
         </div>
         <div class="cards2">
             <span></span>
@@ -33,24 +38,20 @@ import ConsoleLine from "vue-material-design-icons/ConsoleLine.vue";
 section {
     width: 100%;
     display: grid;
-    grid-template-columns: 1.5fr 3fr 1.5fr;
+    grid-template-columns: 1.5fr 4fr 1.5fr;
     height: 75vh;
 }
 
 .text {
     display: flex;
     justify-content: center;
+    /* Centraliza horizontalmente */
     align-items: center;
-}
-
-.gradient {
-    background: linear-gradient(85.58deg, rgba(254, 92, 43, 0.38) 8%, #FE5C2B 139.33%);
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 7rem;
-    line-height: 1.3;
-    font-weight: 400;
-    text-align: center;
+    /* Centraliza verticalmente */
+    width: 100%;
+    /* Garante que o div ocupe toda a largura disponível */
+    height: 100%;
+    /* Garante que o div ocupe toda a altura disponível */
 }
 
 .cards1 {
@@ -76,6 +77,6 @@ section {
 
 .cards2>*:nth-child(2) {
     justify-self: center;
-    margin-top: 15%
+    margin-top: 15%;
 }
 </style>
