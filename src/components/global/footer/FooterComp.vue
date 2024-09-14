@@ -16,7 +16,7 @@ import LinksComp from './LinksComp.vue';
 
 <style scoped>
 footer {
-    background: radial-gradient(97.57% 210.75% at 0.9% 2.98%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 100%);
+    background: #131316;
     width: 100%;
     padding: 1rem;
     height: 430px;

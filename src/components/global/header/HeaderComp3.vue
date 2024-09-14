@@ -9,11 +9,10 @@ import HeaderButton from '../buttons/HeaderButton.vue';
                 <img src="/public/logoHackaton.png" alt="">
             </div>
             <div>
-                <router-link to="/">Edições</router-link>
-                <router-link to="/">Sou Avaliador</router-link>
+                <p>Avaliador</p>
             </div>
             <div>
-                <HeaderButton text="Cadastrar-Se" />
+                <HeaderButton text="Home" />
             </div>
         </div>
     </header>
@@ -25,10 +24,11 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #FFFFFF;
 }
 
 .container {
-    width: 90%;
+    width: 95%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
@@ -39,6 +39,14 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.container div:first-child {
+    justify-content: start;
+}
+
+.container div:last-child {
+    justify-content: end;
 }
 
 .logoImg {
@@ -52,14 +60,5 @@ img {
     background-color: #161617;
     border-radius: 27px;
     padding: .5rem;
-    margin: 0 auto;
-}
-
-a {
-    color: #FFFFFF;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 400;
-    padding: 1rem;
 }
 </style>
