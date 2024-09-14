@@ -1,15 +1,16 @@
 <script setup>
-import ShowInfo from "./ShowInfo.vue";
-import CardsComp from "./CardsComp.vue";
+import ShowInfo from './ShowInfo.vue';
+import CardsComp from './CardsComp.vue';
 </script>
 
+
 <template>
-  <section>
-    <div class="container">
-      <ShowInfo />
-      <CardsComp />
-    </div>
-  </section>
+    <section>
+        <div class="container">
+            <ShowInfo />
+            <CardsComp />
+        </div>
+    </section>
 </template>
 
 <style scoped>
@@ -22,10 +23,11 @@ section {
 }
 
 .container {
-  width: 80%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 3.5rem;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
 }
+
 </style>
