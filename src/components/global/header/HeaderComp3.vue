@@ -61,4 +61,12 @@ img {
     border-radius: 27px;
     padding: .5rem;
 }
+
+a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 1rem;
+}
 </style>
