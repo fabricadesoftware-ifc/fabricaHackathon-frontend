@@ -44,7 +44,6 @@ const toggleShowMore = () => {
   showMore.value = !showMore.value
 }
 </script>
-
 <template>
   <section>
     <div class="container">
@@ -188,6 +187,13 @@ article {
   width: 100%;
   gap: 4rem;
   height: 60vh;
+}
+
+.cards {
+    display: flex;
+    width: 100%;
+    gap: 0 4rem;
+    height: 60vh;
 }
 
 h2 {
