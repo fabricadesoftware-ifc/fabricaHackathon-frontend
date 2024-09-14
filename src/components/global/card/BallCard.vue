@@ -7,7 +7,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <span :style="{ top: x, left: y }"></span>
+    <span :style="{ top: y, left: x }"></span>
 </template>
 
 <style scoped>

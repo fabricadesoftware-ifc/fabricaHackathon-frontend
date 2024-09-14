@@ -9,10 +9,10 @@ import ConsoleLine from "vue-material-design-icons/ConsoleLine.vue";
 
 <template>
     <section>
-        <BallCard x="50%" y="20%" />
-        <BallCard x="70%" y="90%" />
-        <BallCard x="70%" y="40%" />
-        <BallCard x="20%" y="75%" />
+        <BallCard y="50%" x="20%" />
+        <BallCard y="70%" x="90%" />
+        <BallCard y="70%" x="40%" />
+        <BallCard y="20%" x="75%" />
         <div class="cards1">
             <RoundCardCode />
             <span></span>
@@ -76,5 +76,6 @@ section {
 
 .cards2>*:nth-child(2) {
     justify-self: center;
+    margin-top: 15%
 }
 </style>
