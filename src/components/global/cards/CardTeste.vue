@@ -9,22 +9,25 @@ const props = defineProps({
     <article :style="{ backgroundImage: `url(${object.img})` }">
         <div class="allBlur">
             <div class="info">
+                <div class="button">
+                    <div class="negative-border"></div>
+                    <div class="testeButton">
+                        <router-link :to="object.route">
+                            <button>
+                                <span>-></span>
+                            </button>
+                        </router-link>
+                    </div>
+                </div>
                 <div class="text">
                     <h3>{{ object.title }}</h3>
                     <p>{{ object.description }}</p>
-                </div>
-                <div class="button">
-                    <router-link :to="object.route">
-                        <button>
-                            Edição
-                            <span>-></span>
-                        </button>
-                    </router-link>
                 </div>
             </div>
         </div>
     </article>
 </template>
+
 
 <style scoped>
 article {
@@ -36,6 +39,18 @@ article {
     align-items: end;
     background-size: cover;
     border-radius: 15px;
+}
+
+.roundTop {
+    width: 50px;
+    height: 50px;
+    background-color: #131316;
+    clip-path: ellipse(20% 100% at 20% 100%);
+    /* Parte arredondada no topo direito */
+    margin-bottom: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .info {
@@ -50,7 +65,7 @@ article {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    padding: 2.5rem;
+    /* padding: 1.5rem; */
     border-radius: 15px;
     display: flex;
     flex-direction: column;
@@ -71,21 +86,36 @@ h3 {
 }
 
 .button {
-    margin-top: 1rem;
     width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+
+.testeButton {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #131316;
+    padding: 3rem 0;
+    padding: .75rem;
+    border-radius: 0px 0px 0px 25px;
 }
 
 button {
     width: 100%;
-    padding: 1rem;
+    width: 3rem;
+    height: 3rem;
     background: transparent;
     color: white;
-    border: 1px solid white;
-    border-radius: 15px;
+    border: 2px solid white;
+    border-radius: 50%;
     cursor: pointer;
     transition: 0.3s;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     font-weight: 600;
     font-size: .75rem;
 }
