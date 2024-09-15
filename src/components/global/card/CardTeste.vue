@@ -10,7 +10,7 @@ const props = defineProps({
         <div class="allBlur">
             <div class="info">
                 <div class="button">
-                    <div class="negative-border"></div>
+                    <div class="roundTop"></div>
                     <div class="testeButton">
                         <router-link :to="object.route">
                             <button>
@@ -19,6 +19,7 @@ const props = defineProps({
                         </router-link>
                     </div>
                 </div>
+                <div class="roundBottom"></div>
                 <div class="text">
                     <h3>{{ object.title }}</h3>
                     <p>{{ object.description }}</p>
@@ -42,15 +43,55 @@ article {
 }
 
 .roundTop {
-    width: 50px;
-    height: 50px;
-    background-color: #131316;
-    clip-path: ellipse(20% 100% at 20% 100%);
-    /* Parte arredondada no topo direito */
+    /* width: 20px;
+    height: 20px; */
     margin-bottom: auto;
     display: flex;
     justify-content: center;
+    border-radius: 50%;
     align-items: center;
+}
+
+.roundTop::before {
+    /* background-color: red; */
+    content: '';
+    width: 25px;
+    height: 25px;
+    /* background-color: #131316; */
+    border-radius: 50%;
+    position: relative;
+    margin-top: -.41px;
+    margin-right: -2.5px;
+    box-shadow:  6px -8.5px  0px 0px #131316;
+    z-index: 1;
+    transform: rotate(20deg);
+
+}
+
+.roundBottom{
+ /* width: 20px;
+    height: 20px; */
+    margin-bottom: auto;
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+    align-items: center;
+}
+
+.roundBottom::before {
+    content: '';
+    width: 25px;
+    height: 25px;
+    /* background-color: #131316; */
+    border-radius: 50%;
+    margin-right: -2.7px;
+    margin-top: -.5px;
+    position: relative;
+    box-shadow:  6px -8px  0px 0px #131316;
+    z-index: 1;
+    transform: rotate(28deg);
+
 }
 
 .info {
@@ -98,10 +139,11 @@ h3 {
     justify-content: center;
     align-items: center;
     background-color: #131316;
-    padding: 3rem 0;
-    padding: .75rem;
-    border-radius: 0px 0px 0px 25px;
+    padding: .75rem 2rem ;
+    border-radius: 0px 0px 0px 10px;
 }
+
+
 
 button {
     width: 100%;
@@ -118,6 +160,8 @@ button {
     align-items: center;
     font-weight: 600;
     font-size: .75rem;
+    margin-right: -10px;
+    margin-top: -10px; 
 }
 
 p {
