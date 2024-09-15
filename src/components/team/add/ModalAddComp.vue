@@ -11,19 +11,20 @@ const props = defineProps({
     isOpen: Boolean
 });
 
-const emit = defineEmits(["addStudent", "update:isOpen"]);
+const emit = defineEmits(["addStudent", "update:isOpen", "update:team"]);
 
 const store = { classInfo: useClassInfoStore(), student: useStudentStore() };
 const infoData = reactive({ selectedItem: '', searchTerm: '', selectedStudents: [], turma: '', students: [], selectedLeader: '' });
 
 const addMember = () => {
-    const alreadyAdded = infoData.students.includes(infoData.selectedItem.id) || infoData.selectedStudents.includes(infoData.selectedItem);
-    if (!alreadyAdded && infoData.selectedItem) {
+    if (infoData.selectedItem) {
         infoData.students.push(infoData.selectedItem.id);
         infoData.selectedStudents.push(infoData.selectedItem);
         emit("addStudent", infoData);
+        emit("update:team", infoData.selectedStudents);
+        infoData.selectedItem = '';
     } else {
-        alert('Este membro já foi adicionado ou nenhum membro foi selecionado.');
+        alert('Nenhum membro foi selecionado.');
     }
 };
 
@@ -33,7 +34,8 @@ watch(() => infoData.turma, async (newTurmaId) => {
 
 const filteredStudents = computed(() => {
     const filtered = store.student.studentsClass.filter(s => s.name.toLowerCase().includes(infoData.searchTerm.toLowerCase()));
-    return filtered.length ? filtered : [{ id: null, name: 'Nenhum aluno encontrado' }];
+    const available = filtered.filter(s => !infoData.students.includes(s.id));
+    return available.length ? available : [{ id: null, name: 'Nenhum aluno encontrado' }];
 });
 
 const removeMember = (index) => {
@@ -47,7 +49,7 @@ const closeModal = () => {
 </script>
 
 <template>
-    <main v-if="isOpen">
+    <main v-if="isOpen" @click.self="closeModal">
         <article>
             <div class="modalForm">
                 <div class="inputs">
