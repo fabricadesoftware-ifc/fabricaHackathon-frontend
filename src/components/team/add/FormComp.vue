@@ -43,7 +43,7 @@ watch(
 )
 
 onMounted(async () => {
-  await classInfoStore.getEditionClasses()
+  await classInfoStore.getEditionClasses(router.currentRoute.value.params.edition)
   await studentStore.getStudents()
   await categoryStore.getCategories()
 })

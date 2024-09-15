@@ -5,6 +5,10 @@ class ClassInfoService {
         const { data } = await api.get('/classes/');
         return data;
     }
+    async getEditionClasses(edition) {
+        const { data } = await api.get('/classes?edition=' + edition);
+        return data;
+    }
     async getClassInfo(id) {
         const { data } = await api.get(`/classes/${id}/`);
         return data;

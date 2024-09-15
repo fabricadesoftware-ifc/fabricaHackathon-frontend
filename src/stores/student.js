@@ -55,8 +55,8 @@ export const useStudentStore = defineStore('student', () => {
 
     const getStudentsByClass = async (classId) => {
         try {
-            await studentService.getStudents();
-            studentsClass.value = students.value.filter(student => student.class_info.id === classId);
+            const data = await studentService.getStudentsByClass(classId);
+            studentsClass.value = data;
         } catch (error) {
             console.error(error);
         }
