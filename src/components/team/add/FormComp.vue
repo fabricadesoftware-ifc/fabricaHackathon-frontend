@@ -18,13 +18,15 @@ const categoryStore = useCategoryStore()
 const showModal = ref(false)
 const members = ref([])
 
+const edition = ref(router.currentRoute.value.params.edition)
+
 const dados = reactive({
   name: '',
   categoria: '',
   turma: '',
   students: [],
   leader: '',
-  edition: router.currentRoute.value.params.edition
+  edition: edition.value
 })
 
 function addMember(data) {
@@ -43,9 +45,9 @@ watch(
 )
 
 onMounted(async () => {
-  await classInfoStore.getEditionClasses(router.currentRoute.value.params.edition)
+  await classInfoStore.getEditionClasses(edition.value)
   await studentStore.getStudents()
-  await categoryStore.getCategories()
+  await categoryStore.getEditionCategories(edition.value)
 })
 </script>
 

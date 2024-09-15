@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import categoryService from "@/services/category";
+import editionService from "@/services/edition";
 
 export const useCategoryStore = defineStore("category", () => {
     const categories = ref([]);
@@ -15,6 +16,15 @@ export const useCategoryStore = defineStore("category", () => {
         console.error(error);
         }
     };
+
+    const getEditionCategories = async (edition) => {
+        try {
+        const data = await editionService.getEdition(edition);
+        categories.value = data.categories;
+        } catch (error) {
+        console.error(error);
+        }
+    }
     
     const getCategory = async (id) => {
         try {
@@ -61,5 +71,6 @@ export const useCategoryStore = defineStore("category", () => {
         createCategory,
         updateCategory,
         deleteCategory,
+        getEditionCategories,
     };
     });
