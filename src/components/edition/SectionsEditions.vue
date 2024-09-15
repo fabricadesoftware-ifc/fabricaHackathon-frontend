@@ -70,13 +70,9 @@ const toggleShowMore = () => {
 
 <style scoped>
 section {
-  width: 100%;
-  background: radial-gradient(
-    97.57% 210.75% at 0.9% 2.98%,
-    rgba(255, 255, 255, 0.4) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  padding: 3rem 0;
+    width: 100%;
+    /* background: radial-gradient(97.57% 210.75% at 0.9% 2.98%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 100%); */
+    padding: 3rem 0;
 }
 
 .container {
