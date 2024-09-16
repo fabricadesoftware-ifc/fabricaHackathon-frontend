@@ -12,7 +12,7 @@ const model = defineModel("option")
 <template>
     <div>
         <label for="">{{ label }}:</label>
-        <select name="" id="" v-model="model">
+        <select name="" id="" v-model="model" @change="$emit('changeLeader', $event.target.value)">
             <slot></slot>
         </select>
     </div>

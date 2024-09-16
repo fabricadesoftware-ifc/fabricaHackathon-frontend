@@ -28,6 +28,11 @@ const addMember = () => {
     }
 };
 
+const addLeader = (leader) => {
+    infoData.selectedLeader = leader;
+    emit("addStudent", infoData);
+};
+
 watch(() => infoData.turma, async (newTurmaId) => {
     if (newTurmaId) await store.student.getStudentsByClass(newTurmaId);
 });
@@ -76,7 +81,7 @@ const closeModal = () => {
                             </RoundButton>
                         </div>
                     </div>
-                    <GradientSelect label="Líder da Equipe" v-model:option="infoData.selectedLeader">
+                    <GradientSelect label="Líder da Equipe" v-model:option="infoData.selectedLeader" @changeLeader="addLeader">
                         <option disabled value="">Selecione um líder:</option>
                         <option v-for="item in infoData.selectedStudents" :key="item.id" :value="item.id">{{ item.name }}
                         </option>
