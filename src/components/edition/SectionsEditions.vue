@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import CardEdition from '../global/cards/CardEdition.vue';
-// import CardTeste from '../global/cards/CardTeste.vue';
+import CardTeste from '../global/cards/CardTeste.vue';
 
 const anos = ref([
     "2024",
@@ -34,7 +34,7 @@ const editions = ref([
             <article v-for="item in anos" :key="item">
                 <h2>/{{ item }}</h2>
                 <div class="cards">
-                    <CardEdition v-for="object in editions" :key="object" :object="object" />
+                    <CardTeste v-for="object in editions" :key="object" :object="object" />
                 </div>
             </article>
             <div class="buttonContainer">
