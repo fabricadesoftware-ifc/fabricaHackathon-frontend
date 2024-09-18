@@ -8,7 +8,8 @@ import RoundButton from '@/components/global/button/RoundButton.vue';
 
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
-    isOpen: Boolean
+    isOpen: Boolean,
+    edition: String
 });
 
 const emit = defineEmits(["addStudent", "update:isOpen", "update:team"]);
@@ -34,13 +35,13 @@ const addLeader = (leader) => {
 };
 
 watch(() => infoData.turma, async (newTurmaId) => {
-    if (newTurmaId) await store.student.getStudentsByClass(newTurmaId);
+    if (newTurmaId) await store.student.getAvailableStudentsByClass(props.edition, newTurmaId);
 });
 
 const filteredStudents = computed(() => {
     const filtered = store.student.studentsClass.filter(s => s.name.toLowerCase().includes(infoData.searchTerm.toLowerCase()));
     const available = filtered.filter(s => !infoData.students.includes(s.id));
-    return available.length ? available : [{ id: null, name: 'Nenhum aluno encontrado' }];
+    return available;
 });
 
 const removeMember = (index) => {
@@ -64,14 +65,15 @@ const closeModal = () => {
                             <template v-slot:default>x</template>
                         </RoundButton>
                     </div>
-                    <GradientSelect label="Turma" v-model:option="infoData.turma">
+                    <GradientSelect label="Turma do Integrante" v-model:option="infoData.turma">
                         <option disabled value="">Selecione uma turma</option>
                         <option v-for="item in store.classInfo.classesInfo" :key="item.id" :value="item.id">{{ item.name
                             }}</option>
                     </GradientSelect>
                     <div class="buttonAdd">
-                        <GradientSelect label="Integrantes" v-model:option="infoData.selectedItem">
-                            <option disabled value="">Selecione um Integrante:</option>
+                        <GradientSelect label="Integrante" v-model:option="infoData.selectedItem">
+                            <option disabled value="" v-if="!filteredStudents.length">Nenhum aluno disponível encontrado na turma.</option>
+                            <option disabled value="" v-else>Selecione um Integrante:</option>
                             <option v-for="item in filteredStudents" :key="item.id" :value="item">{{ item.name }}
                             </option>
                         </GradientSelect>

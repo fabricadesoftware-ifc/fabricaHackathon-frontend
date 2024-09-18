@@ -35,15 +35,6 @@ function addMember(data) {
   dados.leader = data.selectedLeader
 }
 
-watch(
-  () => dados.turma,
-  async (newTurmaId) => {
-    if (newTurmaId) {
-      await studentStore.getStudentsByClass(newTurmaId)
-    }
-  }
-)
-
 onMounted(async () => {
   await classInfoStore.getEditionClasses(edition.value)
   await studentStore.getStudents()
@@ -52,7 +43,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <ModalAddComp v-model:isOpen="showModal" v-model:team="members" @add-student="addMember" />
+  <ModalAddComp v-model:isOpen="showModal" v-model:team="members" @add-student="addMember" :edition="edition"/>
 
   <section>
     <router-link to="/home" class="logo">

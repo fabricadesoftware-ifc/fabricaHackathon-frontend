@@ -9,8 +9,8 @@ class StudentService {
         const { data } = await api.get(`/students/${id}/`);
         return data;
     }
-    async getStudentsByClass(classId) {
-        const { data } = await api.get(`/students/?class_info=${classId}`);
+    async getAvailableStudentsByClass(editionId, classId) {
+        const { data } = await api.get(`/available-students/edition/${editionId}?class_info=${classId}`);
         return data;
     }
     async createStudent(student) {

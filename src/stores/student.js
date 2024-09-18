@@ -53,9 +53,9 @@ export const useStudentStore = defineStore('student', () => {
         }
     };
 
-    const getStudentsByClass = async (classId) => {
+    const getAvailableStudentsByClass = async (editionId, classId) => {
         try {
-            const data = await studentService.getStudentsByClass(classId);
+            const data = await studentService.getAvailableStudentsByClass(editionId, classId);
             studentsClass.value = data;
         } catch (error) {
             console.error(error);
@@ -72,6 +72,6 @@ export const useStudentStore = defineStore('student', () => {
         createStudent,
         updateStudent,
         deleteStudent,
-        getStudentsByClass
+        getAvailableStudentsByClass
     };
 });
