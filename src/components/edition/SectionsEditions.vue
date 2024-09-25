@@ -190,10 +190,10 @@ article {
 }
 
 .cards {
-    display: flex;
-    width: 100%;
-    gap: 0 4rem;
-    height: 60vh;
+  display: flex;
+  width: 100%;
+  gap: 4rem;
+  height: 60vh;
 }
 
 h2 {
