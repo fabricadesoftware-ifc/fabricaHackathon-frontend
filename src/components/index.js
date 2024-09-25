@@ -1,4 +1,4 @@
-import HeaderComponent from "./global/header/HeaderComponent.vue";
-import FooterComponent from "./global/footer/FooterComponent.vue";
+import HeaderComp from "./global/header/HeaderComp.vue";
+import FooterComp from "./global/footer/FooterComp.vue";
 
-export {HeaderComponent, FooterComponent}
+export {HeaderComp, FooterComp}

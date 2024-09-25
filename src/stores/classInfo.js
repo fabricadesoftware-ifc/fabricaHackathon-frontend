@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import classInfoService from '@/services/classInfo';
+import editionService from '@/services/edition';
 
 export const useClassInfoStore = defineStore('classInfo', () => {
     const classesInfo = ref([]);
@@ -15,6 +16,15 @@ export const useClassInfoStore = defineStore('classInfo', () => {
             console.error(error);
         }
     };
+
+    const getEditionClasses = async (edition) => {
+        try {
+            const data = await editionService.getEdition(edition);
+            classesInfo.value = data.involved_classes;
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     const getClassInfo = async (id) => {
         try {
@@ -52,5 +62,5 @@ export const useClassInfoStore = defineStore('classInfo', () => {
         }
     };
 
-    return {classesInfo, classInfo, newClassInfo, getClassesInfo, getClassInfo, createClassInfo, updateClassInfo, deleteClassInfo};
+    return { classesInfo, classInfo, newClassInfo, getClassesInfo, getClassInfo, createClassInfo, updateClassInfo, deleteClassInfo, getEditionClasses };
 });
