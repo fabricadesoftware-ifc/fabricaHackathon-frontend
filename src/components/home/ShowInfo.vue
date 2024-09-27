@@ -1,5 +1,6 @@
 <script setup>
 import OrangeButton from "../global/buttons/OrangeButton.vue";
+import router from "@/router";
 </script>
 
 <template>
@@ -25,9 +26,9 @@ import OrangeButton from "../global/buttons/OrangeButton.vue";
 	  para resolver desafios, propor soluções inovadoras e desenvolver projetos
 	  relacionados à tecnologia, programação, design ou outras áreas.
 	  <div class="button">
-		<OrangeButton label="Edições" />
-	  </div>
-	</div>
+    <OrangeButton label="Edições" @click="router.push('/editions')" />
+    </div>
+  </div>
   </article>
 </template>
 

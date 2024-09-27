@@ -4,23 +4,33 @@ const props = defineProps({
   object: Object,
 });
 
+const base64Format = (photo) => {
+
+  if (photo == null) {
+    return 'https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg';
+  }
+  else {
+    return `data:image/jpeg;base64,${photo}`;;
+  }
+};
+
 import ArrowRight from "vue-material-design-icons/ArrowRight.vue";
 </script>
 
 <template>
-  <article :style="{ backgroundImage: `url(${object.img})` }">
-	<div class="allBlur">
-	  <div class="info">
-		<div class="text">
-		  <h3>{{ object.title }}</h3>
-		  <p>{{ object.description }}</p>
-		</div>
-		<router-link class="button" :to="object.route">
-		  Edição
-		  <ArrowRight size="15" />
-		</router-link>
-	  </div>
-	</div>
+  <article :style="{ backgroundImage: `url(${base64Format(object.img)})` }">
+    <div class="allBlur">
+      <div class="info">
+        <div class="text">
+          <h3>{{ object.year }}</h3>
+          <p>{{ object.description }}</p>
+        </div>
+        <router-link class="button" :to="object.route">
+          Edição
+          <ArrowRight size="15" />
+        </router-link>
+      </div>
+    </div>
   </article>
 </template>
 
@@ -33,6 +43,8 @@ article {
   justify-content: end;
   align-items: end;
   background-size: cover;
+  background-position: center;
+  /* Centraliza a imagem */
   border-radius: 15px;
 }
 
@@ -70,7 +82,6 @@ h3 {
 .button {
   margin-top: 1rem;
   width: 100%;
-  width: 100%;
   padding: 0.5rem 1rem;
   color: white;
   border: 1px solid white;
@@ -93,14 +104,5 @@ p {
   color: #ccc;
   font-size: 0.75rem;
   font-weight: 300;
-}
-
-button:hover {
-  background: white;
-  color: black;
-}
-
-.arrow-right-icon {
-  height: 15px;
 }
 </style>
