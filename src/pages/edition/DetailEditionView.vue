@@ -1,7 +1,9 @@
 <script setup></script>
 
 <template>
-    <div></div>
+    <main>
+        <h2>Detail Edition Page </h2>
+    </main>
 </template>
 
 <style scoped></style>

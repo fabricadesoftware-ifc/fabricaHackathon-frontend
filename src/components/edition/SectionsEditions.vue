@@ -1,58 +1,75 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, computed } from "vue";
+import { useEditionStore } from "@/stores/edition";
+const editionsStore = useEditionStore();
 import CardEdition from "../global/cards/CardEdition.vue";
 import ArrowTopRight from "vue-material-design-icons/ArrowTopRight.vue";
-// import CardTeste from '../global/cards/CardTeste.vue';
-const anos = ref(["2024", "2023", "2022", "2021"]);
 
-const editions = ref([
-  {
-	title: "NÃO HÁ MANEIRA MELHOR DE APRENDER",
-	description:
-	  "Voce pode aprender muito mais do que imagina, participe do hackaton e veja o que pode aprender",
-	route: "/",
-	img:
-	  "https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg",
-	year: "2024",
-  },
-  {
-	title: "NÃO HÁ MANEIRA MELHOR DE APRENDER",
-	description:
-	  "Voce pode aprender muito mais do que imagina, participe do hackaton e veja o que pode aprender",
-	route: "/",
-	img:
-	  "https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg",
-	year: "2024",
-  },
-]);
+const years = ref([]);
+const editionsByYear = ref({});
+const displayedYearsCount = ref(3);
+const showMore = ref(false); 
+
+onMounted(async () => {
+  await editionsStore.getEditions();
+
+  const editions = editionsStore.editions.map((edition) => ({
+    title: "NÃO HÁ MANEIRA MELHOR DE APRENDER",
+    description: "Você pode aprender muito mais do que imagina, participe do hackaton e veja o que pode aprender",
+    route: `/editions/${edition.id}`,
+    img: `data:image/jpeg;base64,${edition.photo_base64_code}`,
+    year: edition.year,
+  }));
+
+  editions.forEach((edition) => {
+    const year = edition.year;
+    if (!editionsByYear.value[year]) {
+      editionsByYear.value[year] = [];
+      years.value.push(year);
+    }
+    editionsByYear.value[year].push(edition);
+  });
+
+  years.value.sort((a, b) => b - a);
+});
+
+const filteredYears = computed(() => {
+  if (showMore.value) {
+    return years.value; 
+  }
+  return years.value.slice(0, displayedYearsCount.value); 
+});
+
+const toggleShowMore = () => {
+  showMore.value = !showMore.value;
+};
 </script>
+
 <template>
   <section>
-	<div class="container">
-	  <article v-for="item in anos" :key="item">
-		<h2>/{{ item }}</h2>
-		<div class="cards">
-		  <CardEdition v-for="object in editions" :key="object" :object="object" />
-		</div>
-	  </article>
-	  <button>
-		VER MAIS
-		<span class="roundSpan">
-		  <ArrowTopRight size="20" />
-		</span>
-	  </button>
-	</div>
+    <div class="container">
+      <article v-for="year in filteredYears" :key="year">
+        <h2>/{{ year }}</h2>
+        <div class="cards">
+          <CardEdition v-for="edition in editionsByYear[year]" :key="edition.title + edition.year" :object="edition" />
+        </div>
+      </article>
+      <button @click="toggleShowMore">
+        {{ showMore ? 'VER MENOS' : 'VER MAIS' }}
+        <span class="roundSpan">
+          <ArrowTopRight size="20" />
+        </span>
+      </button>
+    </div>
   </section>
 </template>
 
 <style scoped>
 section {
   width: 100%;
-  background: radial-gradient(
-	97.57% 210.75% at 0.9% 2.98%,
-	rgba(255, 255, 255, 0.4) 0%,
-	rgba(255, 255, 255, 0) 100%
-  );
+  background: radial-gradient(97.57% 210.75% at 0.9% 2.98%,
+      rgba(255, 255, 255, 0.4) 0%,
+      rgba(255, 255, 255, 0) 100%);
   padding: 3rem 0;
 }
 
@@ -75,7 +92,7 @@ button {
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
-  width: 135px;
+  width: 145px;
   align-items: center;
   justify-content: space-between;
   margin: 0 auto;
@@ -90,11 +107,9 @@ button::before {
   bottom: 0;
   border-radius: 50px;
   padding: 1.5px;
-  background: linear-gradient(
-	114.55deg,
-	rgba(255, 255, 255, 0.9) 2.13%,
-	rgba(255, 255, 255, 0) 98.14%
-  );
+  background: linear-gradient(114.55deg,
+      rgba(255, 255, 255, 0.9) 2.13%,
+      rgba(255, 255, 255, 0) 98.14%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
@@ -127,18 +142,16 @@ button::before {
   bottom: 0;
   border-radius: 50%;
   padding: 1px;
-  background: linear-gradient(
-	114.55deg,
-	rgba(255, 255, 255, 0.9) 2.13%,
-	rgba(255, 255, 255, 0) 98.14%
-  );
+  background: linear-gradient(114.55deg,
+      rgba(255, 255, 255, 0.9) 2.13%,
+      rgba(255, 255, 255, 0) 98.14%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
   -webkit-mask-composite: destination-out;
 }
 
-button:hover > .roundSpan {
+button:hover>.roundSpan {
   background: white !important;
   color: black !important;
 }
