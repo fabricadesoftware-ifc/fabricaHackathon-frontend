@@ -13,7 +13,7 @@ function formatEditions2() {
       year: item.year,
       description: "Você pode aprender muito mais do que imagina, participe do hackaton e veja o que pode aprender",
       route: `editions/${item.id}/`,
-      img: item.edition_photo_base64,
+      img: item.photo_base64_code,
     });
   }
 

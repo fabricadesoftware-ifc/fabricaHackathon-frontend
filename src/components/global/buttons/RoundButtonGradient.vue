@@ -1,26 +1,30 @@
 <script setup>
-// eslint-disable-next-line no-unused-vars
-const props = defineProps({
-    x: String,
-    y: String
-});
 </script>
 
 <template>
-    <span :style="{ top: y, left: x }"></span>
+    <button>
+        <span>
+            &rarr; 
+        </span>
+    </button>
 </template>
 
 <style scoped>
-span {
-    position: absolute;
+button {
+    border: 0;
+    background: radial-gradient(97.57% 210.75% at 0.9% 2.98%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 100%);
     border-radius: 50%;
-    width: 1.5rem;
-    height: 1.5rem;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    padding: 1.7rem;
 }
 
-span::before {
+button::before {
     content: "";
     position: absolute;
     top: 0;
@@ -38,5 +42,10 @@ span::before {
         linear-gradient(#fff 0 0);
     mask-composite: exclude;
     -webkit-mask-composite: destination-out;
+}
+
+span {
+    color: white;
+    font-size: 1.5rem;
 }
 </style>
