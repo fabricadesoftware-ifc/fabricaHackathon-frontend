@@ -4,7 +4,7 @@ import teamService from '@/services/team';
 
 export const useTeamStore = defineStore('team', () => {
     const teams = ref([]);
-    const team = ref([]);
+    const team = ref({});
     const newTeam = ref([]);
 
     const getTeams = async () => {
