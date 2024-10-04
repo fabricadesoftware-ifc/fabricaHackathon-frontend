@@ -18,7 +18,7 @@ footer {
   background: #131316;
   width: 100%;
   padding: 5rem 1rem 2rem 1rem;
-  height: 430px;
+  height: 360px;
   display: grid;
   grid-template-columns: 1fr 0.5fr 1fr;
 }

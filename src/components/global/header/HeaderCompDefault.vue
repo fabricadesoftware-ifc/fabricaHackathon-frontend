@@ -1,5 +1,5 @@
 <script setup>
-import { useScreen } from '@/composables/screen';
+import { useScreen } from '@/composables/layout/screen';
 const { header } = useScreen();
 </script>
 

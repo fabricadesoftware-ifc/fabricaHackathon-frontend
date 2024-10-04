@@ -6,7 +6,7 @@ import BallCard from "../global/cards/BallCard.vue";
 import CubeOutline from "vue-material-design-icons/CubeOutline.vue";
 import ConsoleLine from "vue-material-design-icons/ConsoleLine.vue";
 
-import { useScreen } from "@/composables/hero";
+import { useScreen } from "@/composables/layout/hero";
 const { hero } = useScreen();
 </script>
 
