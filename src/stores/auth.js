@@ -18,8 +18,7 @@ export const useAuthStore = defineStore('auth', () => {
             const data = await authService.createAuthentication(avaliator);
             token.value = data;
             isLogged.value = true;
-            console.log(token.value, isLogged.value);
-            router.push('/');
+            router.push('/home');
         } catch(error) {
             console.error('Erro:', error);
         };

@@ -1,20 +1,20 @@
 <script setup>
-import { ref } from 'vue';
-import FormAvaliator from '@/components/avaliator/form/FormAvaliator.vue';
-import ImageAvaliator from '@/components/avaliator/image/ImageAvaliator.vue';
+import { ref } from 'vue'
+import FormAvaliator from '@/components/avaliator/form/FormAvaliator.vue'
+import ImageComp from '@/components/team/add/ImageComp.vue'
 </script>
 
 <template>
-    <main class="main-container">
-        <FormAvaliator />
-        <ImageAvaliator />
-    </main>
+  <main class="main-container">
+    <FormAvaliator />
+    <ImageComp />
+  </main>
 </template>
 
 <style scoped>
-.main-container {
-    display: flex;
-    height: 100vh;
-    background-color: var(--background-color);
+main {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 4.5fr 4fr;
 }
 </style>

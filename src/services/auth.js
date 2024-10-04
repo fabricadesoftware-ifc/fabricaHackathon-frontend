@@ -1,8 +1,8 @@
-import { auth } from "@/plugins/axios";
+import { api } from "@/plugins/axios";
 
 class AuthService {
     async createAuthentication(avaliator) {
-        const { data } = await auth.post('/token/', avaliator);
+        const { data } = await api.post('/token/', avaliator);
         return data;
     };
 };

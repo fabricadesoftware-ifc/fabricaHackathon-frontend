@@ -1,4 +1,4 @@
-import api from '@/plugins/axios';
+import { api } from '@/plugins/axios';
 
 class CategoryService {
     async getCategories() {
