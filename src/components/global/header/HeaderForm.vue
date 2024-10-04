@@ -1,9 +1,10 @@
 <script setup>
+import { RouterLink } from 'vue-router';
 </script>
 
 <template>
     <div>
-        <img src="@/assets/global/logo.png" alt="">
+        <RouterLink to="/"><img src="@/assets/global/logo.png" alt=""></RouterLink>
     </div>
 </template>
 

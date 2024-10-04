@@ -27,8 +27,9 @@ section {
 }
 
 .img {
+    margin-top: 10px;
     width: 100%;
-    height: 100%;
+    height: 102%;
     background-image: url('@/assets/global/background-form.png');
     background-size: cover;
     /* Faz com que a imagem preencha toda a área da div */

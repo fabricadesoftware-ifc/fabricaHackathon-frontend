@@ -1,10 +1,13 @@
 <script setup>
+import { useAuthStore } from '@/stores/auth';
+
+const useAuth = useAuthStore();
 </script>
 
 <template>
     <div class="container-input">
-        <label for="input-1">Usuário</label>
-        <input type="text" id="input-1" placeholder="Digite seu usuário">
+        <label for="input-1">Email</label>
+        <input type="text" v-model="useAuth.user.email" id="input-1" placeholder="Digite seu email">
     </div>
 </template>
 
