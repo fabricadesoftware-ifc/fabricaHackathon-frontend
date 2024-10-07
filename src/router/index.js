@@ -79,7 +79,6 @@ router.beforeEach((to, from, next) => {
     if (!isLogged) {
         next({path: '/auth'});
       } else {
-        console.log('Aberto');
         next();
     }
   }
