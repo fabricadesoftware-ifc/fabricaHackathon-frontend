@@ -1,7 +1,14 @@
-<script setup></script>
+<script setup>
+import HeroDetailComp from '@/components/edition/HeroDetailComp.vue';
+import SectionDetailComp from '@/components/edition/SectionDetailComp.vue';
+
+</script>
 
 <template>
-    <div></div>
+    <main>
+        <HeroDetailComp />
+        <SectionDetailComp />
+    </main>
 </template>
 
 <style scoped></style>
