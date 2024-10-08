@@ -1,12 +1,20 @@
 <script setup>
-import TextInput from '@/components/global/input/TextInput.vue';
-import PasswordInput from '@/components/global/input/PasswordInput.vue';
-import SearchInput from '@/components/global/input/SearchInput.vue';
-import SelectInput from '@/components/global/input/SelectInput.vue';
-
+import { ref } from 'vue'
+import FormAvaliator from '@/components/avaliator/form/FormAvaliator.vue'
+import ImageComp from '@/components/team/add/ImageComp.vue'
 </script>
 
-
 <template>
-    <TextInput label="Usuário"></TextInput>
+  <main class="main-container">
+    <FormAvaliator />
+    <ImageComp />
+  </main>
 </template>
+
+<style scoped>
+main {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 4.5fr 4fr;
+}
+</style>
