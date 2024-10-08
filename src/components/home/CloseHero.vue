@@ -10,7 +10,7 @@ import ButtonHeroOpen from "../global/button/ButtonHeroOpen.vue";
     </div>
     <div class="row2">
       <span>
-        <ButtonHeroOpen />
+        <ButtonHeroOpen @click="$router.push('/editions/')"/>
       </span>
       <p class="gradient">
         <i>EDIÇÕES</i>

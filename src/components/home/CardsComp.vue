@@ -1,30 +1,19 @@
 <script setup>
 import { onMounted, ref } from "vue";
+import { prepareEditions } from "@/composables/edition/editionUtils";
 import { useEditionStore } from "@/stores/edition";
+import { useClassInfoStore } from "@/stores/classInfo";
 import CardEditionHome from "../global/card/CardEditionHome.vue";
 
 const editionStore = useEditionStore();
+const classesInfoStore = useClassInfoStore();
 const formatEditions = ref([]);
 
-function formatEditions2() {
-  formatEditions.value = [];
-  for (const item of editionStore.editions) {
-    formatEditions.value.push({
-      year: item.year,
-      description: "Você pode aprender muito mais do que imagina, participe do hackaton e veja o que pode aprender",
-      route: `editions/${item.id}/`,
-      img: item.edition_photo_base64,
-    });
-  }
-
-  formatEditions.value = formatEditions.value
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 3);
-}
 
 onMounted(async () => {
   await editionStore.getEditions();
-  formatEditions2();
+  await classesInfoStore.getClassesInfo();
+  formatEditions.value = prepareEditions(editionStore.editions, classesInfoStore.classesInfo).slice(0, 3);
 });
 
 </script>

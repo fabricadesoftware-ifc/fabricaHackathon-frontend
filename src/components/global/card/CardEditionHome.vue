@@ -1,4 +1,5 @@
 <script setup>
+import ArrowRight from 'vue-material-design-icons/ArrowRight.vue'
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
   object: Object
@@ -8,11 +9,10 @@ const base64Format = (photo) => {
   if (photo == null) {
     return 'https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg'
   } else {
-    return `data:image/jpeg;base64,${photo}`
+    return photo
   }
 }
 
-import ArrowRight from 'vue-material-design-icons/ArrowRight.vue'
 </script>
 
 <template>
@@ -20,7 +20,7 @@ import ArrowRight from 'vue-material-design-icons/ArrowRight.vue'
     <div class="allBlur">
       <div class="info">
         <div class="text">
-          <h3>{{ object.year }}</h3>
+          <h3>{{ object.title }}</h3>
           <p>{{ object.description }}</p>
         </div>
         <router-link class="button" :to="object.route">
@@ -57,7 +57,7 @@ article {
 .allBlur {
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
   padding: 1rem;
   border-radius: 15px;
   display: flex;

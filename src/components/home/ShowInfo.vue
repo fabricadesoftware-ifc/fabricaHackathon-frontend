@@ -25,7 +25,7 @@ import OrangeButton from "../global/button/OrangeButton.vue";
       o processo de inscrição, organização e avaliação de projetos, transformando ideias
       em soluções inovadoras e práticas.
       <div class="button">
-        <OrangeButton label="Edições" />
+        <OrangeButton label="Edições" @click="$router.push('/editions')"/>
       </div>
     </div>
   </article>
