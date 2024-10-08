@@ -1,7 +1,7 @@
 <script setup>
-import RoundCardCode from "../global/cards/RoundCardCode.vue";
-import SquareCardBox from "../global/cards/SquareCardBox.vue";
-import BallCard from "../global/cards/BallCard.vue";
+import RoundCardCode from "../global/card/RoundCardCode.vue";
+import SquareCardBox from "../global/card/SquareCardBox.vue";
+import BallCard from "../global/card/BallCard.vue";
 
 import CubeOutline from "vue-material-design-icons/CubeOutline.vue";
 import ConsoleLine from "vue-material-design-icons/ConsoleLine.vue";

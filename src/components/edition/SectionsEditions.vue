@@ -2,7 +2,7 @@
 import { ref, onMounted, computed } from 'vue'
 import { useEditionStore } from '@/stores/edition'
 import { useClassInfoStore } from '@/stores/classInfo'
-import CardEdition from '../global/cards/CardEdition.vue'
+import CardEdition from '../global/card/CardEdition.vue'
 import ArrowTopRight from 'vue-material-design-icons/ArrowTopRight.vue'
 
 import { prepareEditions } from '@/composables/edition/editionUtils'

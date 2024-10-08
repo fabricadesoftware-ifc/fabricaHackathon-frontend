@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useEditionStore } from "@/stores/edition";
-import CardEditionHome from "../global/cards/CardEditionHome.vue";
+import CardEditionHome from "../global/card/CardEditionHome.vue";
 
 const editionStore = useEditionStore();
 const formatEditions = ref([]);

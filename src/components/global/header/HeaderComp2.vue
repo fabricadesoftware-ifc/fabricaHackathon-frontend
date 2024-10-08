@@ -1,5 +1,5 @@
 <script setup>
-// import HeaderButton from '../buttons/HeaderButton.vue';
+// import HeaderButton from '../button/HeaderButton.vue';
 </script>
 
 <template>

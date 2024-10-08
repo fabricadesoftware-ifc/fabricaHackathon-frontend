@@ -1,5 +1,5 @@
 <script setup>
-import OrangeButton from "../global/buttons/OrangeButton.vue";
+import OrangeButton from "../global/button/OrangeButton.vue";
 </script>
 
 <template>
