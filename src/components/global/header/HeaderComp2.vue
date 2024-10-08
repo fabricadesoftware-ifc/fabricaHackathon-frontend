@@ -1,5 +1,5 @@
 <script setup>
-import HeaderButton from '../button/HeaderButton.vue';
+// import HeaderButton from '../button/HeaderButton.vue';
 </script>
 
 <template>
@@ -7,13 +7,6 @@ import HeaderButton from '../button/HeaderButton.vue';
         <div class="container">
             <div class="logoImg">
                 <img src="/public/logoHackaton.png" alt="">
-            </div>
-            <div>
-                <router-link to="/">Edições</router-link>
-                <router-link to="/">Sou Avaliador</router-link>
-            </div>
-            <div>
-                <HeaderButton text="Cadastrar-Se" />
             </div>
         </div>
     </header>
@@ -28,17 +21,11 @@ header {
 }
 
 .container {
-    width: 90%;
+    width: 95%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
     padding: 1rem;
-}
-
-.container div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .logoImg {
@@ -52,14 +39,5 @@ img {
     background-color: #161617;
     border-radius: 27px;
     padding: .5rem;
-    margin: 0 auto;
-}
-
-a {
-    color: #FFFFFF;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 400;
-    padding: 1rem;
 }
 </style>
