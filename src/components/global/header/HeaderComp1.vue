@@ -1,21 +1,26 @@
 <script setup>
-import HeaderButton from '../button/HeaderButton.vue';
+import HeaderButton from "../button/HeaderButton.vue";
+import { useAuthStore } from "@/stores/auth";
+
+const authStore = useAuthStore();
 </script>
 
 <template>
   <header>
-	<div class="container">
-	  <div class="logoImg">
-		<img src="/public/logoHackaton.png" alt="" />
-	  </div>
-	  <div>
-		<router-link to="/">Edições</router-link>
-		<router-link to="/">Sou Avaliador</router-link>
-	  </div>
-	  <div>
-		<HeaderButton text="Cadastrar-Se" />
-	  </div>
-	</div>
+    <div class="container">
+      <router-link to="/home" class="logoImg">
+        <img src="/public/logoHackaton.png" alt="" />
+      </router-link>
+      <div>
+        <router-link to="/editions">Edições</router-link>
+        <router-link :to="authStore.isLogged ? '/edition' : '/auth'"
+          >Sou Avaliador</router-link
+        >
+      </div>
+      <router-link to="/editions/:edition/teams/add">
+        <HeaderButton text="Cadastrar-Se" />
+      </router-link>
+    </div>
   </header>
 </template>
 
