@@ -13,12 +13,12 @@ const authStore = useAuthStore();
       </router-link>
       <div>
         <router-link to="/editions">Edições</router-link>
-        <router-link :to="authStore.isLogged ? '/edition' : '/auth'"
+        <router-link v-if="!authStore.isLogged" to="/auth"
           >Sou Avaliador</router-link
         >
       </div>
       <router-link to="/editions/:edition/teams/add">
-        <HeaderButton text="Cadastrar-Se" />
+        <HeaderButton text="Cadastrar" />
       </router-link>
     </div>
   </header>
