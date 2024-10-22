@@ -40,8 +40,6 @@ export const formatEditionDescription = (edition) => {
 }
 
 export const prepareEditions = (editions, classesInfo) => {
-  console.log(editions)
-  console.log(classesInfo)
     return editions.map((edition) => ({
         title: `${edition.year}/${edition.semester} - ${getClassNames(edition, classesInfo).join(', ')}`,
         description: formatEditionDescription(edition),
