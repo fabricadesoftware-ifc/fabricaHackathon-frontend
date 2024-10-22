@@ -6,7 +6,8 @@ import SectionDetailComp from '@/components/edition/SectionDetailComp.vue';
 
 <template>
     <main>
-        <h2>Detail Edition Page </h2>
+        <HeroDetailComp />
+        <SectionDetailComp />
     </main>
 </template>
 
