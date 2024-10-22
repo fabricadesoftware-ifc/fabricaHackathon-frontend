@@ -1,6 +1,6 @@
 <script setup>
-import GradientBall from "../global/cards/GradientBall.vue";
-import ButtonHeroOpen from "../global/buttons/ButtonHeroOpen.vue";
+import GradientBall from "../global/card/GradientBall.vue";
+import ButtonHeroOpen from "../global/button/ButtonHeroOpen.vue";
 </script>
 
 <template>

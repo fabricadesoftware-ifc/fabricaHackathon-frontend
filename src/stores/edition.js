@@ -11,6 +11,7 @@ export const useEditionStore = defineStore('edition', () => {
         try {
             const data = await editionService.getEditions();
             editions.value = data;
+            console.log(editions.value);
         } catch(error) {
             console.error(error);
         }

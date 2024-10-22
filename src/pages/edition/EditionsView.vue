@@ -4,8 +4,8 @@ import { HeroComp, SectionsEditions } from "@/components";
 
 <template>
   <main>
-	<HeroComp />
-	<SectionsEditions />
+    <HeroComp />
+    <SectionsEditions />
   </main>
 </template>
 

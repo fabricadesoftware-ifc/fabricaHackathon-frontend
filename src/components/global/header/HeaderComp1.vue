@@ -6,11 +6,11 @@ import HeaderButton from '../button/HeaderButton.vue';
   <header>
 	<div class="container">
 	  <div class="logoImg">
-		<img src="/public/logoHackaton.png" alt="" />
+		<router-link to="/home"><img src="/public/logoHackaton.png" alt="" /></router-link>
 	  </div>
 	  <div>
-		<router-link to="/">Edições</router-link>
-		<router-link to="/">Sou Avaliador</router-link>
+		<router-link to="/editions">Edições</router-link>
+		<router-link to="/auth">Sou Avaliador</router-link>
 	  </div>
 	  <div>
 		<HeaderButton text="Cadastrar-Se" />

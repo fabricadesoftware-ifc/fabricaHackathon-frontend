@@ -1,6 +1,6 @@
 <script setup>
 import { reactive } from 'vue';
-import CardEditionHome from '../global/cards/CardEditionHome.vue';
+import CardEditionHome from '../global/card/CardEditionHome.vue';
 
 const info = reactive({
     title: "NÃO HÁ MANEIRA MELHOR DE APRENDER",

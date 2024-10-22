@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import CardEdition from "../global/cards/CardEdition.vue";
+import CardEdition from "../global/card/CardEdition.vue";
 import ArrowTopRight from "vue-material-design-icons/ArrowTopRight.vue";
 
 const editions = ref([
