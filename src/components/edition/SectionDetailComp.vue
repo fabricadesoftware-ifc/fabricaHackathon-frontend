@@ -1,36 +1,38 @@
 <script setup>
+import { useDetailEditionStore } from "@/stores/detailEdition";
 import { ref } from "vue";
 import CardEdition from "../global/card/CardEdition.vue";
 import ArrowTopRight from "vue-material-design-icons/ArrowTopRight.vue";
 
-const editions = ref([
-    {
-        title: "NÃO HÁ MANEIRA MELHOR DE APRENDER",
-        description: "Você pode aprender muito mais do que imagina, participe do hackathon e veja o que pode aprender",
-        route: "/",
-        img: "https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg",
-        year: "2024",
-    },
-    {
-        title: "NÃO HÁ MANEIRA MELHOR DE APRENDER",
-        description: "Você pode aprender muito mais do que imagina, participe do hackathon e veja o que pode aprender",
-        route: "/",
-        img: "https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg",
-        year: "2024",
-    },
-    {
-        title: "NÃO HÁ MANEIRA MELHOR DE APRENDER",
-        description: "Você pode aprender muito mais do que imagina, participe do hackathon e veja o que pode aprender",
-        route: "/",
-        img: "https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg",
-        year: "2024",
-    },
-]);
+const useDetailEdition = useDetailEditionStore();
+
+// const editions = ref([
+//     {
+//         title: "NÃO HÁ MANEIRA MELHOR DE APRENDER",
+//         description: "Você pode aprender muito mais do que imagina, participe do hackathon e veja o que pode aprender",
+//         route: "/",
+//         img: "https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg",
+//         year: "2024",
+//     },
+//     {
+//         title: "NÃO HÁ MANEIRA MELHOR DE APRENDER",
+//         description: "Você pode aprender muito mais do que imagina, participe do hackathon e veja o que pode aprender",
+//         route: "/",
+//         img: "https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg",
+//         year: "2024",
+//     },
+//     {
+//         title: "NÃO HÁ MANEIRA MELHOR DE APRENDER",
+//         description: "Você pode aprender muito mais do que imagina, participe do hackathon e veja o que pode aprender",
+//         route: "/",
+//         img: "https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg",
+//         year: "2024",
+//     },
+// ]);
 </script>
 
 <template>
     <section>
-
         <div class="container">
             <h2 class="titleEdition">EQUIPES GANHADORAS</h2>
             <div class="editions">
