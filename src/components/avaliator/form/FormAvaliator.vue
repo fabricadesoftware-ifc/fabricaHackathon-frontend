@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import GradientInput from '@/components/global/input/GradientInput.vue'
 import OrangeButton from '@/components/global/button/OrangeButton.vue'
+import GradientInputPassword from '@/components/global/input/GradientInputPassword.vue'
 
 const authStore = useAuthStore()
 
@@ -21,7 +22,7 @@ const user = ref({
       <h1 style="text-align: center" class="gradientOrange">Login</h1>
       <form @submit.prevent>
           <GradientInput v-model:text="user.email" label="Email" />
-          <GradientInput v-model:text="user.password" label="Senha" />
+          <GradientInputPassword v-model:text="user.password" label="Senha" />
           <OrangeButton label="Entrar" @click="authStore.createAuthentication(user)" />
       </form>
     </div>
