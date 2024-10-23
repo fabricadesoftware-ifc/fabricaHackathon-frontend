@@ -49,12 +49,23 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+
+
+  const logout = () => {
+    isLogged.value = false
+    token.value = {}
+    data_user.value = {}
+    student_profile_data.value = {}
+    router.push('/home')
+  }
+
   return {
     isLogged,
     token,
     user,
     data_user,
     student_profile_data,
-    createAuthentication
+    createAuthentication,
+    logout
   }
 })
