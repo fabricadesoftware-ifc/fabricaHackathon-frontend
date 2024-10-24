@@ -6,6 +6,7 @@ export const useStudentStore = defineStore('student', () => {
     const students = ref([]);
     const student = ref([]);
     const studentsClass = ref([]);
+    const studentProfiles = ref([]);
     const newStudent = ref([]);
 
     const getStudents = async () => {
@@ -62,13 +63,24 @@ export const useStudentStore = defineStore('student', () => {
         }
     };
 
+    const getStudentProfile = async () => {
+        try {
+            const data = await studentService.getStudentProfile();
+            studentProfiles.value = data;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return {
         students,
         student,
         newStudent,
         studentsClass,
+        studentProfiles,
         getStudents,
         getStudent,
+        getStudentProfile,
         createStudent,
         updateStudent,
         deleteStudent,

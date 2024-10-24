@@ -13,6 +13,10 @@ class StudentService {
         const { data } = await api.get(`/available-students/edition/${editionId}?class_info=${classId}`);
         return data;
     }
+    async getStudentProfile() {
+        const { data } = await api.get('/student-profiles/');
+        return data;
+    }
     async createStudent(student) {
         const { data } = await api.post('/students/', student);
         return data;

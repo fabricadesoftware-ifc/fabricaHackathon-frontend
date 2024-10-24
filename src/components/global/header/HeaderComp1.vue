@@ -3,6 +3,7 @@ import HeaderButton from "../button/HeaderButton.vue";
 import { useAuthStore } from "@/stores/auth";
 
 const authStore = useAuthStore();
+import DropDown from './DropDown.vue';
 </script>
 
 <template>
@@ -12,14 +13,11 @@ const authStore = useAuthStore();
         <img src="/public/logoHackaton.png" alt="" />
       </router-link>
       <div>
-        <router-link to="/editions">Edições</router-link>
-        <router-link v-if="!authStore.isLogged" to="/auth"
-          >Sou Avaliador</router-link
-        >
+        <router-link to="/editions" class="header">Edições</router-link>
       </div>
-      <router-link to="/editions/:edition/teams/add">
-        <HeaderButton text="Cadastrar" />
-      </router-link>
+      <div>
+        <DropDown />
+      </div>
     </div>
   </header>
 </template>
@@ -30,6 +28,11 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.sperma {
+  color: black;
+  width: 100%;
 }
 
 .container {
@@ -60,6 +63,13 @@ header {
   align-items: center;
 }
 
+span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
 img {
   width: 50%;
   background-color: #161617;
@@ -67,11 +77,43 @@ img {
   padding: 0.5rem;
 }
 
-a {
+a.header {
   color: #ffffff;
   text-decoration: none;
   font-size: 16px;
   font-weight: 400;
   padding: 1rem;
+}
+
+.dropLinks {
+  width: 150px;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #161617;
+}
+
+a.drop {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 1rem 1rem;
+  transition: 0.3s ease-in-out;
+  display: flex;
+  gap: .5rem;
+}
+
+a.logout {
+  color: red;
+  text-decoration: none;
+  padding: 1rem 1rem;
+  transition: 0.3s ease-in-out;
+  display: flex;
+  gap: .5rem;
+}
+
+a.drop:hover,
+a.logout:hover {
+  background-color: #1c1c1f;
+
 }
 </style>

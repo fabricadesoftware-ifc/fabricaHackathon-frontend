@@ -67,6 +67,12 @@ const router = createRouter({
           component: () => import('../pages/team/AddTeamView.vue'),
           params: true
         },
+        {
+          path: "/profile",
+          name: "profile",
+          component: () => import("../pages/global/ProfileView.vue"),
+          meta: { requiresAuth: true }
+        }
       ]
     }
   ]
