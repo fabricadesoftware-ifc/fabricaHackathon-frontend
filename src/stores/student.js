@@ -9,24 +9,6 @@ export const useStudentStore = defineStore('student', () => {
     const studentProfiles = ref([]);
     const newStudent = ref([]);
 
-    const getStudents = async () => {
-        try {
-            const data = await studentService.getStudents();
-            students.value = data;
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const getStudent = async (id) => {
-        try {
-            const data = await studentService.getStudent(id);
-            student.value = data;
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
     const createStudent = async (student) => {
         try {
             const data = await studentService.createStudent(student);
@@ -39,7 +21,6 @@ export const useStudentStore = defineStore('student', () => {
     const updateStudent = async (student) => {
         try {
             await studentService.updateStudent(student);
-            getStudent(student.id);
         } catch (error) {
             console.error(error);
         }
@@ -78,8 +59,6 @@ export const useStudentStore = defineStore('student', () => {
         newStudent,
         studentsClass,
         studentProfiles,
-        getStudents,
-        getStudent,
         getStudentProfile,
         createStudent,
         updateStudent,
