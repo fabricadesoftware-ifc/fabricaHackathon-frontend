@@ -1,8 +1,11 @@
 <script setup>
+import HeaderProfile from '@/components/student/profile/HeaderProfile.vue';
+import MainProfile from '@/components/student/profile/MainProfile.vue';
 </script>
 
 <template>
-    <h1>Profile View</h1>
+    <HeaderProfile />
+    <MainProfile />
 </template>
 
 <style scoped></style>

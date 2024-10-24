@@ -3,8 +3,10 @@ import { useAuthStore } from '@/stores/auth';
 import HeaderButton from '../button/HeaderButton.vue';
 import Dropdown from 'v-dropdown'
 import Logout from "vue-material-design-icons/Logout.vue"
+import Account from "vue-material-design-icons/Account.vue"
 import Home from "vue-material-design-icons/Home.vue"
 import Login from "vue-material-design-icons/Login.vue"
+import CodeGreaterThan from "vue-material-design-icons/CodeGreaterThan.vue"
 
 const authStore = useAuthStore()
 
@@ -21,11 +23,20 @@ const authStore = useAuthStore()
                 <Home />
                 Home
             </router-link>
+
             <router-link to="/auth" class="login" v-if="!authStore.isLogged">
                 <Login />
                 Login
             </router-link>
             <div v-if="authStore.isLogged">
+                <router-link to="/project" class="drop">
+                    <CodeGreaterThan />
+                    Projeto
+                </router-link>
+                <router-link to="/profile" class="drop">
+                    <Account />
+                    Perfil
+                </router-link>
                 <button @click="authStore.logout" class="logout">
                     <Logout />
                     Logout

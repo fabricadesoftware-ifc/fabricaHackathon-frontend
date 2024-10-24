@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref, onMounted, watch } from 'vue'
+import { reactive, ref, onMounted} from 'vue'
 import { useTeamStore } from '@/stores/team'
 import { useClassInfoStore } from '@/stores/classInfo'
 import { useStudentStore } from '@/stores/student'
@@ -68,7 +68,7 @@ onMounted(async () => {
           <p class="integrantes">Integrantes:</p>
           <div class="listMembers">
             <div class="itemContainer">
-              <div v-for="(item, index) in members" :key="item.id" class="itemMember">
+              <div v-for="(item) in members" :key="item.id" class="itemMember">
                 <p>{{ item.name }}</p>
                 <p>{{ item.class_info.name }}</p>
               </div>
