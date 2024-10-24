@@ -1,22 +1,27 @@
 <template>
   <div class="infos">
-	<div>
-	  <h3>Hackaton</h3>
-	  <router-link to="/">Grants</router-link>
-	  <router-link to="/">Generator</router-link>
-	  <router-link to="/">Carrers</router-link>
-	  <router-link to="/">Disclaimer</router-link>
-	</div>
-	<div>
-	  <h3>Get Connected</h3>
-	  <router-link to="/">Services</router-link>
-	  <router-link to="/">Blog</router-link>
-	  <router-link to="/">Newsletter</router-link>
-	</div>
+    <div>
+      <h3>Hackaton</h3>
+      <a href="https://github.com/fabricadesoftware-ifc/fabricaHackathon-frontend"
+        >GitHub</a>
+      <a href="https://www.instagram.com/hackathon_ifc/">Instagram</a>
+    </div>
+    <div>
+      <h4>Fábrica</h4>
+      <a href="https://github.com/fabricadesoftware-ifc">GitHub</a>
+      <a href="https://www.instagram.com/fabricadesoftware.ifc/">Instagram</a>
+      <a href="https://br.linkedin.com/company/fabricadesoftware-ifc">Linkedin</a>
+      <a href="https://fabricadesoftware.ifc.edu.br">Site</a>
+    </div>
   </div>
 </template>
 
 <style scoped>
+h3,
+h4 {
+  font-size: 1.17rem;
+}
+
 a {
   color: #848895;
   text-decoration: none;
@@ -26,17 +31,16 @@ a {
 
 .infos {
   display: flex;
-  gap: 1rem;
   color: white;
   font-weight: 400;
-  gap: 2rem;
+  gap: 5rem;
   justify-content: center;
 }
 
 .infos > div {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.8rem;
 }
 
 a:hover {
