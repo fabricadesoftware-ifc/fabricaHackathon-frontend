@@ -13,14 +13,8 @@ import DropDown from './DropDown.vue';
         <img src="/public/logoHackaton.png" alt="" />
       </router-link>
       <div>
-        <router-link to="/editions">Edições</router-link>
-        <router-link v-if="!authStore.isLogged" to="/auth"
-          >Sou Avaliador</router-link
-        >
+        <router-link to="/editions" class="header">Edições</router-link>
       </div>
-      <router-link to="/editions/:edition/teams/add">
-        <HeaderButton text="Cadastrar" />
-      </router-link>
       <div>
         <DropDown />
       </div>
