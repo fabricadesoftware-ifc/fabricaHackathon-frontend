@@ -1,6 +1,6 @@
 <script setup>
 import { useDetailEditionStore } from "@/stores/detailEdition";
-import { ref } from "vue";
+// import { ref, onMounted } from "vue";
 import CardEdition from "../global/card/CardEdition.vue";
 import ArrowTopRight from "vue-material-design-icons/ArrowTopRight.vue";
 
@@ -36,17 +36,17 @@ const useDetailEdition = useDetailEditionStore();
         <div class="container">
             <h2 class="titleEdition">EQUIPES GANHADORAS</h2>
             <div class="editions">
-                <CardEdition v-for="(object, index) in editions" :key="index" :object="object" />
+                <CardEdition v-for="(object, index) in useDetailEdition.winningTeams" :key="index" :object="object" />
             </div>
             <h2 class="titleEdition">VENDAS</h2>
             <div class="editions">
-                <CardEdition v-for="(object, index) in editions" :key="index" :object="object" />
+                <CardEdition v-for="(object, index) in useDetailEdition.salesTeams" :key="index" :object="object" />
             </div>
         </div>
         <button>
             VER MAIS
             <span class="roundSpan">
-                <ArrowTopRight size="20" />
+                <ArrowTopRight size=20 />
             </span>
         </button>
     </section>
