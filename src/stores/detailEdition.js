@@ -16,6 +16,7 @@ export const useDetailEditionStore = defineStore('detailEdition', () => {
     const getAllTeams = async(idEdition) => {
         const data = await DetailEditionService.getAllTeams(idEdition);
         countTeams.value = data.length;
+        
         console.log(data);
         populateRefs(data);
     };
@@ -27,16 +28,19 @@ export const useDetailEditionStore = defineStore('detailEdition', () => {
     const orderBySalesTeams = (teams = []) => {
         const index = useCategory.getIdCategoryByName('Category 8');
         console.log(index);
+
         salesTeams.value = DetailEditionService.orderBySalesTeams(index, teams)
         categoriesUsed.push(index);
     };
     const orderByServicesTeams = (teams = []) => {
         const index = useCategory.getIdCategoryByName('Category 8');
+
         servicesTeam.value = DetailEditionService.orderByServicesTeams(index, teams);
         categoriesUsed.push(index);
     }
     const orderByRentalsTeams = (teams = []) => {
         const index = useCategory.getIdCategoryByName('Category 8');
+
         rentalsTeams.value = DetailEditionService.orderByRentalsTeams(index, teams);
         categoriesUsed.push(index);
     }

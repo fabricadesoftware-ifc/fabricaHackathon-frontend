@@ -31,7 +31,7 @@ class DetailEditionService {
     orderByUncategorized (categoriesUsed = [], teams = []) {
         const uncategorizedTeams = teams.filter(team => team.category !== categoriesUsed[0] || team.category !== categoriesUsed[1] || team.category !== categoriesUsed[2]);
         
-        return  uncategorizedTeams
+        return uncategorizedTeams
     };
 };
 
