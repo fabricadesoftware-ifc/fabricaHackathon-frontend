@@ -1,12 +1,15 @@
 <script setup>
+import { useRoute } from 'vue-router';
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
   object: Object
 });
+
+const route = useRoute();
 </script>
 
 <template>
-    <article :style="{ backgroundImage: `url(data:img/jpeg;base64,${object.photo_base64_code})` }">
+    <article :style="{ backgroundImage: `url(data:image/jpeg;base64,${('photo_base64_code' in props.object) ? props.object.photo_base64_code : props.object.img}`}">
         <div class="allBlur">
             <div class="info">
                 <div class="text">
@@ -16,7 +19,7 @@ const props = defineProps({
                 <div class="button">
                     <router-link :to="object.route">
                         <button>
-                            Ver equipe
+                            {{ route.fullPath == '/editions/' ? 'Edição' : 'Ver equipe'}}
                             <span> -> </span>
                         </button>
                     </router-link>
