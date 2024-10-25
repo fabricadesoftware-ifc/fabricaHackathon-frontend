@@ -1,22 +1,28 @@
-<script setup></script>
+<script setup>
+const props = defineProps({
+  position: {
+    type: String
+  }
+})
+</script>
 
 <template>
-  <div class="all">
-	<div class="alignBalls">
-	  <span class="one"></span>
-	  <span class="two"></span>
-	  <span class="three"></span>
-	  <span class="four"></span>
-	  <span class="five"></span>
-	  <span class="six"></span>
-	</div>
+  <div class="all" :style="props.position">
+    <div class="alignBalls">
+      <span class="one"></span>
+      <span class="two"></span>
+      <span class="three"></span>
+      <span class="four"></span>
+      <span class="five"></span>
+      <span class="six"></span>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .all {
+  position: relative;
   display: flex;
-  width: 100%;
   align-items: center;
   justify-content: start;
   height: 100%;
