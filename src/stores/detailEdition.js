@@ -1,64 +1,69 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
+import { useCategoryStore } from "@/stores/category";
 import DetailEditionService from '@/services/detailEdition';
 
 export const useDetailEditionStore = defineStore('detailEdition', () => {
-    const editionId = ref('');
+    const useCategory = useCategoryStore();
+    const countTeams = ref(0);
+    const categoriesUsed = [];
     const winningTeams = ref([]);
     const salesTeams = ref([]);
     const servicesTeam = ref([]);
     const rentalsTeams = ref([]);
     const uncategorizedTeams = ref([]);
 
-    const orderByWinningTeams = async (idRanking) => {
-        console.log(winningTeams.value);
-        if (winningTeams.value.length > 0) {
-            return winningTeams.value;
-        }
-        const data = await DetailEditionService.orderByWinningTeams(idRanking);
-        winningTeams.value = data;
-        return data;
-    }
-    const orderBySalesTeams = async (idRanking, nameCategory) => {
-        if (salesTeams.value.length > 0) {
-            return salesTeams.value;
-        }
-        const data = await DetailEditionService.orderBySalesTeams(idRanking, nameCategory);
-        salesTeams.value = data;
-        return data;
-    }
-    const orderByServicesTeams = async (idRanking, nameCategory) => {
-        if (servicesTeam.value.length > 0) {
-            return servicesTeam.value;
-        }
-        const data = await DetailEditionService.orderByServicesTeams(idRanking, nameCategory);
-        servicesTeam.value = data;
-        return data;
-    }
-    const orderByRentalsTeams = async (idRanking, nameCategory) => {
-        if (rentalsTeams.value.length > 0) {
-            return rentalsTeams.value;
-        }
-        const data = await DetailEditionService.orderByRentalsTeams(idRanking, nameCategory);
-        rentalsTeams.value = data;
-        return data;
-    }
-    const orderByUncategorized = async (idRanking) => {
-        if (uncategorizedTeams.value.length > 0) {
-            return uncategorizedTeams.value;
-        }
-        const data = await orderByWinningTeams(idRanking);
-        uncategorizedTeams.value = data;
-        return data;
-    }
-
-    const populateRefs = async() => {
-        await orderByWinningTeams(editionId.value)
-        await orderBySalesTeams(editionId.value, 'Category 8');
-        await orderByServicesTeams(editionId.value, 'Category 8');
-        await orderByRentalsTeams(editionId.value, 'Category 8');
-        await orderByUncategorized(editionId.value);
+    const getAllTeams = async(idEdition) => {
+        const data = await DetailEditionService.getAllTeams(idEdition);
+        countTeams.value = data.length;
+        console.log(data);
+        populateRefs(data);
     };
 
-    return { editionId, winningTeams, salesTeams, servicesTeam, rentalsTeams, uncategorizedTeams, orderByWinningTeams, orderBySalesTeams, orderByServicesTeams, orderByRentalsTeams, orderByUncategorized, populateRefs };
+    const orderByWinningTeams = (teams = []) => {
+        winningTeams.value = DetailEditionService.orderByWinningTeams(teams);
+        console.log(winningTeams.value)
+    };
+    const orderBySalesTeams = (teams = []) => {
+        const index = useCategory.getIdCategoryByName('Category 8');
+        console.log(index);
+        salesTeams.value = DetailEditionService.orderBySalesTeams(index, teams)
+        categoriesUsed.push(index);
+    };
+    const orderByServicesTeams = (teams = []) => {
+        const index = useCategory.getIdCategoryByName('Category 8');
+        servicesTeam.value = DetailEditionService.orderByServicesTeams(index, teams);
+        categoriesUsed.push(index);
+    }
+    const orderByRentalsTeams = (teams = []) => {
+        const index = useCategory.getIdCategoryByName('Category 8');
+        rentalsTeams.value = DetailEditionService.orderByRentalsTeams(index, teams);
+        categoriesUsed.push(index);
+    }
+    const orderByUncategorized = (teams = []) => {
+        uncategorizedTeams.value = DetailEditionService.orderByUncategorized(categoriesUsed, teams);
+    }
+
+    const populateRefs = (teams) => {
+        orderByWinningTeams(teams)
+        orderBySalesTeams(teams);
+        orderByServicesTeams(teams);
+        orderByRentalsTeams(teams);
+        orderByUncategorized(teams);
+    };
+
+    return {
+        countTeams, 
+        winningTeams, 
+        salesTeams, 
+        servicesTeam, 
+        rentalsTeams, 
+        uncategorizedTeams,
+        getAllTeams,
+        orderByWinningTeams, 
+        orderBySalesTeams, 
+        orderByServicesTeams, 
+        orderByRentalsTeams, 
+        orderByUncategorized 
+    };
 });

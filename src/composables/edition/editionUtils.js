@@ -41,10 +41,10 @@ export const formatEditionDescription = (edition) => {
 
 export const prepareEditions = (editions, classesInfo) => {
     return editions.map((edition) => ({
-        title: `${edition.year}/${edition.semester} - ${getClassNames(edition, classesInfo).join(', ')}`,
+        name: `${edition.year}/${edition.semester} - ${getClassNames(edition, classesInfo).join(', ')}`,
         description: formatEditionDescription(edition),
         route: `/editions/${edition.id}`,
-        img: `data:image/jpeg;base64,${edition.photo_base64_code}`,
+        photo_base64_code: `${edition.photo_base64_code}`,
         year: edition.year
     }))
 }
