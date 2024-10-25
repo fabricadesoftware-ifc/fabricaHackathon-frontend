@@ -24,7 +24,12 @@ export const useCategoryStore = defineStore("category", () => {
         } catch (error) {
         console.error(error);
         }
-    }
+    };
+
+    const getIdCategoryByName = (nameCategory) => {
+        const index = categories.value.findIndex(category => category.name === nameCategory);
+        return index + 1;
+    };
     
     const getCategory = async (id) => {
         try {
@@ -67,10 +72,11 @@ export const useCategoryStore = defineStore("category", () => {
         category,
         newCategory,
         getCategories,
+        getIdCategoryByName,
         getCategory,
         createCategory,
         updateCategory,
         deleteCategory,
         getEditionCategories,
     };
-    });
+});

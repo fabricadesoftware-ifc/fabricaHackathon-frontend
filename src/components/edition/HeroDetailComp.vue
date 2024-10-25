@@ -1,7 +1,7 @@
 <script setup>
 import RoundCardCode from '../global/card/RoundCardCode.vue';
 import SquareCardBox from '../global/card/SquareCardBox.vue';
-import SpiralCard from '../global/card/SpiralCard.vue';
+import GradientBall from '../global/card/GradientBall.vue';
 import BallCard from '../global/card/BallCard.vue';
 import CubeOutline from "vue-material-design-icons/CubeOutline.vue";
 import ConsoleLine from "vue-material-design-icons/ConsoleLine.vue";
@@ -17,9 +17,13 @@ import ConsoleLine from "vue-material-design-icons/ConsoleLine.vue";
             <span></span>
             <RoundCardCode />
         </div>
-        <div class="text">
-            <h1 class="gradient">EDIÇÃO DO HACKATHON 3INFO 2024</h1>
-            <SpiralCard />
+        <div class="container-text">
+            <div>
+                <div class="text">
+                    <h1 class="gradient">EDIÇÃO DO HACKATHON 3INFO 2024</h1>
+                </div>
+                <GradientBall position="width: 50%; position: relative; left: 370px; bottom: 95px" />
+            </div>
         </div>
         <div class="cards2">
             <SquareCardBox :component="ConsoleLine" />
@@ -37,10 +41,15 @@ section {
     height: 75vh;
 }
 
-.text {
+.container-text {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.text {
+    display: flex;
+    justify-content: center;
 }
 
 .gradient {

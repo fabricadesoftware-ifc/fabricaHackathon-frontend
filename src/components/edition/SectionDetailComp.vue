@@ -1,34 +1,18 @@
 <script setup>
-import { useDetailEditionStore } from "@/stores/detailEdition";
-// import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
+import { useDetailEditionStore } from '@/stores/detailEdition';
+import { useCategoryStore } from '@/stores/category';
+import { useRoute } from 'vue-router';
 import CardEdition from "../global/card/CardEdition.vue";
-import ArrowTopRight from "vue-material-design-icons/ArrowTopRight.vue";
 
 const useDetailEdition = useDetailEditionStore();
+const useCategory = useCategoryStore();
+const route = useRoute();
 
-// const editions = ref([
-//     {
-//         title: "NÃO HÁ MANEIRA MELHOR DE APRENDER",
-//         description: "Você pode aprender muito mais do que imagina, participe do hackathon e veja o que pode aprender",
-//         route: "/",
-//         img: "https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg",
-//         year: "2024",
-//     },
-//     {
-//         title: "NÃO HÁ MANEIRA MELHOR DE APRENDER",
-//         description: "Você pode aprender muito mais do que imagina, participe do hackathon e veja o que pode aprender",
-//         route: "/",
-//         img: "https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg",
-//         year: "2024",
-//     },
-//     {
-//         title: "NÃO HÁ MANEIRA MELHOR DE APRENDER",
-//         description: "Você pode aprender muito mais do que imagina, participe do hackathon e veja o que pode aprender",
-//         route: "/",
-//         img: "https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg",
-//         year: "2024",
-//     },
-// ]);
+onMounted(async() => {
+    await useCategory.getCategories();
+    await useDetailEdition.getAllTeams(route.params.edition);
+});
 </script>
 
 <template>
@@ -42,13 +26,25 @@ const useDetailEdition = useDetailEditionStore();
             <div class="editions">
                 <CardEdition v-for="(object, index) in useDetailEdition.salesTeams" :key="index" :object="object" />
             </div>
+            <h2 class="titleEdition">SERVIÇOS</h2>
+            <div class="editions">
+                <CardEdition v-for="(object, index) in useDetailEdition.servicesTeam" :key="index" :object="object" />
+            </div>
+            <h2 class="titleEdition">LOCAÇÕES</h2>
+            <div class="editions">
+                <CardEdition v-for="(object, index) in useDetailEdition.rentalsTeams" :key="index" :object="object" />
+            </div>
+            <h2 class="titleEdition">SEM CATEGORIA (3INFOs e BSI)</h2>
+            <div class="editions">
+                <CardEdition v-for="(object, index) in useDetailEdition.rentalsTeams" :key="index" :object="object" />
+            </div>
         </div>
-        <button>
+        <!-- <button>
             VER MAIS
             <span class="roundSpan">
                 <ArrowTopRight size=20 />
             </span>
-        </button>
+        </button> -->
     </section>
 </template>
 
