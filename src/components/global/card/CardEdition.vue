@@ -6,18 +6,18 @@ const props = defineProps({
 </script>
 
 <template>
-    <article :style="{ backgroundImage: `url(${object.img})` }">
+    <article :style="{ backgroundImage: `url(data:img/jpeg;base64,${object.photo_base64_code})` }">
         <div class="allBlur">
             <div class="info">
                 <div class="text">
-                    <h3>{{ object.title }}</h3>
+                    <h3>{{ object.name }}</h3>
                     <p>{{ object.description }}</p>
                 </div>
                 <div class="button">
                     <router-link :to="object.route">
                         <button>
-                            Edição
-                            <span>-></span>
+                            Ver equipe
+                            <span> -> </span>
                         </button>
                     </router-link>
                 </div>

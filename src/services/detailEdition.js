@@ -2,49 +2,37 @@ import { api } from "@/plugins/axios";
 
 
 class DetailEditionService {
-    #idcategories = [];
-    
-    async orderByWinningTeams(id) {
-        const { data } = await api.get(`/rankings?edition_id=${id}&classification=1`);
+    async getAllTeams(idEdition) {
+        const { data } = await api.get(`/rankings?edition_id=${idEdition}`);
+
+        for (let c = 0; c < data.length; c++) {
+            data[c] = {id: data[c].id, final_grade: data[c].final_grade, classification: data[c].classification, idTeam: data[c].team.id, name: data[c].team.name, photo_base64_code: data[c].team.photo_base64_team.photo_base64, category: data[c].team.category.id}
+        };
+
         return data;
+    };
+
+    orderByWinningTeams(teams = []) {
+        const winningTeams = teams.filter(team => team.classification === 1);
+        return winningTeams;
+    };
+    orderBySalesTeams(indexCategory, teams = []) {
+        const salesTeams = teams.filter(team => team.category === indexCategory);
+        return salesTeams
+    };
+    orderByServicesTeams(indexCategory, teams = []) {
+        const servicesTeams = teams.filter(team => team.category === indexCategory);
+        return servicesTeams
     }
-    async orderBySalesTeams(id, nameCategory) {
-        const category = await this.getCategoryId(nameCategory);
-        const { data } = await api.get(`/rankings?edition_id=${id}&category=${category}`);
-        return data;
+    orderByRentalsTeams(indexCategory, teams = []) {
+        const rentalsTeams = teams.filter(team => team.category === indexCategory);
+        return rentalsTeams
     }
-    async orderByServicesTeams(id, nameCategory) {
-        const category = await this.getCategoryId(nameCategory);
-        const { data } = await api.get(`/rankings?edition_id=${id}&category=${category}`);
-        return data;
-    }
-    async orderByRentalsTeams(id, nameCategory) {
-        const category = await this.getCategoryId(nameCategory);
-        const { data } = await api.get(`/rankings?edition_id=${id}&category=${category}`);
-        return data;
-    }
-    async orderByUncategorized(id) {
-        let { data } = await api.get(`/rankings?edition_id=${id}`);
-        data = data.filter(team => {
-            return(
-            team.team.category != this.#idcategories[0] &&
-            team.team.category != this.#idcategories[1] &&
-            team.team.category != this.#idcategories[2]
-            )
-        });
-        return data;
-    }
-    async getCategoryId(nameCategory) {
-        const categories = await api.get('/categories/');
-        let category = undefined;
-        for (let c = 0; c < categories.data.length; c++) {
-            if (categories.data[c].name === nameCategory) {
-                category = categories.data[c].id;
-            }
-        }
-        this.#idcategories.push(category);
-        return category;
-    }
+    orderByUncategorized (categoriesUsed = [], teams = []) {
+        const uncategorizedTeams = teams.filter(team => team.category !== categoriesUsed[0] || team.category !== categoriesUsed[1] || team.category !== categoriesUsed[2]);
+        
+        return  uncategorizedTeams
+    };
 };
 
 export default new DetailEditionService();
