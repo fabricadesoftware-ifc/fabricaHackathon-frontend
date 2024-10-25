@@ -24,7 +24,7 @@ const authStore = useAuthStore()
                 Home
             </router-link>
 
-            <router-link to="/auth" class="login" v-if="!authStore.isLogged">
+            <router-link to="/auth" class="drop" v-if="!authStore.isLogged">
                 <Login />
                 Login
             </router-link>

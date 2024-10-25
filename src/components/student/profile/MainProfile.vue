@@ -22,13 +22,14 @@ const studentProfileCopy = reactive({
 const toggleEdit = () => {
     isEditable.value = !isEditable.value;
 };
+
 </script>
 
 <template>
     <section>
         <div class="title">
             <div class="icon">
-                <Account size="100%" />
+                <Account size="100%" style="color:  #fe5c2b;" />
             </div>
             <div class="info">
                 <h1>{{ authStore.data_user.name }}</h1>
@@ -40,27 +41,30 @@ const toggleEdit = () => {
         </div>
         <div class="data_info">
             <div class="data1">
-                <h3>Personal Data</h3>
+                <h3>Dados Pessoais:</h3>
                 <p>
                     <span>
-                        <EmailOutline />
+                        <EmailOutline style="color:  #fe5c2b;" />
                         Email:
                     </span>
                     <span>{{ authStore?.data_user.email }}</span>
                 </p>
                 <p>
                     <span>
-                        <Whatsapp style="color: green;" />
+                        <Whatsapp style="color: #fe5c2b;" />
                         WhatsApp:
                     </span>
-                    <span>{{ authStore?.student_profile_data.whatsapp }}</span>
+                <div class="input">
+                    <input type="number" :disabled="!isEditable" v-model="studentProfileCopy.whatsapp"
+                        :class="{ editable: isEditable, nonEditable: !isEditable }">
+                </div>
                 </p>
             </div>
             <div class="data2">
-                <h3>Contact Informations</h3>
+                <h3>Informações de Contato:</h3>
                 <p>
                     <span>
-                        <Instagram style="color: magenta;" />
+                        <Instagram style="color: #fe5c2b;" />
                         Instagram:
                     </span>
                 <div class="input">
@@ -70,7 +74,7 @@ const toggleEdit = () => {
                 </p>
                 <p>
                     <span>
-                        <Linkedin style="color: blue;" />
+                        <Linkedin style="color: #fe5c2b;" />
                         Linkedin:
                     </span>
                 <div class="input">
@@ -80,8 +84,8 @@ const toggleEdit = () => {
                 </p>
                 <p>
                     <span>
-                        <Github />
-                        GitHub:
+                        <Github style="color: #fe5c2b;" />
+                        Github:
                     </span>
                 <div class="input">
                     <input type="text" :disabled="!isEditable" v-model="studentProfileCopy.github"
@@ -89,12 +93,13 @@ const toggleEdit = () => {
                 </div>
                 </p>
 
+
             </div>
         </div>
         <div class="button">
             <div class="widthButton">
                 <button class="confirm" @click="toggleEdit">
-                    <Pencil />
+                    <Pencil style="color: #fe5c2b;" />
                 </button>
                 <button class="confirm" v-if="isEditable">Confirmar</button>
             </div>
@@ -105,27 +110,42 @@ const toggleEdit = () => {
 <style scoped>
 section {
     background-color: #1A1A1E;
-    width: 40%;
     margin: 10% auto;
     border: 1px solid #535353;
     border-radius: 9px;
     padding: 2rem;
+    width: 90vw;
+    max-width: 800px;
+}
+
+@media (min-width: 768px) {
+    section {
+        width: 70vw;
+    }
+}
+
+@media (min-width: 1440px) {
+    section {
+        width: 45vw;
+    }
 }
 
 span {
     display: flex;
     align-items: center;
+    gap: 0.5rem;
 }
 
 .icon {
     width: 15%;
 }
 
-.desc{
+.desc {
     display: flex;
     flex-direction: column;
     align-items: start;
     font-size: 10pt;
+    text-align: left;
 }
 
 .info {
@@ -133,7 +153,6 @@ span {
     flex-direction: column;
     gap: .5rem;
 }
-
 
 button.confirm {
     background-color: #1A1A1E;
@@ -175,30 +194,35 @@ button.confirm:hover {
     display: flex;
     margin: 10px auto;
     color: white;
-    gap: 3rem;
+    gap: 1rem;
 }
 
-.data2,
-.data1 {
+.data1,
+.data2 {
     display: flex;
     flex-direction: column;
     gap: .5rem;
+    text-align: left;
 }
 
-.data1>p {
-    display: flex;
-    gap: 1rem;
-}
-
+.data1>p,
 .data2>p {
-    display: grid;
-    grid-template-columns: .4fr 1fr;
+    display: flex;
+    align-items: center;
     gap: 1rem;
+    text-align: left;
+}
+
+.data2>p span,
+.input {
+    flex: 1;
+    max-width: 100%;
 }
 
 p>span {
     display: flex;
-    gap: 1rem;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 input {
@@ -207,13 +231,15 @@ input {
     border: 0;
     outline: none;
     width: 100%;
+    text-align: left;
 }
 
 .input {
     width: 80%;
     display: flex;
-    align-items: start;
-    justify-content: start;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
 }
 
 .editable {
