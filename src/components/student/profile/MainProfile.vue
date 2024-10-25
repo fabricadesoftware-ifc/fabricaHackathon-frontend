@@ -110,7 +110,7 @@ const toggleEdit = () => {
 <style scoped>
 section {
     background-color: #1A1A1E;
-    margin: 10% auto;
+    margin: 10% auto 0;
     border: 1px solid #535353;
     border-radius: 9px;
     padding: 2rem;
@@ -118,15 +118,17 @@ section {
     max-width: 800px;
 }
 
-@media (min-width: 768px) {
-    section {
-        width: 70vw;
-    }
-}
-
 @media (min-width: 1440px) {
     section {
         width: 45vw;
+    }
+
+    .data_info {
+        gap: 3rem;
+    }
+
+    .data2>p {
+        grid-template-columns: .9fr 2fr;
     }
 }
 
@@ -197,12 +199,21 @@ button.confirm:hover {
     gap: 1rem;
 }
 
-.data1,
+.data1 {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    text-align: left;
+    width: 40%;
+}
+
+
 .data2 {
     display: flex;
     flex-direction: column;
     gap: .5rem;
     text-align: left;
+    width: 60%;
 }
 
 .data1>p,
@@ -213,10 +224,12 @@ button.confirm:hover {
     text-align: left;
 }
 
-.data2>p span,
-.input {
-    flex: 1;
-    max-width: 100%;
+.data2>p {
+    display: grid;
+    grid-template-columns: 1.1fr 2fr;
+    align-items: center;
+    gap: 1rem;
+    text-align: left;
 }
 
 p>span {
@@ -232,6 +245,10 @@ input {
     outline: none;
     width: 100%;
     text-align: left;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    appearance: none;
 }
 
 .input {
