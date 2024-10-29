@@ -1,9 +1,10 @@
 <script setup>
-import HeaderButton from "../button/HeaderButton.vue";
+// import HeaderButton from "../button/HeaderButton.vue";
 import { useAuthStore } from "@/stores/auth";
 
 const authStore = useAuthStore();
 import DropDown from './DropDown.vue';
+import DropDownStudent from "./DropDownStudent.vue";
 </script>
 
 <template>
@@ -15,7 +16,10 @@ import DropDown from './DropDown.vue';
       <div>
         <router-link to="/editions" class="header">Edições</router-link>
       </div>
-      <div>
+      <div v-if="authStore.data_user.user_type == 'student'">
+        <DropDownStudent />
+      </div>
+      <div v-else>
         <DropDown />
       </div>
     </div>
