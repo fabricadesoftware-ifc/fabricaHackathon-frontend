@@ -65,7 +65,15 @@ const router = createRouter({
           path: '/editions/:edition/teams/add',
           name: 'addTeam',
           component: () => import('../pages/team/AddTeamView.vue'),
-          params: true
+          params: true,
+          meta: { requiresStudent: true }
+        },
+        {
+          path: '/editions/:edition/project/add',
+          name: 'addProject',
+          component: () => import('../pages/team/AddProjectView.vue'),
+          params: true,
+          meta: { requiresStudent: true }
         },
         {
           path: '/profile',
@@ -83,10 +91,17 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const { isLogged } = useAuthStore()
+  const authStore = useAuthStore()
+  const { isLogged, data_user } = authStore
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!isLogged) {
+      next({ path: '/auth' })
+    } else {
+      next()
+    }
+  } else if (to.matched.some((record) => record.meta.requiresStudent)) {
+    if (data_user.user_type != 'student') {
       next({ path: '/auth' })
     } else {
       next()

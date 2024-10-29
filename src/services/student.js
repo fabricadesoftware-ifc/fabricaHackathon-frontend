@@ -1,14 +1,6 @@
 import { api } from '@/plugins/axios';
 
 class StudentService {
-    async getStudents() {
-        const { data } = await api.get('/students/');
-        return data;
-    }
-    async getStudent(id) {
-        const { data } = await api.get(`/students/${id}/`);
-        return data;
-    }
     async getAvailableStudentsByClass(editionId, classId) {
         const { data } = await api.get(`/available-students/edition/${editionId}?class_info=${classId}`);
         return data;

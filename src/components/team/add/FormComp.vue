@@ -1,8 +1,7 @@
 <script setup>
-import { reactive, ref, onMounted} from 'vue'
+import { reactive, ref, onMounted } from 'vue'
 import { useTeamStore } from '@/stores/team'
 import { useClassInfoStore } from '@/stores/classInfo'
-import { useStudentStore } from '@/stores/student'
 import { useCategoryStore } from '@/stores/category'
 import GradientInput from '@/components/global/input/GradientInput.vue'
 import GradientSelect from '@/components/global/input/GradientSelect.vue'
@@ -13,7 +12,6 @@ import RoundButton from '@/components/global/button/RoundButton.vue'
 
 const teamStore = useTeamStore()
 const classInfoStore = useClassInfoStore()
-const studentStore = useStudentStore()
 const categoryStore = useCategoryStore()
 const showModal = ref(false)
 const members = ref([])
@@ -37,7 +35,6 @@ function addMember(data) {
 
 onMounted(async () => {
   await classInfoStore.getEditionClasses(edition.value)
-  await studentStore.getStudents()
   await categoryStore.getEditionCategories(edition.value)
 })
 </script>
