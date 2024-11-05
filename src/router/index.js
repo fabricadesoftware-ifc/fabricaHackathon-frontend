@@ -47,7 +47,7 @@ const router = createRouter({
           path: '/evaluate/:edition/teams/:id',
           name: 'evaluateTeam',
           component: () => import('../pages/avaliator/EvaluateTeamAvaliatorView.vue'),
-          meta: { requiresAuth: true }
+          // meta: { requiresAuth: true }
         }
       ]
     },
