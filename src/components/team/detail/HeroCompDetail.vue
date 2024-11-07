@@ -3,9 +3,9 @@ import { useTeamStore } from '@/stores/team';
 const teamsStore = useTeamStore();
 import router from '@/router';
 
-import BallCard from '@/components/global/cards/BallCard.vue';
-import SquareCardBox from '@/components/global/cards/SquareCardBox.vue';
-import RoundCardCode from "@/components/global/cards/RoundCardCode.vue";
+import BallCard from '@/components/global/card/BallCard.vue';
+import SquareCardBox from '@/components/global/card/SquareCardBox.vue';
+import RoundCardCode from "@/components/global/card/RoundCardCode.vue";
 
 import ConsoleLine from 'vue-material-design-icons/ConsoleLine.vue';
 import CubeOutline from 'vue-material-design-icons/CubeOutline.vue';
