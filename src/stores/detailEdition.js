@@ -16,14 +16,12 @@ export const useDetailEditionStore = defineStore('detailEdition', () => {
     const getAllTeams = async(idEdition) => {
         const data = await DetailEditionService.getAllTeams(idEdition);
         countTeams.value = data.length;
-        
-        console.log(data);
+
         populateRefs(data);
     };
 
     const orderByWinningTeams = (teams = []) => {
         winningTeams.value = DetailEditionService.orderByWinningTeams(teams);
-        console.log(winningTeams.value)
     };
     const orderBySalesTeams = (teams = []) => {
         const index = useCategory.getIdCategoryByName('Category 8');
@@ -57,17 +55,17 @@ export const useDetailEditionStore = defineStore('detailEdition', () => {
     };
 
     return {
-        countTeams, 
-        winningTeams, 
-        salesTeams, 
-        servicesTeam, 
-        rentalsTeams, 
+        countTeams,
+        winningTeams,
+        salesTeams,
+        servicesTeam,
+        rentalsTeams,
         uncategorizedTeams,
         getAllTeams,
-        orderByWinningTeams, 
-        orderBySalesTeams, 
-        orderByServicesTeams, 
-        orderByRentalsTeams, 
-        orderByUncategorized 
+        orderByWinningTeams,
+        orderBySalesTeams,
+        orderByServicesTeams,
+        orderByRentalsTeams,
+        orderByUncategorized
     };
 });
