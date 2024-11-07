@@ -21,6 +21,10 @@ class EditionService {
         const { data } = await api.delete(`/editions/${id}/`);
         return data;
     }
+    async getAvaliatorEditions(id) {
+        const { data } = await api.get(`/editions/avaliator/${id}`);
+        return data;
+    }
 }
 
 export default new EditionService();

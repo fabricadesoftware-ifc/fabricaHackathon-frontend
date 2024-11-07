@@ -1,10 +1,16 @@
 <script setup>
+import { HeroCompAvaliator, SectionsEditionsAvaliator } from "@/components";
 </script>
 
 <template>
-  <div></div>
+  <main>
+	<HeroCompAvaliator />
+	<SectionsEditionsAvaliator />
+  </main>
 </template>
 
 <style scoped>
-
+main {
+  width: 100%;
+}
 </style>
