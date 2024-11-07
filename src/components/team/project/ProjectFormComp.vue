@@ -14,16 +14,16 @@ const route = useRoute()
 const currentTeam = ref(null)
 
 function findTeamByStudentIdAndEdition(studentId, editionId) {
-  return teamStore.teams.find(team =>
-    team.edition === editionId && team.students.includes(studentId)
-  )
+    return teamStore.teams.find(team =>
+        team.edition === editionId && team.students.includes(studentId)
+    )
 }
 
 const dados = reactive({
-  id: 0,
-  project_name: '',
-  deploy_link: '',
-  repository_link: '',
+    id: 0,
+    project_name: '',
+    deploy_link: '',
+    repository_link: '',
 })
 
 onMounted(async () => {
@@ -33,9 +33,9 @@ onMounted(async () => {
 
   currentTeam.value = findTeamByStudentIdAndEdition(authStore.student_profile_data.id, editionId)
 
-  if (currentTeam.value) {
-    dados.id = currentTeam.value.id
-  }
+    if (currentTeam.value) {
+        dados.id = currentTeam.value.id
+    }
 })
 
 </script>
