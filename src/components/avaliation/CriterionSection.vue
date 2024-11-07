@@ -3,24 +3,25 @@ import { ref, onMounted } from 'vue';
 import { useTeamStore } from '@/stores/team';
 import { useEditionStore } from '@/stores/edition';
 import { useAuthStore } from '@/stores/auth';
-// import { useAvaliationStore } from '@/stores/avaliation';
+import { useAvaliationStore } from '@/stores/avaliation';
 import ArrowTopRight from 'vue-material-design-icons/ArrowTopRight.vue';
 import router from '@/router';
 
 const teamStore = useTeamStore();
 const authStore = useAuthStore();
 const editionStore = useEditionStore();
-// const avaliationStore = useAvaliationStore();
+const avaliationStore = useAvaliationStore();
 const currentTeam = ref(null);
-const teamId = router.currentRoute.value.params.id;
+const teamId = ref(router.currentRoute.value.params.id);
 
 const avaliations = ref([]);
 
 onMounted(async () => {
     await teamStore.getTeams();
-    await teamStore.getTeam(teamId);
+    await teamStore.getTeam(teamId.value);
     await editionStore.getEditions();
     await editionStore.getEdition(router.currentRoute.value.params.edition);
+    await avaliationStore.getAvaliations()
     currentTeam.value = teamStore.team;
 
     if (editionStore.edition?.criteria?.length) {
@@ -33,8 +34,17 @@ onMounted(async () => {
     } else {
         console.warn("Criteria não foi carregado corretamente.");
     }
+
 });
 
+const sendEvaluations = async () => {
+    try {
+        await avaliationStore.insertAllAvaliations(avaliations.value);
+        console.log("Avaliações enviadas com sucesso!");
+    } catch (error) {
+        console.error("Erro ao enviar avaliações:", error);
+    }
+};
 </script>
 
 <template>
@@ -43,18 +53,18 @@ onMounted(async () => {
             <div class="title">
                 <h1>CRITÉRIOS</h1>
             </div>
-            <div class="criterion" v-for="item in editionStore.edition.criteria" :key="item">
+            <div class="criterion" v-for="(item, index) in editionStore.edition.criteria" :key="item.id">
                 <div class="title">
                     <p>{{ item.description }}</p>
                     <span>({{ (item.weight) * 100 }}%)</span>
                 </div>
                 <div class="input">
-                    <!-- <label for="">Nota:</label> -->
-                    <input type="text" class="inputCriterion" placeholder="Insira a Nota da Equipe">
+                    <input type="number" class="inputCriterion" placeholder="Insira a Nota da Equipe"
+                        v-model.number="avaliations[index].grade" min="0" max="10" />
                 </div>
             </div>
         </div>
-        <button>
+        <button @click="sendEvaluations">
             <span>Enviar</span>
             <span class="roundSpan">
                 <ArrowTopRight size="20" />
@@ -77,7 +87,7 @@ section {
     margin: 2rem auto;
     display: flex;
     flex-direction: column;
-    gap: 2rem
+    gap: 2rem;
 }
 
 .criterion {
@@ -124,18 +134,13 @@ section {
     outline: 0;
 }
 
-label {
-    color: #fff;
-    font-size: 1rem;
-}
-
-input[type="text"] {
+input[type="number"] {
     color: #fff;
     font-size: 13pt;
     letter-spacing: 1.5px;
 }
 
-input[type="text"]::placeholder {
+input[type="number"]::placeholder {
     color: #fff;
 }
 
@@ -144,7 +149,6 @@ span {
     justify-content: center;
     align-items: center;
 }
-
 
 button {
     padding: .8rem 2rem;
@@ -188,9 +192,7 @@ button::before {
     top: 50%;
     right: 0.4rem;
     transform: translateY(-50%);
-    transition:
-        background 0.3s ease,
-        color 0.3s ease;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .roundSpan::before {
