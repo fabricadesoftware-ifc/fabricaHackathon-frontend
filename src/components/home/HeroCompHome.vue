@@ -34,7 +34,7 @@ section {
   width: 100%;
   display: grid;
   grid-template-columns: 1.5fr 4fr 1.5fr;
-  height: 75vh;
+  height: 100vh;
 }
 
 .text {
