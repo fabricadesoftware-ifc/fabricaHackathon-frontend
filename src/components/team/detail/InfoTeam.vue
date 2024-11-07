@@ -54,7 +54,7 @@ onMounted(async () => {
                 </div>
                 <div class="rowTwo">
                     <p v-for="item in teamsStore.team.students" :key="item">
-                        {{ item.name }}
+                        {{ item.user.name }}
                     </p>
                 </div>
                 <div>
@@ -63,7 +63,7 @@ onMounted(async () => {
             </div>
         </div>
         <div class="image">
-            <img :src="base64Format(teamsStore.team.photo_base64_team?.photo_base64)" alt="">
+            <img :src="base64Format(teamsStore.team.photo_base64_code)" alt="">
         </div>
     </section>
 </template>
