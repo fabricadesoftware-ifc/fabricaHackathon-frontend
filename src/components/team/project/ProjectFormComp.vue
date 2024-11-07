@@ -59,9 +59,6 @@ onMounted(async () => {
 
   currentTeam.value = findTeamByStudentIdAndEdition(authStore.student_profile_data.id, editionId)
 
-  if (currentTeam.value) {
-    dados.id = currentTeam.value.id
-  }
 })
 
 </script>
