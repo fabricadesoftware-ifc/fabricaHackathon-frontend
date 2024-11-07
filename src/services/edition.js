@@ -22,7 +22,7 @@ class EditionService {
         return data;
     }
     async getAvaliatorEditions(id) {
-        const { data } = await api.get(`/editions/avaliator/${id}`);
+        const { data } = await api.get(`/editions/avaliator/${id}/active/`);
         return data;
     }
 }
