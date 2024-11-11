@@ -1,7 +1,7 @@
 <template>
   <div class="infos">
     <div>
-      <h3>Hackaton</h3>
+      <h3>Hackathon</h3>
       <a href="https://github.com/fabricadesoftware-ifc/fabricaHackathon-frontend"
         >GitHub</a>
       <a href="https://www.instagram.com/hackathon_ifc/">Instagram</a>

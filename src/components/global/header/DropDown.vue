@@ -16,7 +16,6 @@ const authStore = useAuthStore()
             <HeaderButton text="Menu" />
         </template>
         <div class="dropLinks">
-
             <router-link to="/home" class="drop">
                 <Home />
                 Home

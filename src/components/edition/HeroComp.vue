@@ -19,7 +19,7 @@ import ConsoleLine from "vue-material-design-icons/ConsoleLine.vue";
             <SquareCardBox :component="CubeOutline" />
         </div>
         <div class="text">
-            <h1 class="gradient">EDIÇÕES DO HACKATON</h1>
+            <h1 class="gradient">EDIÇÕES DO HACKATHON</h1>
         </div>
         <div class="cards2">
             <span></span>

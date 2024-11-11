@@ -5,6 +5,7 @@ import { useAuthStore } from "@/stores/auth";
 const authStore = useAuthStore();
 import DropDown from './DropDown.vue';
 import DropDownStudent from "./DropDownStudent.vue";
+import DropDownAvaliator from "./DropDownAvaliator.vue";
 </script>
 
 <template>
@@ -18,6 +19,9 @@ import DropDownStudent from "./DropDownStudent.vue";
       </div>
       <div v-if="authStore.data_user.user_type == 'student'">
         <DropDownStudent />
+      </div>
+      <div v-if="authStore.data_user.user_type == 'avaliator'">
+        <DropDownAvaliator />
       </div>
       <div v-else>
         <DropDown />

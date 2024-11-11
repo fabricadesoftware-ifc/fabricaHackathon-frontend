@@ -18,7 +18,7 @@ import ButtonHeroOpen from "../global/button/ButtonHeroOpen.vue";
       </p>
     </div>
     <div class="row3">
-      <p class="gradient">HACKATON!</p>
+      <p class="gradient">HACKATHON!</p>
       <div class="gradientBall">
         <GradientBall />
       </div>

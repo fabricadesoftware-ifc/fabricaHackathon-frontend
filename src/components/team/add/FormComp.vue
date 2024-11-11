@@ -30,7 +30,7 @@ const dados = reactive({
 function addMember(data) {
   dados.students = data.students
   dados.turma = data.turma
-  dados.leader = data.selectedLeader
+  dados.leader = Number(data.selectedLeader)
 }
 
 onMounted(async () => {
@@ -66,7 +66,7 @@ onMounted(async () => {
           <div class="listMembers">
             <div class="itemContainer">
               <div v-for="(item) in members" :key="item.id" class="itemMember">
-                <p>{{ item.name }}</p>
+                <p>{{ item.user.name }}</p>
                 <p>{{ item.class_info.name }}</p>
               </div>
             </div>

@@ -39,7 +39,7 @@ watch(() => infoData.turma, async (newTurmaId) => {
 });
 
 const filteredStudents = computed(() => {
-    const filtered = store.student.studentsClass.filter(s => s.name.toLowerCase().includes(infoData.searchTerm.toLowerCase()));
+    const filtered = store.student.studentsClass.filter(s => s.user.name?.toLowerCase().includes(infoData.searchTerm.toLowerCase()));
     const available = filtered.filter(s => !infoData.students.includes(s.id));
     return available;
 });
@@ -74,7 +74,7 @@ const closeModal = () => {
                         <GradientSelect label="Integrante" v-model:option="infoData.selectedItem">
                             <option disabled value="" v-if="!filteredStudents.length">Nenhum aluno disponível encontrado na turma.</option>
                             <option disabled value="" v-else>Selecione um Integrante:</option>
-                            <option v-for="item in filteredStudents" :key="item.id" :value="item">{{ item.name }}
+                            <option v-for="item in filteredStudents" :key="item.id" :value="item">{{ item.user.name }}
                             </option>
                         </GradientSelect>
                         <div class="position1">
@@ -85,12 +85,12 @@ const closeModal = () => {
                     </div>
                     <GradientSelect label="Líder da Equipe" v-model:option="infoData.selectedLeader" @changeLeader="addLeader">
                         <option disabled value="">Selecione um líder:</option>
-                        <option v-for="item in infoData.selectedStudents" :key="item.id" :value="item.id">{{ item.name }}
+                        <option v-for="item in infoData.selectedStudents" :key="item.id" :value="item.user.id">{{ item.user.name }}
                         </option>
                     </GradientSelect>
                     <div class="listMembers">
                         <div v-for="(item, index) in infoData.selectedStudents" :key="item.id" class="itemMember">
-                            <p>{{ item.name }}</p>
+                            <p>{{ item.user.name }}</p>
                             <p>{{ item.class_info.name }}</p>
                             <RoundButton @click="removeMember(index)">
                                 <template v-slot:default>
