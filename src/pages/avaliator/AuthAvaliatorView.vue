@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue'
 import FormAvaliator from '@/components/avaliator/form/FormAvaliator.vue'
 import ImageComp from '@/components/team/add/ImageComp.vue'
 </script>

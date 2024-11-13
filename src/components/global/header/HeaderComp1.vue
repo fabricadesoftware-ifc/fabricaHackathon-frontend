@@ -23,7 +23,7 @@ import DropDownAvaliator from "./DropDownAvaliator.vue";
       <div v-if="authStore.data_user.user_type == 'avaliator'">
         <DropDownAvaliator />
       </div>
-      <div v-else>
+      <div v-if="authStore.data_user.user_type != 'avaliator' && authStore.data_user.user_type != 'student'">
         <DropDown />
       </div>
     </div>

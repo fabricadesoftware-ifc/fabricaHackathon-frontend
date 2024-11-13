@@ -29,7 +29,7 @@ const authStore = useAuthStore()
                 Login
             </router-link>
             <div v-if="authStore.isLogged">
-                <router-link to="/project" class="drop">
+                <router-link to="/editions/1/project/add/" class="drop">
                     <CodeGreaterThan />
                     Projeto
                 </router-link>
