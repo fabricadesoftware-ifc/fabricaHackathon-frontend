@@ -13,7 +13,7 @@ const route = useRoute();
         <div class="allBlur">
             <div class="info">
                 <div class="text">
-                    <h3>{{ object.name }}</h3>
+                    <h3>{{ object.title }}</h3>
                     <p>{{ object.description }}</p>
                 </div>
                 <div class="button">
