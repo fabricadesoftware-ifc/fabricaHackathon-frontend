@@ -29,7 +29,6 @@ export const useStudentStore = defineStore('student', () => {
     const deleteStudent = async (id) => {
         try {
             await studentService.deleteStudent(id);
-            return true;
         } catch (error) {
             console.error(error);
         }
