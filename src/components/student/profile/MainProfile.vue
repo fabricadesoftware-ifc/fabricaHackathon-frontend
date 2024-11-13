@@ -1,6 +1,7 @@
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/auth';
+import { useStudentStore } from '@/stores/student';
 import Account from 'vue-material-design-icons/Account.vue';
 import Github from 'vue-material-design-icons/Github.vue';
 import Instagram from 'vue-material-design-icons/Instagram.vue';
@@ -11,18 +12,25 @@ import EmailOutline from 'vue-material-design-icons/EmailOutline.vue';
 
 const isEditable = ref(false);
 const authStore = useAuthStore();
+const studentStore = useStudentStore();
 
 const studentProfileCopy = reactive({
-    instagram: authStore.student_profile_data.instagram || '',
-    linkedin: authStore.student_profile_data.linkedin || '',
-    github: authStore.student_profile_data.github || '',
-    whatsapp: authStore.student_profile_data.whatsapp || '',
+    ...authStore.student_profile_data
 });
 
 const toggleEdit = () => {
     isEditable.value = !isEditable.value;
 };
 
+function saveProfile() {
+    studentStore.updateStudentProfile(studentProfileCopy)
+    authStore.student_profile_data = studentProfileCopy
+    isEditable.value = !isEditable.value
+}
+
+onMounted(() => {
+    studentStore.getStudentProfile()
+})
 </script>
 
 <template>
@@ -101,7 +109,7 @@ const toggleEdit = () => {
                 <button class="confirm" @click="toggleEdit">
                     <Pencil style="color: #fe5c2b;" />
                 </button>
-                <button class="confirm" v-if="isEditable">Confirmar</button>
+                <button class="confirm" v-if="isEditable" @click="saveProfile">Confirmar</button>
             </div>
         </div>
     </section>

@@ -53,6 +53,15 @@ export const useStudentStore = defineStore('student', () => {
         }
     }
 
+    const updateStudentProfile = async (student) => {
+        try {
+            const data = studentService.updateStudentProfile(student);
+            return data
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return {
         students,
         student,
@@ -62,6 +71,7 @@ export const useStudentStore = defineStore('student', () => {
         getStudentProfile,
         createStudent,
         updateStudent,
+        updateStudentProfile,
         deleteStudent,
         getAvailableStudentsByClass
     };
