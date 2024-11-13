@@ -1,10 +1,12 @@
 <script setup>
-import { reactive } from 'vue'
+import { onMounted, reactive } from 'vue'
 import { useProjectStore } from '@/stores/project'
+import { useAuthStore } from '@/stores/auth'
 import GradientInput from '@/components/global/input/GradientInput.vue'
 import OrangeButton from '@/components/global/button/OrangeButton.vue'
 
 const projectStore = useProjectStore()
+const authStore = useAuthStore()
 
 const dados = reactive({
     id: 0,  
@@ -12,7 +14,9 @@ const dados = reactive({
     deploy_link: '',
     repository_link: '',
 })
-
+onMounted(async () => {
+    await projectStore.getProjects()
+})
 </script>
 
 <template>

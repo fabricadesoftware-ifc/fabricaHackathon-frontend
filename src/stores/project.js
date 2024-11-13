@@ -7,6 +7,15 @@ export const useProjectStore = defineStore('project', () => {
   const project = ref([])
   const newProject = ref([])
 
+  const getProjects = async () => {
+    try {
+      const data = await projectService.getProjects()
+      projects.value = data
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const createProject = async (project) => {
     try {
       const data = await projectService.createProject(project)
@@ -38,6 +47,7 @@ export const useProjectStore = defineStore('project', () => {
     newProject,
     createProject,
     updateProject,
-    deleteProject
+    deleteProject,
+    getProjects
   }
 })
