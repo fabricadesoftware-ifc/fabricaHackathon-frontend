@@ -2,42 +2,61 @@
 import { onMounted } from "vue";
 import { useDetailEditionStore } from '@/stores/detailEdition';
 import { useCategoryStore } from '@/stores/category';
+import { useEditionStore } from "@/stores/edition";
 import { useRoute } from 'vue-router';
-import CardEdition from "../global/card/CardEdition.vue";
+import CardDetailTeam from "../global/card/CardDetailTeam.vue";
 
 const useDetailEdition = useDetailEditionStore();
 const useCategory = useCategoryStore();
 const route = useRoute();
+const useEdition = useEditionStore();
+const currentEdition = route.params.edition;
 
-onMounted(async() => {
+onMounted(async () => {
     await useCategory.getCategories();
     await useDetailEdition.getAllTeams(route.params.edition);
+    await useEdition.getEdition(currentEdition);
+    console.log(currentEdition)
 });
 </script>
 
 <template>
     <section>
+        {{ useEdition.edition.categories }}
         <div class="container">
             <h2 class="titleEdition">EQUIPES GANHADORAS</h2>
             <div class="editions">
-                <CardEdition v-for="(object, index) in useDetailEdition.winningTeams" :key="index" :object="object" />
+                <CardDetailTeam v-for="(object, index) in useDetailEdition.winningTeams" :key="index" :object="object"
+                    :edition="currentEdition" />
             </div>
-            <h2 class="titleEdition">VENDAS</h2>
+            <div class="category" v-for="item in useEdition.edition.categories" :key="item">
+                <h2 class="titleEdition">{{ item.name }}</h2>
+                <div class="editions">
+                    <CardDetailTeam v-for="(object, index) in useEdition.edition.categories" :key="index"
+                        :object="object" :edition="currentEdition" />
+                </div>
+            </div>
+
+            <!-- <h2 class="titleEdition">VENDAS</h2>
             <div class="editions">
-                <CardEdition v-for="(object, index) in useDetailEdition.salesTeams" :key="index" :object="object" />
+                <CardDetailTeam v-for="(object, index) in useDetailEdition.salesTeams" :key="index" :object="object"
+                    :edition="currentEdition" />
             </div>
             <h2 class="titleEdition">SERVIÇOS</h2>
             <div class="editions">
-                <CardEdition v-for="(object, index) in useDetailEdition.servicesTeam" :key="index" :object="object" />
+                <CardDetailTeam v-for="(object, index) in useDetailEdition.servicesTeam" :key="index" :object="object"
+                    :edition="currentEdition" />
             </div>
             <h2 class="titleEdition">LOCAÇÕES</h2>
             <div class="editions">
-                <CardEdition v-for="(object, index) in useDetailEdition.rentalsTeams" :key="index" :object="object" />
+                <CardDetailTeam v-for="(object, index) in useDetailEdition.rentalsTeams" :key="index" :object="object"
+                    :edition="currentEdition" />
             </div>
             <h2 class="titleEdition">SEM CATEGORIA (3INFOs e BSI)</h2>
             <div class="editions">
-                <CardEdition v-for="(object, index) in useDetailEdition.rentalsTeams" :key="index" :object="object" />
-            </div>
+                <CardDetailTeam v-for="(object, index) in useDetailEdition.rentalsTeams" :key="index" :object="object"
+                    :edition="currentEdition" />
+            </div> -->
         </div>
         <!-- <button>
             VER MAIS
@@ -156,9 +175,9 @@ button:hover>.roundSpan {
 }
 
 .arrow-top-right-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @media (max-width: 768px) {
