@@ -17,10 +17,15 @@ class StudentService {
         const { data } = await api.patch(`/students/${student.id}/`, student);
         return data;
     }
+    async updateStudentProfile(student) {
+        const { data } = await api.patch(`/student-profiles/${student.id}/`, student);
+        return data;
+    }
     async deleteStudent(id) {
         const { data } = await api.delete(`/students/${id}/`);
         return data;
     }
+    
 }
 
 export default new StudentService();
