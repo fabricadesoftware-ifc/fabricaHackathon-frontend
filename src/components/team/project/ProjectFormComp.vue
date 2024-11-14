@@ -16,6 +16,7 @@ const dados = reactive({
 })
 onMounted(async () => {
     await projectStore.getProjects()
+    console.log(projectStore.projects)
 })
 </script>
 
