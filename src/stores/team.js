@@ -6,7 +6,7 @@ import { useAuthStore } from './auth'
 export const useTeamStore = defineStore('team', () => {
   const authStore = useAuthStore()
   const teams = ref([])
-  const team = ref({})
+  const team = ref([])
   const newTeam = ref([])
 
   const getTeams = async () => {
