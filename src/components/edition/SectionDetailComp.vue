@@ -1,71 +1,70 @@
 <script setup>
-import { onMounted } from "vue";
-import { useDetailEditionStore } from '@/stores/detailEdition';
-import { useCategoryStore } from '@/stores/category';
+import { onMounted, computed } from "vue";
+import { useDetailEditionStore } from "@/stores/detailEdition";
+import { useCategoryStore } from "@/stores/category";
 import { useEditionStore } from "@/stores/edition";
-import { useRoute } from 'vue-router';
+import { useProjectStore } from "@/stores/project";
+import { useRoute } from "vue-router";
 import CardDetailTeam from "../global/card/CardDetailTeam.vue";
+import CardWinnerTeam from "../global/card/CardWinnerTeam.vue";
 
 const useDetailEdition = useDetailEditionStore();
 const useCategory = useCategoryStore();
 const route = useRoute();
 const useEdition = useEditionStore();
 const currentEdition = route.params.edition;
+const useProject = useProjectStore();
+
+function  upperCase(string) {
+    return string.toUpperCase();
+}
 
 onMounted(async () => {
     await useCategory.getCategories();
-    await useDetailEdition.getAllTeams(route.params.edition);
+    await useDetailEdition.getAllTeams(currentEdition);
     await useEdition.getEdition(currentEdition);
-    console.log(currentEdition)
+    await useProject.getProjects();
+    await useProject.getProjectByEdition(currentEdition);
+});
+
+const categoriesWithProjects = computed(() => {
+    const categories = useEdition.edition?.categories || [];
+    const projects = useProject.projectsByEdition || [];
+    return categories.filter(category =>
+        projects.some(project => project.category === category.id)
+    );
 });
 </script>
 
 <template>
     <section>
-        {{ useEdition.edition.categories }}
         <div class="container">
             <h2 class="titleEdition">EQUIPES GANHADORAS</h2>
             <div class="editions">
-                <CardDetailTeam v-for="(object, index) in useDetailEdition.winningTeams" :key="index" :object="object"
+                <CardWinnerTeam v-for="(object, index) in useDetailEdition.winningTeams" :key="index" :object="object"
                     :edition="currentEdition" />
             </div>
-            <div class="category" v-for="item in useEdition.edition.categories" :key="item">
-                <h2 class="titleEdition">{{ item.name }}</h2>
+            <div class="category" v-for="item in categoriesWithProjects" :key="item.id">
+                <h2 class="titleEdition">{{ upperCase(item.name) }}</h2>
                 <div class="editions">
-                    <CardDetailTeam v-for="(object, index) in useEdition.edition.categories" :key="index"
-                        :object="object" :edition="currentEdition" />
+                    <div class="teste"
+                        v-for="(object, index) in useProject.projectsByEdition.filter(obj => obj.category === item.id)"
+                        :key="index">
+                        <CardDetailTeam :object="object" :edition="currentEdition" />
+                    </div>
                 </div>
             </div>
-
-            <!-- <h2 class="titleEdition">VENDAS</h2>
-            <div class="editions">
-                <CardDetailTeam v-for="(object, index) in useDetailEdition.salesTeams" :key="index" :object="object"
-                    :edition="currentEdition" />
-            </div>
-            <h2 class="titleEdition">SERVIÇOS</h2>
-            <div class="editions">
-                <CardDetailTeam v-for="(object, index) in useDetailEdition.servicesTeam" :key="index" :object="object"
-                    :edition="currentEdition" />
-            </div>
-            <h2 class="titleEdition">LOCAÇÕES</h2>
-            <div class="editions">
-                <CardDetailTeam v-for="(object, index) in useDetailEdition.rentalsTeams" :key="index" :object="object"
-                    :edition="currentEdition" />
-            </div>
-            <h2 class="titleEdition">SEM CATEGORIA (3INFOs e BSI)</h2>
-            <div class="editions">
-                <CardDetailTeam v-for="(object, index) in useDetailEdition.rentalsTeams" :key="index" :object="object"
-                    :edition="currentEdition" />
-            </div> -->
         </div>
         <!-- <button>
             VER MAIS
             <span class="roundSpan">
-                <ArrowTopRight size=20 />
+                <ArrowTopRight size="20" />
             </span>
         </button> -->
     </section>
 </template>
+
+
 
 <style scoped>
 section {
@@ -178,6 +177,12 @@ button:hover>.roundSpan {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.category {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 @media (max-width: 768px) {
