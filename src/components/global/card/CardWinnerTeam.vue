@@ -3,14 +3,9 @@ import { useRoute } from 'vue-router';
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
     object: Object,
-    edition: Number, 
+    edition: Number,
     project: Object
 });
-
-
-function upperCase(string) {
-    return string.toUpperCase();
-}
 
 const route = useRoute();
 </script>
@@ -21,11 +16,11 @@ const route = useRoute();
         <div class="allBlur">
             <div class="info">
                 <div class="text">
-                    <h3>{{ upperCase(object?.name) }}</h3>
+                    <h3>{{ object.name }}</h3>
                     <p>{{ object.description }}</p>
                 </div>
                 <div class="button">
-                    <router-link :to="`/editions/${props.edition}/teams/${props.object.team_id}`">
+                    <router-link :to="`/editions/${props.edition}/teams/${props.object.idTeam}`">
                         <button>
                             {{ route.fullPath == '/editions/' ? 'Edição' : 'Ver equipe' }}
                             <span> -> </span>

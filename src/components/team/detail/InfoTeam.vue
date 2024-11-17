@@ -14,8 +14,8 @@ const base64Format = (photo) => {
 };
 
 const redirectToProject = () => {
-    if (teamsStore.team?.deploy_link) {
-        window.open(teamsStore.team.deploy_link, '_blank');
+    if (teamsStore.team?.project?.repository_link) {
+        window.open(teamsStore.team?.project?.repository_link, '_blank');
     }
     else {
         window.open("https://google.com", '_blank');
@@ -29,6 +29,7 @@ onMounted(async () => {
 
 <template>
     <section v-if="teamsStore.team">
+        <!-- <p style="color: white;">{{ teamsStore.team?.students }}</p> -->
         <div class="container">
             <div class="titles">
                 <div class="rowOne">
@@ -53,7 +54,7 @@ onMounted(async () => {
                         ou outras áreas.</p>
                 </div>
                 <div class="rowTwo">
-                    <p v-for="item in teamsStore.team.students" :key="item">
+                    <p v-for="item in teamsStore.team?.students" :key="item">
                         {{ item.user.name }}
                     </p>
                 </div>
@@ -63,7 +64,7 @@ onMounted(async () => {
             </div>
         </div>
         <div class="image">
-            <img :src="base64Format(teamsStore.team.photo_base64_code)" alt="">
+            <img :src="base64Format(teamsStore.team?.project?.project_photo_base64.photo_base64)" alt="">
         </div>
     </section>
 </template>
