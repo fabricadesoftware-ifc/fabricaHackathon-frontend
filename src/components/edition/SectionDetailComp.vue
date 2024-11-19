@@ -15,7 +15,7 @@ const useEdition = useEditionStore();
 const currentEdition = route.params.edition;
 const useProject = useProjectStore();
 
-function  upperCase(string) {
+function upperCase(string) {
     return string.toUpperCase();
 }
 
