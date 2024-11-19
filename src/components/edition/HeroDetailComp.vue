@@ -1,10 +1,20 @@
 <script setup>
+import { onMounted } from 'vue';
+import { useEditionStore } from '@/stores/edition';
+const useEdition = useEditionStore();
+import router from '@/router';
+
 import RoundCardCode from '../global/card/RoundCardCode.vue';
 import SquareCardBox from '../global/card/SquareCardBox.vue';
 import GradientBall from '../global/card/GradientBall.vue';
 import BallCard from '../global/card/BallCard.vue';
 import CubeOutline from "vue-material-design-icons/CubeOutline.vue";
 import ConsoleLine from "vue-material-design-icons/ConsoleLine.vue";
+
+onMounted(async () => {
+    await useEdition.getEdition(router.currentRoute.value.params.edition);
+
+});
 </script>
 
 <template>
@@ -22,7 +32,7 @@ import ConsoleLine from "vue-material-design-icons/ConsoleLine.vue";
                 <div class="text">
                     <h1 class="gradient">EDIÇÃO DO HACKATHON 3INFO 2024</h1>
                 </div>
-                <GradientBall position="width: 50%; position: relative; left: 370px; bottom: 95px" />
+                <GradientBall position="width: 50%; position: relative; left: 260px; bottom: 95px" />
             </div>
         </div>
         <div class="cards2">
@@ -90,6 +100,6 @@ section {
 
 .cards2>*:first-child {
     justify-self: center;
-    align-self: center ;
+    align-self: center;
 }
 </style>
