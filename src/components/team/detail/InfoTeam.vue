@@ -1,9 +1,15 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, computed } from 'vue';
 import { useTeamStore } from '@/stores/team';
+import { useStudentStore } from '@/stores/student';
 import router from '@/router';
-const teamsStore = useTeamStore();
 import RoundButtonGradient from '@/components/global/buttons/RoundButtonGradient.vue';
+import Instagram from 'vue-material-design-icons/Instagram.vue';
+import Github from 'vue-material-design-icons/Github.vue';
+import Linkedin from 'vue-material-design-icons/Linkedin.vue';
+
+const teamsStore = useTeamStore();
+const studentsStore = useStudentStore();
 
 const base64Format = (photo) => {
     if (!photo) {
@@ -16,20 +22,32 @@ const base64Format = (photo) => {
 const redirectToProject = () => {
     if (teamsStore.team?.project?.repository_link) {
         window.open(teamsStore.team?.project?.repository_link, '_blank');
-    }
-    else {
+    } else {
         window.open("https://google.com", '_blank');
     }
 };
 
+const associateStudentsWithProfiles = computed(() => {
+    const users = teamsStore.team?.students || [];
+    const studentProfiles = studentsStore.studentProfiles || [];
+
+    return users.map(user => {
+        const profile = studentProfiles.find(profile => profile.user.id === user.id);
+        return {
+            ...user,
+            studentProfile: profile || null,
+        };
+    });
+});
+
 onMounted(async () => {
+    await studentsStore.getStudentProfile();
     await teamsStore.getTeam(router.currentRoute.value.params.id);
 });
 </script>
 
 <template>
     <section v-if="teamsStore.team">
-        <!-- <p style="color: white;">{{ teamsStore.team?.students }}</p> -->
         <div class="container">
             <div class="titles">
                 <div class="rowOne">
@@ -42,7 +60,7 @@ onMounted(async () => {
                     <h2>NOTA</h2>
                 </div>
                 <div style="display: flex; align-items: center; gap: 1rem;">
-                    <h2>PROJETO</h2>
+                    <h2>{{ teamsStore.team?.project?.name?.toUpperCase() }}</h2>
                     <RoundButtonGradient @click="redirectToProject" />
                 </div>
             </div>
@@ -53,10 +71,23 @@ onMounted(async () => {
                         propor soluções inovadoras e desenvolver projetos relacionados à tecnologia, programação, design
                         ou outras áreas.</p>
                 </div>
-                <div class="rowTwo">
-                    <p v-for="item in teamsStore.team?.students" :key="item">
-                        {{ item.user.name }}
-                    </p>
+                <div class="rowThree">
+                    <div v-for="item in associateStudentsWithProfiles" :key="item.id">
+                        <div class="member">{{ item.studentProfile?.user?.name }}
+                            <!-- {{ item }} -->
+                            <div class="iconsInfo">
+                                <a :href="item.instagram">
+                                    <Instagram size="20" style="color: magenta;" />
+                                </a>
+                                <a :href="item.github">
+                                    <Github size="20" style="color: #c1c1c1;" />
+                                </a>
+                                <a :href="item.linkedin">
+                                    <Linkedin size="20" style="color: blue;" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <p class="grade">9.7</p>
@@ -64,11 +95,11 @@ onMounted(async () => {
             </div>
         </div>
         <div class="image">
-            <img :src="base64Format(teamsStore.team?.project?.project_photo_base64.photo_base64)" alt="">
+            <img :src="base64Format(teamsStore.team?.project?.project_photo_base64.photo_base64)"
+                alt="Imagem do Projeto">
         </div>
     </section>
 </template>
-
 
 <style scoped>
 section {
@@ -124,6 +155,22 @@ p {
     margin: 0;
 }
 
+.member {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: #c1c1c1;
+    border-left: 1px solid #c1c1c1;
+    padding-left: 1rem;
+    flex: 1 1 calc(33.33% - 1rem);
+    box-sizing: border-box;
+}
+
+.iconsInfo {
+    display: flex;
+    gap: .5rem;
+}
+
 .rowOne {
     width: 100%;
     height: 120px;
@@ -131,7 +178,15 @@ p {
 
 .rowTwo {
     width: 100%;
-    height: 80px;
+    height: 120px;
+}
+
+.rowThree {
+    width: 100%;
+    height: 120px;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .grade {

@@ -1,5 +1,7 @@
 <script setup>
+import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { useProjectStore } from '@/stores/project';
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
     object: Object,
@@ -7,16 +9,32 @@ const props = defineProps({
     project: Object
 });
 
+const selectedProject = ref(null);
+const projectStore = useProjectStore();
+
+function upperCase(string) {
+    return string.toUpperCase();
+}
+
 const route = useRoute();
+
+onMounted(async () => {
+    await projectStore.getProjectByEdition(route.params.edition);
+
+    selectedProject.value = projectStore.projectsByEdition.find(project => project.team_id === props.object.idTeam);
+
+
+});
 </script>
 
 <template>
     <article
-        :style="{ backgroundImage: `url(data:image/jpeg;base64,${('photo_base64_code' in props.object) ? props.object.photo_base64_code : props.object.img}` }">
+        :style="{ backgroundImage: `url(data:image/jpeg;base64,${('photo_base64_code' in props.object) ? props.object.photo_base64_code : props.object.img}` }" v-if="selectedProject">
         <div class="allBlur">
+
             <div class="info">
                 <div class="text">
-                    <h3>{{ object.name }}</h3>
+                    <h3>{{ upperCase(selectedProject?.name) }}</h3>
                     <p>{{ object.description }}</p>
                 </div>
                 <div class="button">

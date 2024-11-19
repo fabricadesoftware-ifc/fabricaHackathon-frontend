@@ -7,6 +7,7 @@ export const useEditionStore = defineStore('edition', () => {
   const edition = ref([])
   const newEdition = ref([])
   const avaliatorEditions = ref([])
+  const currentEdition = ref(null)
 
   const getEditions = async () => {
     try {
@@ -62,6 +63,7 @@ export const useEditionStore = defineStore('edition', () => {
     editions,
     edition,
     newEdition,
+    currentEdition,
     getEditions,
     getEdition,
     createEdition,

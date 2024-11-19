@@ -6,13 +6,12 @@ const props = defineProps({
 })
 
 const base64Format = (photo) => {
-  if (photo == null) {
-    return 'https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg'
-  } else {
-    return photo
-  }
-}
-
+    if (!photo) {
+        return 'https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg';
+    } else {
+        return `data:image/jpeg;base64,${photo}`;
+    }
+};
 </script>
 
 <template>
