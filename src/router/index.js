@@ -10,7 +10,7 @@ const router = createRouter({
       component: () => import('../layouts/DefaultLayout.vue'),
       children: [
         {
-          path: 'home',
+          path: '/home',
           name: 'home',
           component: () => import('../pages/global/HomeView.vue')
         },
@@ -46,13 +46,16 @@ const router = createRouter({
         {
           path: '/evaluate/:edition/teams/:id',
           name: 'evaluateTeam',
-          component: () => import('../pages/avaliator/EvaluateTeamAvaliatorView.vue'),
+          component: () => import('../pages/avaliator/EvaluateTeamAvaliatorView.vue')
           // meta: { requiresAuth: true }
         }
       ]
     },
     {
       path: '',
+      redirect: { name: 'home' }
+    },
+    {
       name: 'blank',
       component: () => import('../layouts/BlankLayout.vue'),
       children: [
@@ -82,10 +85,6 @@ const router = createRouter({
           meta: { requiresAuth: true }
         }
       ]
-    },
-    {
-      path: '/:pathMatch(.*)*',
-      redirect: '/home'
     }
   ]
 })
