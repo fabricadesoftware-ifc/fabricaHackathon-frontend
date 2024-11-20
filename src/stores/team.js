@@ -25,7 +25,6 @@ export const useTeamStore = defineStore('team', () => {
   }
   const createTeam = async (team) => {
     try {
-      console.log(team)
       const data = await teamService.createTeam(team)
       newTeam.value = data
     } catch (error) {
