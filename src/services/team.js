@@ -1,25 +1,64 @@
 import { api } from '@/plugins/axios';
+import { useToast } from 'vue-toastification';
+
+const toast = useToast()
 
 class TeamService {
     async getTeams() {
-        const { data } = await api.get('/teams/');
-        return data;
+        try {
+            const { data } = await api.get('/teams/');
+            return data;
+        }
+        catch {
+            toast.error("Impossível verificar equipes! Verique suas credenciais ou tente mais tarde.")
+        }
     }
+
+
     async getTeam(id) {
-        const { data } = await api.get(`/teams/${id}/`);
-        return data;
+        try {
+            const { data } = await api.get(`/teams/${id}/`);
+            return data;
+        }
+        catch {
+            toast.error("Impossível verificar equipe! Verique suas credenciais ou tente mais tarde.")
+        }
     }
+
+
     async createTeam(team) {
-        const { data } = await api.post('/teams/', team);
-        return data;
+        try {
+            const { data } = await api.post('/teams/', team);
+            toast.success("Equipe criada com sucesso!")
+            return data;
+        }
+        catch {
+            toast.error("Impossível criar equipe! Verique suas credenciais, e se todos os campos foram preenchidos corretamente ou tente mais tarde.")
+        }
     }
+
+
     async updateTeam(team) {
-        const { data } = await api.patch(`/teams/${team.id}/`, team);
-        return data;
+        try {
+            const { data } = await api.patch(`/teams/${team.id}/`, team);
+            toast.info("Equipe editada com sucesso!")
+            return data;
+        }
+        catch {
+            toast.error("Impossível editar equipe! Verique suas credenciais, e se todos os campos foram editados corretamente ou tente mais tarde.")
+        }
     }
+
+
     async deleteTeam(id) {
-        const { data } = await api.delete(`/teams/${id}/`);
-        return data;
+        try {
+            const { data } = await api.delete(`/teams/${id}/`);
+            toast.info("Equipe deletada com sucesso!")
+            return data;
+        }
+        catch {
+            toast.error("Impossível deletar equipe! Verique suas credenciais, e se ela realmente existe ou tente mais tarde.")
+        }
     }
 }
 

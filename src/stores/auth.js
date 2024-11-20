@@ -42,15 +42,12 @@ export const useAuthStore = defineStore('auth', () => {
         console.warn('Nenhum student_profile.id encontrado')
       }
 
-      console.log(data_user.value)
       isLogged.value = true
       router.push('/home')
     } catch (error) {
       console.error('Erro:', error)
     }
   }
-
-
 
   const logout = () => {
     isLogged.value = false

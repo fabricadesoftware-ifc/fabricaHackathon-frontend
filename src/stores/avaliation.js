@@ -49,17 +49,12 @@ export const useAvaliationStore = defineStore('avaliation', () => {
   }
 
   const insertAllAvaliations = async (data_avaliations) => {
-    console.log(data_avaliations)
     try {
       for (const item of data_avaliations) {
-        console.log(item + "item ai")
         const response = await avaliationService.createAvaliation(item)
-        console.log(response)
       }
     } catch (error) {
       console.error(error)
-    } finally {
-      console.log('Inserting all avaliations')
     }
   }
 
