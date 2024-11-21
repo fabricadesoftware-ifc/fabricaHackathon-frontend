@@ -1,3 +1,7 @@
+import course from "@/services/course"
+import edition from "@/services/edition"
+import { ref } from "vue"
+
 export const getClassNames = (edition, classesInfo) => {
     const names = []
   
@@ -47,4 +51,12 @@ export const prepareEditions = (editions, classesInfo) => {
         img: `data:image/jpeg;base64,${edition.photo_base64_code}`,
         year: edition.year
     }))
+}
+
+export const prepareEditionTitle = (edition) => {
+  const courses = ref([])
+  edition.courses.forEach((course) => {
+    courses.value.push(`${course.acronym}s`)
+  })
+  return `${edition.year}/${edition.semester} - ${courses.value.join(', ')}`;
 }

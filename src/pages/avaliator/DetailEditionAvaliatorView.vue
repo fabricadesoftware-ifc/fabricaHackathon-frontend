@@ -1,8 +1,13 @@
 <script setup>
+import { HeroCompDetail, SectionEdition } from "@/components";
+
 </script>
 
 <template>
-  <div></div>
+  <div>
+    <HeroCompDetail />
+    <SectionEdition />
+  </div>
 </template>
 
 <style scoped>
