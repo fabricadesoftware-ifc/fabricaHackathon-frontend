@@ -1,5 +1,8 @@
 <script setup>
 import { useRouter } from 'vue-router';
+import { useTheme } from 'vuetify'
+
+const theme = useTheme()
 
 const router = useRouter()
 const routes = router.getRoutes()
@@ -7,10 +10,10 @@ const routes = router.getRoutes()
 </script>
 
 <template>
-  <div >
-  <p>DevNav</p>
+  <div>
+    <p>DevNav</p>
     <router-link v-for="route, index in routes" :to="route.path">
-      {{ route.name  }}
+      {{ route.name }}
       <br>
     </router-link>
   </div>
@@ -18,7 +21,6 @@ const routes = router.getRoutes()
 </template>
 
 <style scoped>
-
 div {
   position: absolute;
   color: white;

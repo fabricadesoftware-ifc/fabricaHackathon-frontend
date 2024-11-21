@@ -50,11 +50,7 @@ const toggleShowMore = () => {
       <article v-for="year in filteredYears" :key="year">
         <h2>/{{ year }}</h2>
         <div class="cards">
-          <CardEdition
-            v-for="edition in editionsByYear[year]"
-            :key="edition.title + edition.year"
-            :object="edition"
-          />
+          <CardEdition v-for="edition in editionsByYear[year]" :key="edition.title + edition.year" :object="edition" />
         </div>
       </article>
       <button @click="toggleShowMore">
@@ -70,11 +66,9 @@ const toggleShowMore = () => {
 <style scoped>
 section {
   width: 100%;
-  background: radial-gradient(
-    97.57% 210.75% at 0.9% 2.98%,
-    rgba(255, 255, 255, 0.4) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
+  background: radial-gradient(97.57% 210.75% at 0.9% 2.98%,
+      #0b0913 0%,
+      #090517 100%);
   padding: 3rem 0;
 }
 
@@ -112,11 +106,9 @@ button::before {
   bottom: 0;
   border-radius: 50px;
   padding: 1.5px;
-  background: linear-gradient(
-    114.55deg,
-    rgba(255, 255, 255, 0.9) 2.13%,
-    rgba(255, 255, 255, 0) 98.14%
-  );
+  background: linear-gradient(114.55deg,
+      rgba(255, 255, 255, 0.9) 2.13%,
+      rgba(255, 255, 255, 0) 98.14%);
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
@@ -155,11 +147,9 @@ button::before {
   bottom: 0;
   border-radius: 50%;
   padding: 1px;
-  background: linear-gradient(
-    114.55deg,
-    rgba(255, 255, 255, 0.9) 2.13%,
-    rgba(255, 255, 255, 0) 98.14%
-  );
+  background: linear-gradient(114.55deg,
+      rgba(255, 255, 255, 0.9) 2.13%,
+      rgba(255, 255, 255, 0) 98.14%);
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
@@ -170,7 +160,7 @@ button::before {
   -webkit-mask-composite: destination-out;
 }
 
-button:hover > .roundSpan {
+button:hover>.roundSpan {
   background: white !important;
   color: black !important;
 }

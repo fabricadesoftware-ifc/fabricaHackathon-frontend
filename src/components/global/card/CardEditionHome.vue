@@ -56,10 +56,10 @@ article {
 
 .allBlur {
   width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  height: 45%;
+  background: rgba(0, 0, 0, 0.516);
   padding: 1rem;
-  border-radius: 15px;
+  border-radius: 0px 0px 15px 15px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

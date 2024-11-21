@@ -1,53 +1,36 @@
 <script setup>
 defineProps({
-    label: String
+  label: String
 })
 </script>
 
 <template>
-    <button>
-        <span>{{ label }}</span>
-    </button>
+  <v-btn class="text-center rounded-xl py-6 d-flex align-center justify-center">
+    {{ label }}
+  </v-btn>
 </template>
 
 <style scoped>
 button {
-    width: 100%;
-    background: radial-gradient(147.74% 409.03% at -2.67% 59.14%, rgba(254, 92, 43, 0.37) 0%, #FE5C2B 100%);
-    border: none;
-    color: white;
-    padding: 1.2rem;
-    border-radius: 52px;
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-}
-
-span {
-    position: relative;
-    z-index: 1;
-    margin: auto;
-    width: 0;
+  width: 350px;
+  background: radial-gradient(147.74% 409.03% at -2.67% 59.14%, rgba(254, 92, 43, 0.37) 0%, #FE5C2B 100%);
 }
 
 button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(147.74% 409.03% at -2.67% 59.14%, #FE5C2B 0%, rgba(254, 92, 43, 0.37) 50%);
-    transition: opacity .4s ease-in-out;
-    opacity: 0;
-    border-radius: inherit;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: radial-gradient(147.74% 409.03% at -2.67% 59.14%, #FE5C2B 0%, rgba(254, 92, 43, 0.37) 50%);
+  transition: opacity .4s ease-in-out;
+  opacity: 0;
 }
 
 button:hover::before {
-    opacity: 1;
+  opacity: 1;
 }
 
 button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 </style>

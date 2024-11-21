@@ -54,7 +54,7 @@ export const useAuthStore = defineStore('auth', () => {
     token.value = {}
     data_user.value = {}
     student_profile_data.value = {}
-    router.push('/home')
+    router.push('/auth')
   }
 
   return {

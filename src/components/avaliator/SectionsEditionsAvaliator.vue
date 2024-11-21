@@ -49,7 +49,7 @@ const toggleShowMore = () => {
 }
 
 onBeforeMount(() => {
-  if ( authStore.isLogged &&authStore.data_user.user_type !== 'avaliator') {
+  if (authStore.isLogged && authStore.data_user.user_type !== 'avaliator') {
     router.push({ name: 'home' })
   } else if (!authStore.isLogged) {
     router.push({ name: 'login' })
@@ -81,8 +81,8 @@ onBeforeMount(() => {
 section {
   width: 100%;
   background: radial-gradient(97.57% 210.75% at 0.9% 2.98%,
-      rgba(255, 255, 255, 0.4) 0%,
-      rgba(255, 255, 255, 0) 100%);
+      #0b0913 0%,
+      #090517 100%);
   padding: 3rem 0;
 }
 

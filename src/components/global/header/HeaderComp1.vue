@@ -80,7 +80,7 @@ span {
 
 img {
   width: 50%;
-  background-color: #161617;
+  background-color: var(--background);
   border-radius: 27px;
   padding: 0.5rem;
 }

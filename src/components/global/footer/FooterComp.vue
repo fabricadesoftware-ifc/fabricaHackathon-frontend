@@ -14,7 +14,7 @@ import LinksComp from "./LinksComp.vue";
 
 <style scoped>
 footer {
-  background: #151515;
+  background: #0c0a16;
   width: 100%;
   padding: 5rem 1rem 2rem 1rem;
   height: 300px;

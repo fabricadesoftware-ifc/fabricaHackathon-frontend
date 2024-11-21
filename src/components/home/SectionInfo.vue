@@ -15,11 +15,9 @@ import CardsComp from "./CardsComp.vue";
 <style scoped>
 section {
   width: 100%;
-  background: radial-gradient(
-    97.57% 210.75% at 0.9% 2.98%,
-    rgb(0, 0, 0) 0%,
-    rgb(28, 28, 28) 100%
-  );
+  background: radial-gradient(97.57% 210.75% at 0.9% 2.98%,
+      #0b0913 0%,
+      #090517 100%);
   padding: 3rem 0;
 }
 
