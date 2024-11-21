@@ -42,15 +42,15 @@ const items = ref([
       <template v-slot:activator="{ props }">
         <HeaderButton text="Menu" v-bind="props" />
       </template>
-      <v-list-item v-for="(item, index) in items" :key="index">
-        <div>
-          <router-link :to="item.path" class="text-decoration-none text-white d-flex align-center justify-left ga-3">
-            <component :is="item.icon" />
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </router-link>
-        </div>
-      </v-list-item>
       <v-list class="bg-background">
+        <v-list-item v-for="(item, index) in items" :key="index">
+          <div>
+            <router-link :to="item.path" class="text-decoration-none text-white d-flex align-center justify-left ga-3">
+              <component :is="item.icon" />
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </router-link>
+          </div>
+        </v-list-item>
         <v-list-item class="w-100">
           <router-link to="/auth"
             class="text-decoration-none text-white d-flex align-center justify-left ga-3 cursor-pointer"

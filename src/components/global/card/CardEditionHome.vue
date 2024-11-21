@@ -56,7 +56,7 @@ article {
 
 .allBlur {
   width: 100%;
-  height: 45%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.516);
   padding: 1rem;
   border-radius: 0px 0px 15px 15px;

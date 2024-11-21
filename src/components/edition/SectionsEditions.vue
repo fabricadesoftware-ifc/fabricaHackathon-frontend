@@ -67,8 +67,8 @@ const toggleShowMore = () => {
 section {
   width: 100%;
   background: radial-gradient(97.57% 210.75% at 0.9% 2.98%,
-      #0b0913 0%,
-      #090517 100%);
+      #121212 0%,
+      #000000 100%);
   padding: 3rem 0;
 }
 

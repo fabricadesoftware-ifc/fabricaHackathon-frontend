@@ -5,7 +5,7 @@ import * as directives from 'vuetify/directives'
 const darkCustom = {
   dark: true,
   colors: {
-    background: '#18142b',
+    background: '#121212',
     'surface-bright': '#FFFFFF',
     'surface-light': '#EEEEEE',
     'surface-variant': '#424242',

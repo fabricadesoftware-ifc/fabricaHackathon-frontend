@@ -35,7 +35,7 @@ const router = createRouter({
           path: '/evaluate',
           name: 'evaluate',
           component: () => import('../pages/avaliator/EditionsAvaliatorView.vue'),
-          meta: { requiresAuth: true }
+          meta: { requiresAuth: true, requiresAvaliator: true }
         },
         {
           path: '/evaluate/:edition',
@@ -46,8 +46,8 @@ const router = createRouter({
         {
           path: '/evaluate/:edition/teams/:id',
           name: 'evaluateTeam',
-          component: () => import('../pages/avaliator/EvaluateTeamAvaliatorView.vue')
-          // meta: { requiresAuth: true }
+          component: () => import('../pages/avaliator/EvaluateTeamAvaliatorView.vue'),
+          meta: { requiresAuth: true, requiresAvaliator: true }
         }
       ]
     },
@@ -82,7 +82,7 @@ const router = createRouter({
           path: '/profile',
           name: 'profile',
           component: () => import('../pages/global/ProfileView.vue'),
-          meta: { requiresAuth: true }
+          meta: { requiresAuth: true, requiresStudent: true }
         }
       ]
     }
@@ -93,17 +93,45 @@ router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
   const { isLogged, data_user } = authStore
 
+  // if (to.matched.some((record) => record.meta.requiresAuth)) {
+  //   console.log('teste')
+  //   if (!isLogged) {
+  //     next({ path: '/auth' })
+  //   }
+  // }
+  // if (to.matched.some((record) => record.meta.requiresStudent)) {
+  //   console.log(data_user.user_type)
+  //   if (data_user.user_type != 'student') {
+  //     console.log('alo')
+  //     next({ path: '/auth' })
+  //   }
+  // }
+
+  // if (to.matched.some((record) => record.meta.requiresAvaliator)) {
+  //   if (data_user.user_type != 'avaliator') {
+  //     next({ path: '/auth' })
+  //   }
+  // }
+
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (!isLogged) {
-      next({ path: '/auth' })
+    if (isLogged) {
+      if (to.matched.some((record) => record.meta.requiresStudent)) {
+        if (data_user.user_type == 'student') {
+          next()
+        } else {
+          next({ path: '/auth' })
+        }
+      } else if (to.matched.some((record) => record.meta.requiresAvaliator)) {
+        if (data_user.user_type == 'avaliator') {
+          next()
+        } else {
+          next({ path: '/auth' })
+        }
+      } else {
+        next()
+      }
     } else {
-      next()
-    }
-  } else if (to.matched.some((record) => record.meta.requiresStudent)) {
-    if (data_user.user_type != 'student') {
       next({ path: '/auth' })
-    } else {
-      next()
     }
   } else {
     next()

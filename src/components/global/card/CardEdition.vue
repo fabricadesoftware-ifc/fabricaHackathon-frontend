@@ -40,6 +40,7 @@ article {
 
 .info {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -47,7 +48,7 @@ article {
 
 .allBlur {
   width: 100%;
-  height: 50%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.516);
   padding: 2.5rem;
   border-radius: 0px 0px 15px 15px;

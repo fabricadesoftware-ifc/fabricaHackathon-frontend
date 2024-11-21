@@ -1,5 +1,6 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onBeforeMount } from 'vue';
+import { useToast } from 'vue-toastification';
 import { useTeamStore } from '@/stores/team';
 import { useEditionStore } from '@/stores/edition';
 import { useAuthStore } from '@/stores/auth';
@@ -7,6 +8,7 @@ import { useAvaliationStore } from '@/stores/avaliation';
 import ArrowTopRight from 'vue-material-design-icons/ArrowTopRight.vue';
 import router from '@/router';
 
+const toast = useToast();
 const teamStore = useTeamStore();
 const authStore = useAuthStore();
 const editionStore = useEditionStore();
@@ -15,6 +17,13 @@ const currentTeam = ref(null);
 const teamId = ref(router.currentRoute.value.params.id);
 
 const avaliations = ref([]);
+
+const gradeRules = ref([
+  (v) => v >= 0 && v <= 10 || 'Nota inválida',
+  (v) => v !== '' || 'Campo obrigatório',
+  (v) => v !== null || 'Campo obrigatório',
+  (v) => v !== undefined || 'Campo obrigatório',
+]);
 
 onMounted(async () => {
   await teamStore.getTeams();
@@ -32,18 +41,40 @@ onMounted(async () => {
       criterion: criterion.id,
     }));
   } else {
-    console.warn("Criteria não foi carregado corretamente.");
+    console.error("Critérios não foram carregados corretamente.");
   }
-
 });
 
 const sendEvaluations = async () => {
   try {
+    if (!avaliations.value.length) {
+      toast.error("Não há avaliações para enviar.");
+      return;
+    }
+    console.log(avaliations.value)
+    const allAvaliationsExist = avaliations.value.every((avaliation) => avaliation.grade !== undefined);
+    console.log(allAvaliationsExist)
+    if (!allAvaliationsExist) {
+      toast.error("Avaliações incompletas. Por favor, preencha todos os campos e tente novamente");
+      throw new Error("Avaliações incompletas.");
+      return;
+    }
     await avaliationStore.insertAllAvaliations(avaliations.value);
   } catch (error) {
     console.error("Erro ao enviar avaliações:", error);
   }
 };
+
+const verifyGrade = (grade, index) => {
+  console.log(grade, index);
+  if (grade > 10) {
+    avaliations.value[index].grade = grade.slice(0, 2);
+  } else if (grade < 0) {
+    avaliations.value[index].grade = 0;
+  } else {
+    avaliations.value[index].grade = grade;
+  }
+}
 </script>
 
 <template>
@@ -58,8 +89,13 @@ const sendEvaluations = async () => {
           <span>({{ (item.weight) * 100 }}%)</span>
         </div>
         <div class="input">
-          <input type="number" class="inputCriterion" placeholder="Insira a Nota da Equipe"
-            v-model.number="avaliations[index].grade" min="0" max="10" />
+          <v-text-field placeholder="Insira a Nota da Equipe" type="number" v-model="avaliations[index].grade"
+            :rules="gradeRules">
+            <template #label>{{ item.description }}</template>
+          </v-text-field>
+          <!-- <input type="number" class="inputCriterion" placeholder="Insira a Nota da Equipe"
+            :value="avaliations[index].grade" min="0" max="10"
+            @input="(event) => verifyGrade(event.target.value, index)" /> -->
         </div>
       </div>
     </div>
@@ -76,8 +112,8 @@ const sendEvaluations = async () => {
 section {
   width: 100%;
   background: radial-gradient(97.57% 210.75% at 0.9% 2.98%,
-      rgba(255, 255, 255, 0.4) 0%,
-      rgba(255, 255, 255, 0) 100%);
+      #121212 0%,
+      #000000 100%);
   padding: 3rem 0;
 }
 
@@ -151,7 +187,7 @@ span {
 
 button {
   padding: .8rem 2rem;
-  background-color: var(--background-color);
+  background: radial-gradient(147.74% 409.03% at -2.67% 59.14%, rgba(254, 92, 43, 0.37) 0%, #FE5C2B 100%);
   border: 1px solid transparent;
   border-radius: 50px;
   position: relative;
