@@ -26,16 +26,6 @@ const route = useRoute();
                 </div>
             </div>
         </div>
-        <div class="button">
-          <router-link :to="object.route">
-            <button>
-              Edição
-              <span>-></span>
-            </button>
-          </router-link>
-        </div>
-      </div>
-    </div>
   </article>
 </template>
 
