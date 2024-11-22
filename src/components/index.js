@@ -7,6 +7,8 @@ import HeroComp from './edition/HeroComp.vue'
 import SectionsEditions from './edition/SectionsEditions.vue'
 import SectionsEditionsAvaliator from './avaliator/SectionsEditionsAvaliator.vue'
 import HeroCompAvaliator from './avaliator/HeroCompAvaliator.vue'
+import StateIndicator1 from './edition/StateIndicator1.vue'
+import StateIndicator2 from './edition/StateIndicator2.vue'
 
 export {
   HeaderComp2,
@@ -17,5 +19,7 @@ export {
   HeroComp,
   SectionsEditions,
   SectionsEditionsAvaliator,
-  HeroCompAvaliator
+  HeroCompAvaliator,
+  StateIndicator1,
+  StateIndicator2
 }

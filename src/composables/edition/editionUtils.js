@@ -45,6 +45,20 @@ export const prepareEditions = (editions, classesInfo) => {
         description: formatEditionDescription(edition),
         route: `/editions/${edition.id}`,
         img: `data:image/jpeg;base64,${edition.photo_base64_code}`,
-        year: edition.year
+        year: edition.year,
+        start_date: edition.start_date,
+        finish_date: edition.finish_date
     }))
 }
+
+export const formattedDate = (date) => {
+  const rawDate = new Date(date);
+  return new Intl.DateTimeFormat("pt-BR").format(rawDate);
+};
+
+
+export const parseDate = (formattedDate) => {
+  const [day, month, year] = formattedDate.split('/');
+  return new Date(`${year}-${month}-${day}`);
+};
+
