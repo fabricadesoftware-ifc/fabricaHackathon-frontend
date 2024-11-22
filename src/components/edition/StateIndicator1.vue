@@ -1,11 +1,11 @@
 <script setup>
-import { onMounted, shallowRef, computed } from 'vue';
+import { onMounted, shallowRef, computed, ref } from 'vue';
 
 import { formattedDate, parseDate } from '@/composables/edition/editionUtils';
 
 const props = defineProps({
   start_date: {
-    type: String, 
+    type: String,
     required: true,
   },
   finish_date: {
@@ -14,10 +14,10 @@ const props = defineProps({
   },
 });
 
-const currentDate = shallowRef(null);
+const currentDate = ref(null);
 
 const state = computed(() => {
-  if (!currentDate.value) return 'soon'; 
+  if (!currentDate.value) return 'soon';
 
   const now = parseDate(formattedDate(currentDate.value));
   const start = parseDate(formattedDate(props.start_date));
@@ -35,6 +35,7 @@ const state = computed(() => {
 onMounted(() => {
   currentDate.value = new Date();
 });
+
 </script>
 
 <template>
@@ -68,15 +69,16 @@ onMounted(() => {
 .container-indicator:hover .soon {
   box-shadow: 0 0 5px #eaee18;
 }
+
 .default-ball {
-width: 16px;
+  width: 16px;
   height: 16px;
   border-radius: 50%;
   transition: 0.3s ease-in-out;
 }
 
 .past {
-  
+
   background-color: #666666;
 }
 
