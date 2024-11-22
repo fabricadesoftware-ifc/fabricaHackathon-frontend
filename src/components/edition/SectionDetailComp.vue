@@ -1,9 +1,12 @@
 <script setup>
-import { onMounted, computed } from "vue";
+import { onMounted, ref } from "vue";
 import { useDetailEditionStore } from "@/stores/detailEdition";
 import { useCategoryStore } from "@/stores/category";
 import { useEditionStore } from "@/stores/edition";
 import { useProjectStore } from "@/stores/project";
+import { useRankingStore } from '@/stores/ranking';
+import { useTeamStore } from '@/stores/team';
+import { prepareRanking, filterWinnerTeams } from '@/composables/edition/editionUtils';
 import { useRoute } from "vue-router";
 import CardDetailTeam from "../global/card/CardDetailTeam.vue";
 import CardWinnerTeam from "../global/card/CardWinnerTeam.vue";
@@ -14,6 +17,11 @@ const route = useRoute();
 const useEdition = useEditionStore();
 const currentEdition = route.params.edition;
 const useProject = useProjectStore();
+const useRanking = useRankingStore();
+const useTeam = useTeamStore();
+const rankings = ref([]);
+const filterRankingsByCategory = ref([]);
+const filterWinnerTeamsList = ref(null);
 
 function upperCase(string) {
     return string.toUpperCase();
@@ -21,19 +29,26 @@ function upperCase(string) {
 
 onMounted(async () => {
     await useCategory.getCategories();
+    await useRanking.getRankings();
+    await useTeam.getTeams();
     await useDetailEdition.getAllTeams(currentEdition);
     await useEdition.getEdition(currentEdition);
     await useProject.getProjects();
     await useProject.getProjectByEdition(currentEdition);
+    await useTeam.getTeamsByEdition(currentEdition)
+
+    rankings.value = prepareRanking(useProject.projectsByEdition, useRanking.rankings, useTeam.teams, useEdition.edition.categories, currentEdition);
+
+    filterWinnerTeamsList.value = filterWinnerTeams(useTeam.teams, useRanking.rankings, currentEdition, useProject.projects);
+
+    for (let i of useEdition.edition.categories) {
+        filterRankingsByCategory.value = rankings.value.filter(rank => rank.category === i.id);
+    }
+
+    filterRankingsByCategory.value = filterRankingsByCategory.value.sort((a, b) => a.position - b.position);
+
 });
 
-const categoriesWithProjects = computed(() => {
-    const categories = useEdition.edition?.categories || [];
-    const projects = useProject.projectsByEdition || [];
-    return categories.filter(category =>
-        projects.some(project => project.category === category.id)
-    );
-});
 </script>
 
 <template>
@@ -41,26 +56,20 @@ const categoriesWithProjects = computed(() => {
         <div class="container">
             <h2 class="titleEdition">EQUIPES GANHADORAS</h2>
             <div class="editions">
-                <CardWinnerTeam v-for="(object, index) in useDetailEdition.winningTeams" :key="index" :object="object"
-                    :edition="currentEdition" />
+                <CardWinnerTeam v-for="(object, index) in filterWinnerTeamsList?.podium" :key="index" :object="object"
+                    :edition="currentEdition" :indexTeam="index" />
             </div>
-            <div class="category" v-for="item in categoriesWithProjects" :key="item.id">
-                <h2 class="titleEdition">{{ upperCase(item.name) }}</h2>
+            <div class="category" v-for="item in rankings" :key="item.id">
+                <h2 class="titleEdition">{{ upperCase(item?.categoryName) }}</h2>
+
                 <div class="editions">
-                    <div class="teste"
-                        v-for="(object, index) in useProject.projectsByEdition.filter(obj => obj.category === item.id)"
-                        :key="index">
-                        <CardDetailTeam :object="object" :edition="currentEdition" />
+                    <!-- {{  }} -->
+                    <div class="teste" v-for="(object, index) in item.rankings" :key="index">
+                        <CardDetailTeam :object="object" :edition="Number(currentEdition)" :indexTeam="index" />
                     </div>
                 </div>
             </div>
         </div>
-        <!-- <button>
-            VER MAIS
-            <span class="roundSpan">
-                <ArrowTopRight size="20" />
-            </span>
-        </button> -->
     </section>
 </template>
 

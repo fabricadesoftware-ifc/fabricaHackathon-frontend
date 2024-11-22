@@ -2,11 +2,13 @@
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { useProjectStore } from '@/stores/project';
+import Medal from 'vue-material-design-icons/Medal.vue';
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
     object: Object,
     edition: Number,
-    project: Object
+    project: Object,
+    indexTeam: Number,
 });
 
 const selectedProject = ref(null);
@@ -18,27 +20,41 @@ function upperCase(string) {
 
 const route = useRoute();
 
+function formatPodium(value) {
+    if (value === 0) {
+        return { color: '#Daa520', class: '1º' };
+    } else if (value === 1) {
+        return { color: '#C0C0C0', class: '2º' };
+    } else if (value === 2) {
+        return { color: '#cd7f32', class: '3º' };
+    }
+}
+
 onMounted(async () => {
     await projectStore.getProjectByEdition(route.params.edition);
-
     selectedProject.value = projectStore.projectsByEdition.find(project => project.team_id === props.object.idTeam);
-
-
 });
 </script>
 
 <template>
-    <article
-        :style="{ backgroundImage: `url(data:image/jpeg;base64,${('photo_base64_code' in props.object) ? props.object.photo_base64_code : props.object.img}` }" v-if="selectedProject">
+    <article :style="{
+        backgroundImage: `url(data:image/jpeg;base64,${(props.object.project.photo_base64_code)
+            ? props.object.project.photo_base64_code :
+            props.object.img}`
+    }">
         <div class="allBlur">
-
+            <div class="podium">
+                <p :style="{ color: formatPodium(indexTeam).color, fontWeight: 700 }">{{ formatPodium(indexTeam).class }}
+                </p>
+                <Medal :style="{ color: formatPodium(indexTeam).color }" />
+            </div>
             <div class="info">
                 <div class="text">
-                    <h3>{{ upperCase(selectedProject?.name) }}</h3>
+                    <h3>{{ upperCase(props.object.project.name) }}</h3>
                     <p>{{ object.description }}</p>
                 </div>
                 <div class="button">
-                    <router-link :to="`/editions/${props.edition}/teams/${props.object.idTeam}`">
+                    <router-link :to="`/editions/${props.edition}/teams/${props.object.project.team_id}`">
                         <button>
                             {{ route.fullPath == '/editions/' ? 'Edição' : 'Ver equipe' }}
                             <span> -> </span>
@@ -130,5 +146,18 @@ a {
 button:hover {
     background: white;
     color: black;
+}
+
+.podium {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 </style>
