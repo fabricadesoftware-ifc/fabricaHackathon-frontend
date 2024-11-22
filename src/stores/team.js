@@ -6,6 +6,7 @@ export const useTeamStore = defineStore('team', () => {
   const teams = ref([])
   const team = ref([])
   const newTeam = ref([])
+  const teamsByEdition = ref([])
 
   const getTeams = async () => {
     try {
@@ -48,5 +49,14 @@ export const useTeamStore = defineStore('team', () => {
     }
   }
 
-  return { teams, team, newTeam, getTeams, getTeam, createTeam, updateTeam, deleteTeam }
+  const getTeamsByEdition = async (editionId) => {
+    try {
+      const data = teams.value.filter(team => team.editionId === editionId);
+      teamsByEdition.value = data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return { teams, team, newTeam, getTeams, getTeam, createTeam, updateTeam, deleteTeam, getTeamsByEdition, teamsByEdition }
 })
