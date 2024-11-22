@@ -8,6 +8,7 @@ export const useTeamStore = defineStore('team', () => {
   const teams = ref([])
   const team = ref([])
   const newTeam = ref([])
+  const teamsByEdition = ref([])
 
   const getTeams = async () => {
     try {

@@ -1,7 +1,7 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useEditionStore } from '@/stores/edition';
-const useEdition = useEditionStore();
+import { prepareEditionTitle } from '@/composables/edition/editionUtils';
 import router from '@/router';
 
 import RoundCardCode from '../global/card/RoundCardCode.vue';
@@ -11,9 +11,13 @@ import BallCard from '../global/card/BallCard.vue';
 import CubeOutline from "vue-material-design-icons/CubeOutline.vue";
 import ConsoleLine from "vue-material-design-icons/ConsoleLine.vue";
 
+const useEdition = useEditionStore();
+const editionTitle = ref('')
+
 onMounted(async () => {
     await useEdition.getEdition(router.currentRoute.value.params.edition);
-
+    editionTitle.value = prepareEditionTitle(useEdition.edition);
+    console.log(editionTitle)
 });
 </script>
 
@@ -30,7 +34,7 @@ onMounted(async () => {
         <div class="container-text">
             <div>
                 <div class="text">
-                    <h1 class="gradient">EDIÇÃO DO HACKATHON 3INFO 2024</h1>
+                    <h1 class="gradient">EDIÇÃO DO HACKATHON {{ editionTitle }}</h1>
                 </div>
                 <GradientBall position="width: 50%; position: relative; left: 260px; bottom: 95px" />
             </div>
