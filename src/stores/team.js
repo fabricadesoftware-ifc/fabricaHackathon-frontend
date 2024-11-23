@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import teamService from '@/services/team'
+import { useAuthStore } from './auth'
 
 export const useTeamStore = defineStore('team', () => {
+  const authStore = useAuthStore()
   const teams = ref([])
   const team = ref({})
   const newTeam = ref([])
@@ -31,8 +33,19 @@ export const useTeamStore = defineStore('team', () => {
       console.error(error)
     }
   }
+
+  const updateProject = async (project) => {
+    try {
+      console.log(project)
+      await teamService.updateProject(project)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const updateTeam = async (team) => {
     try {
+      console.log(team)
       await teamService.updateTeam(team)
       getTeam(team.id)
     } catch (error) {
@@ -48,5 +61,26 @@ export const useTeamStore = defineStore('team', () => {
     }
   }
 
-  return { teams, team, newTeam, getTeams, getTeam, createTeam, updateTeam, deleteTeam }
+  const getTeamByStudent = async (edition_id) => {
+    try {
+      const student_id = authStore.data_user.student_profile_id
+      const data = await teamService.getTeamByStudent(student_id, Number(edition_id))
+      return data
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  return {
+    teams,
+    team,
+    newTeam,
+    getTeams,
+    getTeam,
+    createTeam,
+    updateTeam,
+    deleteTeam,
+    getTeamByStudent,
+    updateProject
+  }
 })
