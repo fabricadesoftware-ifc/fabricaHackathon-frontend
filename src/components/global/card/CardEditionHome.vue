@@ -1,7 +1,6 @@
 <script setup>
 import { StateIndicator1, StateIndicator2 } from '@/components/index';
 import ArrowRight from 'vue-material-design-icons/ArrowRight.vue'
-import { onMounted } from 'vue';
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
   object: Object

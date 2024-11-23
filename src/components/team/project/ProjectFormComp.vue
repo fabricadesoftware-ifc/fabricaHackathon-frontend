@@ -1,53 +1,50 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useTeamStore } from '@/stores/team'
-import { useAuthStore } from '@/stores/auth'
-import { useImageStore } from '@/stores/image'
+import { useProjectStore } from '@/stores/project'
 import { useRoute } from 'vue-router'
 import GradientInput from '@/components/global/input/GradientInput.vue'
 import OrangeButton from '@/components/global/button/OrangeButton.vue'
+import router from '@/router'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
 
 const teamStore = useTeamStore()
-const authStore = useAuthStore()
-const imageStore = useImageStore()
+const projectStore = useProjectStore()
 
 const route = useRoute()
 
-const currentTeam = ref(null)
-
-function findTeamByStudentIdAndEdition(studentId, editionId) {
-  return teamStore.teams.find(team =>
-    team.edition === editionId && team.students.includes(studentId)
-  )
-}
-
-const dados = ref({
+const dataProject = reactive({
   name: '',
   description: '',
   deploy_link: '',
   repository_link: '',
-  project_photo_base64: ''
+  photo_file: null,
+  team_id: 0
 })
 
-const updateProject = async () => {
-  const newData = {
-    id: dados.value.id,
-    name: dados.value.name,
-    description: dados.value.description,
-    deploy_link: dados.value.deploy_link,
-    repository_link: dados.value.repository_link,
-    photo: dados.value.project_photo_base64
+const handleFileChange = (event) => {
+  const file = event.target.files[0]
+  if (file) {
+    dataProject.photo_file = file
+    console.log(file)
   }
-  if (typeof dados.value.project_photo_base64 == `string` || typeof dados.value.project_photo_base64 == `number`) {
-    newData.photo = null
-  } else {
-    const formData = new FormData()
-    formData.append('photo', dados.value.project_photo_base64)
-    console.log(formData.photo)
-    const photo = await imageStore.postImage(formData)
-    newData.photo = photo.id
+}
+
+const createProject = async () => {
+  const formData = new FormData()
+  formData.append('name', dataProject.name)
+  formData.append('description', dataProject.description)
+  formData.append('deploy_link', dataProject.deploy_link)
+  formData.append('repository_link', dataProject.repository_link)
+  formData.append('team_id', Number(dataProject.team_id))
+
+  if (dataProject.photo_file) {
+    formData.append('photo_file', dataProject.photo_file)
   }
-  await teamStore.updateProject(newData)
+
+  await projectStore.createProject(formData)
 }
 
 onMounted(async () => {
@@ -60,23 +57,28 @@ onMounted(async () => {
   currentTeam.value = findTeamByStudentIdAndEdition(authStore.student_profile_data.id, editionId)
 
 })
-
 </script>
 
 <template>
   <section>
+    {{ dataProject }}
     <router-link to="/home" class="logo">
       <img src="/public/logoHackaton.png" alt="teams" />
     </router-link>
     <div class="form d-flex justify-center align-center">
       <h1 style="text-align: center" class="gradientOrange">Projeto</h1>
-      <form @submit.prevent>
-        <GradientInput v-model:text="dados.name" label="Nome do Projeto" />
-        <GradientInput v-model:text="dados.description" label="Descrição do Projeto" />
-        <GradientInput v-model:text="dados.deploy_link" label="Deploy Link" />
-        <GradientInput v-model:text="dados.repository_link" label="Repository Link" />
-        <v-file-input v-model="dados.project_photo_base64" label="Imagem do Projeto" class="w-100" variant="outlined" />
-        <OrangeButton label="Enviar" @click="updateProject" />
+      <form @submit.prevent="">
+        <GradientInput v-model:text="dataProject.name" label="Nome do Projeto" />
+        <GradientInput v-model:text="dataProject.deploy_link" label="Deploy Link" />
+        <GradientInput v-model:text="dataProject.repository_link" label="Repository Link" />
+        <GradientInput v-model:text="dataProject.description" label="Descrição do Projeto" />
+        <div class="send">
+          <v-file-input @change="handleFileChange" label="Imagem do Projeto" class="w-100 col-12 col-md-6"
+            variant="outlined" :min-width="200" />
+          <div class="a" style="width: 100%;">
+            <OrangeButton label="Enviar" @click="createProject(dataProject)" />
+          </div>
+        </div>
       </form>
     </div>
   </section>
@@ -102,15 +104,15 @@ section {
 }
 
 .logo>img {
-  margin: 50px 50px 0 0;
-  width: 20%;
+  margin: 20px 50px 0 0;
+  width: 25%;
 }
 
 .form {
-  width: 40%;
+  width: 50%;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 1rem;
   margin: auto;
 }
 
@@ -118,5 +120,22 @@ form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+}
+
+.send {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  gap: 1rem;
+}
+
+.send .v-file-input,
+.send .a {
+  width: 100%;
+}
+
+.send .a {
+  display: flex;
+  justify-content: flex-start;
 }
 </style>
