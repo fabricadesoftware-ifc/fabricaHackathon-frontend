@@ -72,6 +72,15 @@ export const useTeamStore = defineStore('team', () => {
     }
   }
 
+  const getTeamsByEdition = async (editionId) => {
+    try {
+      const data = teams.value.filter(team => team.editionId === editionId);
+      teamsByEdition.value = data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return {
     teams,
     team,
@@ -82,6 +91,7 @@ export const useTeamStore = defineStore('team', () => {
     updateTeam,
     deleteTeam,
     getTeamByStudent,
-    updateProject
+    updateProject,
+    getTeamsByEdition
   }
 })

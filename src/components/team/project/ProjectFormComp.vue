@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useTeamStore } from '@/stores/team'
 import { useAuthStore } from '@/stores/auth'
 import { useImageStore } from '@/stores/image'
