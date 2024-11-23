@@ -37,8 +37,8 @@ onMounted(async () => {
     await useProject.getProjectByEdition(currentEdition);
     await useTeam.getTeamsByEdition(currentEdition)
 
-    rankings.value = prepareRanking(useProject.projectsByEdition, useRanking.rankings, useTeam.teams, useEdition.edition.categories, currentEdition);
-
+    rankings.value = prepareRanking(useRanking.rankings, useTeam.teams, useEdition.edition.categories, currentEdition);
+    console.log(rankings.value)
     filterWinnerTeamsList.value = filterWinnerTeams(useTeam.teams, useRanking.rankings, currentEdition, useProject.projects);
 
     for (let i of useEdition.edition.categories) {
@@ -53,21 +53,23 @@ onMounted(async () => {
 
 <template>
     <section>
+        <!-- <p>
+            {{ filterWinnerTeamsList }}
+        </p> -->
         <div class="container">
             <h2 class="titleEdition">EQUIPES GANHADORAS</h2>
             <div class="editions">
                 <CardWinnerTeam v-for="(object, index) in filterWinnerTeamsList?.podium" :key="index" :object="object"
-                    :edition="currentEdition" :indexTeam="index" />
+                    :edition="Number(currentEdition)" :indexTeam="index" />
             </div>
             <div class="category" v-for="item in rankings" :key="item.id">
                 <h2 class="titleEdition">{{ upperCase(item?.categoryName) }}</h2>
 
                 <div class="editions">
-                    <!-- {{  }} -->
-                    <div class="teste" v-for="(object, index) in item.rankings" :key="index">
+                    <div class="teste" v-for="(object, index) in item.rankings" :key="Number(index)">
                         <CardDetailTeam :object="object" :edition="Number(currentEdition)" :indexTeam="index" />
                     </div>
-                </div>
+                </div> 
             </div>
         </div>
     </section>

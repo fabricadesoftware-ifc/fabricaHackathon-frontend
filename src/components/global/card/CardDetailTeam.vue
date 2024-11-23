@@ -30,8 +30,9 @@ const route = useRoute();
 
 
 <template>
+    <!-- <p style="">{{ object.project }}</p> -->
     <article
-        :style="{ backgroundImage: `url(data:image/jpeg;base64,${(props.object.project.photo_base64_code) ? props.object.project.photo_base64_code : props.object.img}` }">
+        :style="{ backgroundImage: `url(data:image/jpeg;base64,${(props.object.project.project_photo_base64_code) ? props.object.project.project_photo_base64_code : props.object.img}` }">
         <div class="allBlur">
             <div class="podium">
                 <p :style="{ color: formatPodium(indexTeam).color, fontWeight: 700 }">{{ formatPodium(indexTeam).class
@@ -66,6 +67,7 @@ article {
     align-items: end;
     background-size: cover;
     border-radius: 15px;
+    /* margin-top: 30rem; */
 }
 
 .info {

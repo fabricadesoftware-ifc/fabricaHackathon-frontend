@@ -59,66 +59,67 @@ export const prepareEditionTitle = (edition) => {
   return `${edition.year}/${edition.semester} - ${courses.value.join(', ')}`
 }
 
-export const prepareRanking = (projects, rankings, teams, categories) => {
-  const rankingsByCategory = {}
-
-  const projectMap = projects.reduce((map, project) => {
-    map[project.id] = project
-    return map
-  }, {})
+export const prepareRanking = (rankings, teams, categories) => {
+  const rankingsByCategory = {};
 
   const teamMap = teams.reduce((map, team) => {
-    map[team.id] = team
-    return map
-  }, {})
+    map[team.id] = team;
+    return map;
+  }, {});
 
   const categoryMap = categories.reduce((map, category) => {
-    map[category.id] = category.name
-    return map
-  }, {})
+    map[category.id] = category.name;
+    return map;
+  }, {});
+
+  const validCategoryIds = new Set(categories.map((category) => category.id));
 
   rankings.forEach((ranking) => {
-    const team = teamMap[ranking.team]
-    const project = projectMap[team?.project]
+    const team = teamMap[ranking.team];
+    const project = team?.project;
+    console.log(team)
 
-    if (project) {
-      const category = project.category
+    if (project && validCategoryIds.has(project.category)) {
+      const category = project.category;
+
 
       if (!rankingsByCategory[category]) {
-        rankingsByCategory[category] = []
+        rankingsByCategory[category] = [];
       }
 
       rankingsByCategory[category].push({
         ranking,
         team,
-        project
-      })
+        project,
+      });
     }
-  })
-
+  });
+  console.log(rankingsByCategory)
   const sortedRankingsByCategory = Object.keys(rankingsByCategory)
     .sort((a, b) => a - b)
     .map((categoryId) => ({
       categoryName: categoryMap[categoryId] || `Category ${categoryId}`,
       rankings: rankingsByCategory[categoryId]
-        .sort((a, b) => parseFloat(b.ranking.final_grade) - parseFloat(a.ranking.final_grade))
+        .sort(
+          (a, b) =>
+            parseFloat(b.ranking.final_grade) - parseFloat(a.ranking.final_grade)
+        )
         .map(({ ranking, team, project }) => ({
           ranking,
           team,
-          project
-        }))
-    }))
+          project,
+        })),
+    }));
+    console.log(sortedRankingsByCategory)
+  return sortedRankingsByCategory;
+};
 
-  return sortedRankingsByCategory
-}
 
 export const filterWinnerTeams = (teams, rankings, editionId, projects) => {
   const rankingList = ref([])
   const teamsList = ref([])
   const teamsLinkProject = ref([])
   const podium = ref([])
-
-  console.log(projects)
 
   rankings.forEach((ranking) => {
     if (ranking.edition == editionId) {
@@ -136,7 +137,7 @@ export const filterWinnerTeams = (teams, rankings, editionId, projects) => {
 
   teamsList.value.forEach((team) => {
     projects.forEach((project) => {
-      if (team.team.project == project.team_id) {
+      if (team.team.project.id == project.team_id) {
         teamsLinkProject.value.push({ team: team, project: project })
       }
     })
@@ -149,7 +150,6 @@ export const filterWinnerTeams = (teams, rankings, editionId, projects) => {
       ...item,
       classification: item.team.ranking.classification
     }))
-
   return {
     podium
   }
