@@ -1,8 +1,14 @@
 <script setup>
+import { StateIndicator1, StateIndicator2 } from '@/components/index';
 import ArrowRight from 'vue-material-design-icons/ArrowRight.vue'
+import { onMounted } from 'vue';
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
   object: Object
+})
+
+onMounted(()=>{
+  console.log(props.object)
 })
 
 const base64Format = (photo) => {
@@ -17,6 +23,8 @@ const base64Format = (photo) => {
 
 <template>
   <article :style="{ backgroundImage: `url(${base64Format(object.img)})` }">
+    <StateIndicator1 :start_date="props.object.start_date" :finish_date="props.object.finish_date" />
+    <!-- <StateIndicator2 :start_date="object.start_date" :finish_date="object.finish_date" /> -->
     <div class="allBlur">
       <div class="info">
         <div class="text">
@@ -44,6 +52,7 @@ article {
   background-position: center;
   /* Centraliza a imagem */
   border-radius: 15px;
+  position: relative;
 }
 
 .info {

@@ -1,17 +1,18 @@
-import axios from 'axios';
-import { useAuthStore } from '@/stores/auth';
+import axios from 'axios'
+import { useAuthStore } from '@/stores/auth'
 
 export const api = axios.create({
-    baseURL: 'http://localhost:8000/api/'
-});
+  // baseURL: 'http://localhost:8000/api/'
+  baseURL: 'http://localhost:19003/api/'
+})
 
 export function setupInterceptors() {
-    const authStore = useAuthStore();
+  const authStore = useAuthStore()
 
-    api.interceptors.request.use((config) => {
-        if (authStore.token?.access) {
-            config.headers.Authorization = `Bearer ${authStore.token.access}`;
-        }
-        return config;
-    });
+  api.interceptors.request.use((config) => {
+    if (authStore.token?.access) {
+      config.headers.Authorization = `Bearer ${authStore.token.access}`
+    }
+    return config
+  })
 }

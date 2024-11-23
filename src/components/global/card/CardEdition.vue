@@ -1,12 +1,21 @@
 <script setup>
+import { StateIndicator1, StateIndicator2 } from '@/components';
+import { onMounted } from 'vue';
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
   object: Object
 });
+
+onMounted(()=>{
+  console.log(props.object)
+})
+
 </script>
 
 <template>
   <article :style="{ backgroundImage: `url(${object.img})` }">
+    <StateIndicator1 :start_date="object.start_date" :finish_date="object.finish_date" />
+    <!-- <StateIndicator2 :start_date="object.start_date" :finish_date="object.finish_date" /> -->
     <div class="allBlur">
       <div class="info">
         <div class="text">
@@ -36,6 +45,7 @@ article {
   align-items: end;
   background-size: cover;
   border-radius: 15px;
+  position: relative;
 }
 
 .info {
