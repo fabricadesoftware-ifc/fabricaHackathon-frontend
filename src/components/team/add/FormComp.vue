@@ -33,6 +33,11 @@ function addMember(data) {
   dados.leader = Number(data.selectedLeader)
 }
 
+const createTeam = async () => {
+  await teamStore.createTeam(dados)
+  router.push({ name: 'home' })
+}
+
 onMounted(async () => {
   await classInfoStore.getEditionClasses(edition.value)
   await categoryStore.getEditionCategories(edition.value)
@@ -40,7 +45,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <ModalAddComp v-model:isOpen="showModal" v-model:team="members" @add-student="addMember" :edition="edition"/>
+  <ModalAddComp v-model:isOpen="showModal" v-model:team="members" @add-student="addMember" :edition="edition" />
 
   <section>
     <router-link to="/home" class="logo">
@@ -52,11 +57,7 @@ onMounted(async () => {
         <GradientInput v-model:text="dados.name" label="Nome da Equipe" />
         <GradientSelect label="Categoria" v-model:option="dados.categoria">
           <option disabled value="">Selecione uma categoria</option>
-          <option
-            v-for="category in categoryStore.categories"
-            :key="category.id"
-            :value="category.id"
-          >
+          <option v-for="category in categoryStore.categories" :key="category.id" :value="category.id">
             {{ category.name }}
           </option>
         </GradientSelect>
@@ -77,7 +78,7 @@ onMounted(async () => {
             </span>
           </div>
         </div>
-        <OrangeButton label="Enviar" @click="teamStore.createTeam(dados)" />
+        <OrangeButton label="Enviar" @click="createTeam" />
       </form>
     </div>
   </section>
@@ -110,7 +111,7 @@ section {
   margin: 30px 0px 0px 30px;
 }
 
-.logo > img {
+.logo>img {
   width: 100%;
 }
 

@@ -49,7 +49,7 @@ onMounted(async () => {
   <div class="pa-6 d-flex flex-column ga-6">
     <v-row class="d-flex justify-center">
       <v-col cols="12" lg="6" class="d-flex justify-center">
-        <v-img :src="base64Format(teamsStore?.team?.project?.project_photo_base64_code)"
+        <v-img height="300" :src="base64Format(teamsStore?.team?.project?.project_photo_base64_code)"
           lazy-src="https://img.freepik.com/vetores-premium/geometrico-minimo-criativo-com-papel-de-parede-de-fundo-de-cor-branca-e-cinza-abstrato-de-formas-dinamicas_176697-503.jpg?semt=ais_hybrid">
           <template v-slot:placeholder>
             <div class="d-flex align-center justify-center fill-height">
@@ -62,7 +62,7 @@ onMounted(async () => {
         <h1 class="">Projeto: {{ teamsStore?.team?.project?.name }}</h1>
         <div class="pb-6">
           <p>
-            {{ teamsStore?.team?.project?.description }}
+            {{ teamsStore?.team?.project?.description ?? 'Sem descrição' }}
           </p>
         </div>
 

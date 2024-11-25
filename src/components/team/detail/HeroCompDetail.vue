@@ -13,16 +13,16 @@ import { onMounted, ref } from 'vue';
 
 
 const base64Format = (photo) => {
-  if (photo == null) {
-    return 'https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg';
-  }
-  else {
-    return `data:image/jpeg;base64,${photo}`;;
+  if (!photo) {
+    return "https://img.freepik.com/vetores-premium/geometrico-minimo-criativo-com-papel-de-parede-de-fundo-de-cor-branca-e-cinza-abstrato-de-formas-dinamicas_176697-503.jpg?semt=ais_hybrid"
+  } else {
+    return photo
   }
 };
 
 onMounted(async () => {
   await teamsStore.getTeam(router.currentRoute.value.params.id);
+  console.log(teamsStore.team.photo_base64_code)
 });
 
 </script>
@@ -33,8 +33,7 @@ onMounted(async () => {
   <BallCard y="20%" x="95%" />
   <BallCard y="70%" x="90%" />
 
-  <section v-if="teamsStore?.team?.photo_base64_code"
-    :style="{ backgroundImage: `url(${base64Format(teamsStore.team.photo_base64_code)})` }">
+  <section :style="{ backgroundImage: `url(${base64Format(teamsStore?.team?.photo_base64_code)})` }">
     <div class="allBlur">
       <div class="container">
         <div class="row1">
@@ -45,7 +44,7 @@ onMounted(async () => {
         <div class="row2">
           <div class="alignTitle">
             <h1 class="gradientGray">
-              {{ (teamsStore.team.name).toUpperCase() }}
+              {{ (teamsStore?.team?.name)?.toUpperCase() }}
             </h1>
           </div>
         </div>

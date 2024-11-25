@@ -1,57 +1,32 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useAuthStore } from '@/stores/auth';
 import HeaderButton from '../button/HeaderButton.vue';
-import Dropdown from 'v-dropdown'
 import Logout from "vue-material-design-icons/Logout.vue"
 import Account from "vue-material-design-icons/Account.vue"
 import Home from "vue-material-design-icons/Home.vue"
-import Login from "vue-material-design-icons/Login.vue"
 import CodeGreaterThan from "vue-material-design-icons/CodeGreaterThan.vue"
+import AccountGroupOutline from "vue-material-design-icons/AccountGroupOutline.vue"
+import { useEditionStore } from '@/stores/edition';
 
 const authStore = useAuthStore()
+const editionStore = useEditionStore()
+
+const currentOpenEdition = ref(null)
 
 const items = ref([
   { title: 'Home', icon: Home, path: '/home' },
+  { title: 'Adicionar Time', icon: AccountGroupOutline, path: '/editions' },
   { title: 'Projeto', icon: CodeGreaterThan, path: '/editions/1/project/add/' },
   { title: 'Perfil', icon: Account, path: '/profile' },
 ])
 
+onMounted(async () => {
+})
+
 </script>
 
 <template>
-  <!-- <Dropdown trigger="hover">
-        <template #trigger>
-            <HeaderButton text="Menu" />
-        </template>
-<div class="dropLinks">
-
-  <router-link to="/home" class="drop">
-    <Home />
-    Home
-  </router-link>
-
-  <router-link to="/auth" class="drop" v-if="!authStore.isLogged">
-    <Login />
-    Login
-  </router-link>
-  <div v-if="authStore.isLogged">
-    <router-link to="/editions/1/project/add/" class="drop">
-      <CodeGreaterThan />
-      Projeto
-    </router-link>
-    <router-link to="/profile" class="drop">
-      <Account />
-      Perfil
-    </router-link>
-    <button @click="authStore.logout" class="logout">
-      <Logout />
-      Logout
-    </button>
-  </div>
-
-</div>
-</Dropdown> -->
   <v-menu open-on-click>
     <template v-slot:activator="{ props }">
       <HeaderButton text="Menu" v-bind="props" />

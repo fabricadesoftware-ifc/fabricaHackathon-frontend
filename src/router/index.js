@@ -93,26 +93,6 @@ router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
   const { isLogged, data_user } = authStore
 
-  // if (to.matched.some((record) => record.meta.requiresAuth)) {
-  //   console.log('teste')
-  //   if (!isLogged) {
-  //     next({ path: '/auth' })
-  //   }
-  // }
-  // if (to.matched.some((record) => record.meta.requiresStudent)) {
-  //   console.log(data_user.user_type)
-  //   if (data_user.user_type != 'student') {
-  //     console.log('alo')
-  //     next({ path: '/auth' })
-  //   }
-  // }
-
-  // if (to.matched.some((record) => record.meta.requiresAvaliator)) {
-  //   if (data_user.user_type != 'avaliator') {
-  //     next({ path: '/auth' })
-  //   }
-  // }
-
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (isLogged) {
       if (to.matched.some((record) => record.meta.requiresStudent)) {

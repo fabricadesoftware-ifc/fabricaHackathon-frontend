@@ -70,6 +70,6 @@ export const useEditionStore = defineStore('edition', () => {
     updateEdition,
     deleteEdition,
     getAvaliatorEditions,
-    avaliatorEditions,
+    avaliatorEditions
   }
 })

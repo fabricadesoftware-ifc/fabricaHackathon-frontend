@@ -28,7 +28,10 @@ export const useTeamStore = defineStore('team', () => {
   }
   const createTeam = async (team) => {
     try {
-      const data = await teamService.createTeam(team)
+      const data = await teamService.createTeam({
+        ...team,
+        edition: Number(team.edition)
+      })
       newTeam.value = data
     } catch (error) {
       console.error(error)
@@ -74,12 +77,12 @@ export const useTeamStore = defineStore('team', () => {
 
   const getTeamsByEdition = async (editionId) => {
     try {
-      const data = teams.value.filter(team => team.editionId === editionId);
-      teamsByEdition.value = data;
+      const data = teams.value.filter((team) => team.editionId === editionId)
+      teamsByEdition.value = data
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   return {
     teams,

@@ -24,13 +24,15 @@ class TeamService {
 
   async createTeam(team) {
     try {
+      console.log(team)
       const { data } = await api.post('/teams/', team)
       toast.success('Equipe criada com sucesso!')
       return data
-    } catch {
+    } catch (error) {
       toast.error(
         'Impossível criar equipe! Verique suas credenciais, e se todos os campos foram preenchidos corretamente ou tente mais tarde.'
       )
+      console.log(error.response)
     }
   }
 

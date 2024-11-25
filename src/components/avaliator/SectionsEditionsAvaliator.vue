@@ -36,7 +36,7 @@ onMounted(async () => {
   await editionsStore.getAvaliatorEditions(authStore.data_user.user_id)
   await classInfoStore.getClassesInfo()
 
-  const editions = prepareEditions(editionsStore.avaliatorEditions, classInfoStore.classesInfo)
+  const editions = prepareEditions(editionsStore.avaliatorEditions, classInfoStore.classesInfo, true)
   populateEditionsByYear(editions)
 })
 

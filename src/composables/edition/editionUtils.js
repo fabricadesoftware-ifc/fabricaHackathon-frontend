@@ -41,28 +41,27 @@ export const formatEditionDescription = (edition) => {
   return `Edição do ${edition.semester}° semestre do ano de ${edition.year} com os cursos de ${coursesList}.`
 }
 
-export const prepareEditions = (editions, classesInfo) => {
-    return editions.map((edition) => ({
-        name: `${edition.year}/${edition.semester} - ${getClassNames(edition, classesInfo).join(', ')}`,
-        description: formatEditionDescription(edition),
-        route: `/editions/${edition.id}`,
-        img: `data:image/jpeg;base64,${edition.photo_base64_code}`,
-        year: edition.year,
-        start_date: edition.start_date,
-        finish_date: edition.finish_date
-    }))
+export const prepareEditions = (editions, classesInfo, evaluate = false) => {
+  return editions.map((edition) => ({
+    name: `${edition.year}/${edition.semester} - ${getClassNames(edition, classesInfo).join(', ')}`,
+    description: formatEditionDescription(edition),
+    route: evaluate ? `/evaluate/${edition.id}` : `/editions/${edition.id}`,
+    img: `data:image/jpeg;base64,${edition.photo_base64_code}`,
+    year: edition.year,
+    start_date: edition.start_date,
+    finish_date: edition.finish_date
+  }))
 }
 
 export const formattedDate = (date) => {
-  const rawDate = new Date(date);
-  return new Intl.DateTimeFormat("pt-BR").format(rawDate);
-};
-
+  const rawDate = new Date(date)
+  return new Intl.DateTimeFormat('pt-BR').format(rawDate)
+}
 
 export const parseDate = (formattedDate) => {
-  const [day, month, year] = formattedDate.split('/');
-  return new Date(`${year}-${month}-${day}`);
-};
+  const [day, month, year] = formattedDate.split('/')
+  return new Date(`${year}-${month}-${day}`)
+}
 
 export const prepareEditionTitle = (edition) => {
   const courses = ref([])
@@ -73,60 +72,55 @@ export const prepareEditionTitle = (edition) => {
 }
 
 export const prepareRanking = (rankings, teams, categories) => {
-  const rankingsByCategory = {};
+  const rankingsByCategory = {}
 
   const teamMap = teams.reduce((map, team) => {
-    map[team.id] = team;
-    return map;
-  }, {});
+    map[team.id] = team
+    return map
+  }, {})
 
   const categoryMap = categories.reduce((map, category) => {
-    map[category.id] = category.name;
-    return map;
-  }, {});
+    map[category.id] = category.name
+    return map
+  }, {})
 
-  const validCategoryIds = new Set(categories.map((category) => category.id));
+  const validCategoryIds = new Set(categories.map((category) => category.id))
 
   rankings.forEach((ranking) => {
-    const team = teamMap[ranking.team];
-    const project = team?.project;
+    const team = teamMap[ranking.team]
+    const project = team?.project
     console.log(team)
 
     if (project && validCategoryIds.has(project.category)) {
-      const category = project.category;
-
+      const category = project.category
 
       if (!rankingsByCategory[category]) {
-        rankingsByCategory[category] = [];
+        rankingsByCategory[category] = []
       }
 
       rankingsByCategory[category].push({
         ranking,
         team,
-        project,
-      });
+        project
+      })
     }
-  });
+  })
   console.log(rankingsByCategory)
   const sortedRankingsByCategory = Object.keys(rankingsByCategory)
     .sort((a, b) => a - b)
     .map((categoryId) => ({
       categoryName: categoryMap[categoryId] || `Category ${categoryId}`,
       rankings: rankingsByCategory[categoryId]
-        .sort(
-          (a, b) =>
-            parseFloat(b.ranking.final_grade) - parseFloat(a.ranking.final_grade)
-        )
+        .sort((a, b) => parseFloat(b.ranking.final_grade) - parseFloat(a.ranking.final_grade))
         .map(({ ranking, team, project }) => ({
           ranking,
           team,
-          project,
-        })),
-    }));
-    console.log(sortedRankingsByCategory)
-  return sortedRankingsByCategory;
-};
-
+          project
+        }))
+    }))
+  console.log(sortedRankingsByCategory)
+  return sortedRankingsByCategory
+}
 
 export const filterWinnerTeams = (teams, rankings, editionId, projects) => {
   const rankingList = ref([])

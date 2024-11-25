@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { reactive, onMounted } from 'vue'
 import { useTeamStore } from '@/stores/team'
 import { useProjectStore } from '@/stores/project'
 import { useRoute } from 'vue-router'
@@ -28,7 +28,6 @@ const handleFileChange = (event) => {
   const file = event.target.files[0]
   if (file) {
     dataProject.photo_file = file
-    console.log(file)
   }
 }
 
@@ -48,14 +47,14 @@ const createProject = async () => {
 }
 
 onMounted(async () => {
-  const studentTeam = await teamStore.getTeamByStudent(route.params.edition)
-  dados.value = studentTeam[0].project
-  console.log(dados.value)
-
-  const editionId = parseInt(route.params.edition)
-
-  currentTeam.value = findTeamByStudentIdAndEdition(authStore.student_profile_data.id, editionId)
-
+  const teamData = await teamStore.getTeamByStudent(route.params.edition)
+  if (teamData[0].project != null) {
+    router.push('/home')
+    toast.warning('Você já possui um projeto cadastrado')
+  }
+  else {
+    dataProject.team_id = teamData[0].id
+  }
 })
 </script>
 

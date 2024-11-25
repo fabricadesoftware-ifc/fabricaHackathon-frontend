@@ -12,8 +12,6 @@ const darkCustom = {
     'surface-variant': '#424242',
     'on-surface-variant': '#EEEEEE',
     primary: '#1867C0',
-    'primary-gradient':
-      'radial-gradient(147.74% 409.03% at -2.67% 59.14%, #FE5C2B 0%, rgba(254, 92, 43, 0.37) 50%)',
     'primary-darken-1': '#1F5592',
     secondary: '#48A9A6',
     'secondary-darken-1': '#018786',

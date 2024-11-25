@@ -17,7 +17,6 @@ const editionTitle = ref('')
 onMounted(async () => {
   await useEdition.getEdition(router.currentRoute.value.params.edition);
   editionTitle.value = prepareEditionTitle(useEdition.edition);
-  console.log(editionTitle)
 });
 </script>
 
