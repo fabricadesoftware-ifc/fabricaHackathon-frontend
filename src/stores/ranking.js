@@ -15,6 +15,15 @@ export const useRankingStore = defineStore('ranking', () => {
     }
   }
 
+  const getEditionRankings = async (editionId) => {
+    try {
+      const data = await RankingService.getEditionRankings(editionId)
+      rankings.value = data
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const getRanking = async (id) => {
     try {
       const data = await RankingService.getRanking(id)
@@ -35,7 +44,7 @@ export const useRankingStore = defineStore('ranking', () => {
 
   const updateRanking = async (ranking) => {
     try {
-      const data = await RankingService.updateRanking	(ranking)
+      const data = await RankingService.updateRanking(ranking)
       return data
     } catch (error) {
       console.error(error)
@@ -58,6 +67,7 @@ export const useRankingStore = defineStore('ranking', () => {
     getRanking,
     createRanking,
     updateRanking,
-    deleteRanking
+    deleteRanking,
+    getEditionRankings
   }
 })

@@ -6,6 +6,7 @@ const darkCustom = {
   dark: true,
   colors: {
     background: '#121212',
+    'transparent-background': '#12121233',
     'surface-bright': '#FFFFFF',
     'surface-light': '#EEEEEE',
     'surface-variant': '#424242',

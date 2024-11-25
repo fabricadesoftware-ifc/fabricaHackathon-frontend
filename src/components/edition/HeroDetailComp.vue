@@ -15,95 +15,93 @@ const useEdition = useEditionStore();
 const editionTitle = ref('')
 
 onMounted(async () => {
-    await useEdition.getEdition(router.currentRoute.value.params.edition);
-    editionTitle.value = prepareEditionTitle(useEdition.edition);
-    console.log(editionTitle)
+  await useEdition.getEdition(router.currentRoute.value.params.edition);
+  editionTitle.value = prepareEditionTitle(useEdition.edition);
+  console.log(editionTitle)
 });
 </script>
 
 <template>
-    <BallCard y="35%" x="5%" />
-    <BallCard y="70%" x="95%" />
-    <BallCard y="70%" x="50%" />
-    <BallCard y="20%" x="80%" />
-    <section>
-        <div class="cards1">
-            <span></span>
-            <RoundCardCode />
+  <BallCard y="35%" x="5%" />
+  <BallCard y="70%" x="95%" />
+  <BallCard y="20%" x="80%" />
+  <section>
+    <div class="cards1">
+      <span></span>
+      <RoundCardCode />
+    </div>
+    <div class="container-text">
+      <div>
+        <div class="text">
+          <h1 class="gradient">EDIÇÃO DO HACKATHON {{ editionTitle }}</h1>
         </div>
-        <div class="container-text">
-            <div>
-                <div class="text">
-                    <h1 class="gradient">EDIÇÃO DO HACKATHON {{ editionTitle }}</h1>
-                </div>
-                <GradientBall position="width: 50%; position: relative; left: 260px; bottom: 95px" />
-            </div>
-        </div>
-        <div class="cards2">
-            <SquareCardBox :component="ConsoleLine" />
-            <span></span>
-            <SquareCardBox :component="CubeOutline" />
-        </div>
-    </section>
+      </div>
+    </div>
+    <div class="cards2">
+      <SquareCardBox :component="ConsoleLine" />
+      <span></span>
+      <SquareCardBox :component="CubeOutline" />
+    </div>
+  </section>
 </template>
 
 <style scoped>
 section {
-    width: 100%;
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-    height: 75vh;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  height: 75vh;
 }
 
 .container-text {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .text {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .gradient {
-    background: linear-gradient(85.58deg, rgba(254, 92, 43, 0.38) 8%, #FE5C2B 139.33%);
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 6rem;
-    line-height: 1.3;
-    font-weight: 400;
-    text-align: center;
-    width: 80%;
+  background: linear-gradient(85.58deg, rgba(254, 92, 43, 0.38) 8%, #FE5C2B 139.33%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 6rem;
+  line-height: 1.3;
+  font-weight: 400;
+  text-align: center;
+  width: 80%;
 }
 
 .cards1 {
-    display: grid;
-    grid-template-rows: 2fr 2fr 2fr;
-    gap: 1rem;
+  display: grid;
+  grid-template-rows: 2fr 2fr 2fr;
+  gap: 1rem;
 }
 
 .cards2 {
-    display: grid;
-    grid-template-columns: 2fr 2fr 2fr;
-    gap: 1rem;
+  display: grid;
+  grid-template-columns: 2fr 2fr 2fr;
+  gap: 1rem;
 }
 
 .cards1>*:nth-child(2) {
-    margin-right: 10%;
+  margin-right: 10%;
 }
 
 .cards1>*:first-child {
-    justify-self: end;
-    align-self: end;
+  justify-self: end;
+  align-self: end;
 }
 
 .cards1>*:last-child {
-    justify-self: center;
+  justify-self: center;
 }
 
 .cards2>*:first-child {
-    justify-self: center;
-    align-self: center;
+  justify-self: center;
+  align-self: center;
 }
 </style>
