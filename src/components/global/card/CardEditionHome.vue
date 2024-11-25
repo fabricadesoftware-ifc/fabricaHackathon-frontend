@@ -7,10 +7,6 @@ const props = defineProps({
   object: Object
 })
 
-onMounted(() => {
-  console.log(props.object)
-})
-
 const base64Format = (photo) => {
   if (!photo) {
     return 'https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg';
