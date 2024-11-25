@@ -46,7 +46,7 @@ onMounted(async () => {
     <v-row>
       <v-col cols="12" md="6" lg="4" v-for="rank in rankings" :key="rank.id">
         <v-card class="mx-4 rounded-xl">
-          <v-img class="mt-0" :src="base64Format(rank.team.project.project_photo_base64_code)" cover></v-img>
+          <v-img class="mt-0 card-image" :src="base64Format(rank.team.project.project_photo_base64_code)" cover></v-img>
           <div class="d-flex align-center justify-end text-center position-absolute top-0 right-0 pa-2"
             style="z-index: 999;">
             {{ rank.classification }}
@@ -73,7 +73,8 @@ onMounted(async () => {
       <v-row>
         <v-col cols="12" md="6" lg="4" v-for="rank, index in getCategoryProjects(category.id)" :key="rank.id">
           <v-card class="mx-4 rounded-xl">
-            <v-img class="mt-0" :src="base64Format(rank.team.project.project_photo_base64_code)" cover></v-img>
+            <v-img class="mt-0 card-image" :src="base64Format(rank.team.project.project_photo_base64_code)"
+              cover></v-img>
             <div class="d-flex align-center justify-end text-center position-absolute top-0 right-0 pa-2"
               style="z-index: 999;">
               {{ index + 1 }}
@@ -98,7 +99,7 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-.info {
-  background-color: rgba(0, 0, 0, 0.4);
+.card-image {
+  filter: brightness(50%);
 }
 </style>

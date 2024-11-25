@@ -66,10 +66,9 @@ onMounted(async () => {
       </div>
       <div class="infos">
         <div class="rowOne">
-          <p>HACKATHON uma plataforma ou ambiente digital projetado para facilitar e gerenciar competições
-            criativas e colaborativas. Nele, participantes se reúnem virtualmente para resolver desafios,
-            propor soluções inovadoras e desenvolver projetos relacionados à tecnologia, programação, design
-            ou outras áreas.</p>
+          <p>
+            {{ teamsStore.team.project.description ?? 'Sem Descrição' }}
+          </p>
         </div>
         <div class="rowThree">
           <div v-for="item in associateStudentsWithProfiles" :key="item.id">
