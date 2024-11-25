@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useTeamStore } from '@/stores/team'
 import { useAuthStore } from '@/stores/auth'
 import { useImageStore } from '@/stores/image'
@@ -59,9 +59,6 @@ onMounted(async () => {
 
   currentTeam.value = findTeamByStudentIdAndEdition(authStore.student_profile_data.id, editionId)
 
-  if (currentTeam.value) {
-    dados.id = currentTeam.value.id
-  }
 })
 
 </script>

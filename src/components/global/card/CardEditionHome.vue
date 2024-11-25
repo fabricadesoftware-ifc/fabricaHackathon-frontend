@@ -7,22 +7,23 @@ const props = defineProps({
   object: Object
 })
 
-onMounted(()=>{
+onMounted(() => {
   console.log(props.object)
 })
 
 const base64Format = (photo) => {
-  if (photo == null) {
-    return 'https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg'
+  if (!photo) {
+    return 'https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg';
   } else {
-    return photo
+    return `data:image/jpeg;base64,${photo}`;
   }
-}
+};
 
 </script>
 
 <template>
-  <article :style="{ backgroundImage: `url(${base64Format(object.img)})` }">
+  <article :style="{ backgroundImage: `${base64Format(object.img)}` }">
+    <img :src="base64Format(object.img)" alt="">
     <StateIndicator1 :start_date="props.object.start_date" :finish_date="props.object.finish_date" />
     <!-- <StateIndicator2 :start_date="object.start_date" :finish_date="object.finish_date" /> -->
     <div class="allBlur">

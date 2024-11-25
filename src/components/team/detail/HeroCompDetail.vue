@@ -22,7 +22,6 @@ const base64Format = (photo) => {
 
 onMounted(async () => {
   await teamsStore.getTeam(router.currentRoute.value.params.id);
-
 });
 
 </script>
@@ -33,7 +32,7 @@ onMounted(async () => {
   <BallCard y="20%" x="95%" />
   <BallCard y="70%" x="90%" />
 
-  <section v-if="teamsStore.team.photo_base64_code"
+  <section v-if="teamsStore?.team?.photo_base64_code"
     :style="{ backgroundImage: `url(${base64Format(teamsStore.team.photo_base64_code)})` }">
     <div class="allBlur">
       <div class="container">
