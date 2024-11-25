@@ -5,33 +5,31 @@ import OrangeButton from '../global/button/OrangeButton.vue';
 <template>
   <article class="info">
     <div class="texts">
-      <h2>
-        TRANSFORMANDO
-        <span>IDEAS EM INOVAÇÃO:</span>
-      </h2>
+      <h2>TRANSFORMANDO IDEIAS EM SOLUÇÕES INOVADORAS</h2>
       <div class="desc">
         <h3>O FUTURO COMEÇA AQUI!</h3>
         <p>
-          HACKATHON uma plataforma ou ambiente digital projetado para facilitar e gerenciar competições
-          criativas e colaborativas. Nele, participantes se reúnem virtualmente para resolver desafios, propor
-          soluções inovadoras e desenvolver projetos relacionados à tecnologia, programação, design ou outras
-          áreas.
+          Seja parte de uma jornada criativa com nossa plataforma desenvolvida para
+          gerenciar hackathons de forma colaborativa. Envolva-se em competições que unem
+          estudantes e profissionais para resolver desafios do mundo real, trazendo
+          inovação através da tecnologia, design, programação, e mais.
         </p>
       </div>
     </div>
     <div class="sub">
-      HACKATHON uma plataforma ou ambiente digital projetado para facilitar e gerenciar competições criativas e
-      colaborativas. Nele, participantes se reúnem virtualmente para resolver desafios, propor soluções inovadoras
-      e desenvolver projetos relacionados à tecnologia, programação, design ou outras áreas.
+      Fábrica-Hackathon é um sistema web criado para gerenciar hackathons de maneira
+      completa, desde o registro de participantes até a avaliação final dos projetos.
+      Nossa plataforma centraliza todas as edições passadas e futuras, permitindo que os
+      participantes acompanhem sua evolução, submetam projetos e recebam feedbacks de
+      jurados. Com ferramentas avançadas para organizadores e competidores, simplificamos
+      o processo de inscrição, organização e avaliação de projetos, transformando ideias
+      em soluções inovadoras e práticas.
       <div class="button">
-        <RouterLink to="/editions">
-          <OrangeButton label="Edições" />
-        </RouterLink>
+        <OrangeButton label="Edições" @click="$router.push('/editions')" />
       </div>
     </div>
   </article>
 </template>
-
 <style scoped>
 a {
   text-decoration: none;
