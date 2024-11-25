@@ -2,15 +2,13 @@
 import { onMounted, computed } from 'vue';
 import { useTeamStore } from '@/stores/team';
 import { useStudentStore } from '@/stores/student';
+import { useRankingStore } from '@/stores/ranking';
 import router from '@/router';
-import RoundButtonGradient from '@/components/global/buttons/RoundButtonGradient.vue';
-import Instagram from 'vue-material-design-icons/Instagram.vue';
-import Github from 'vue-material-design-icons/Github.vue';
-import Linkedin from 'vue-material-design-icons/Linkedin.vue';
-import project from '@/services/project';
+import ranking from '@/services/ranking';
 
 const teamsStore = useTeamStore();
 const studentsStore = useStudentStore();
+const rankingStore = useRankingStore();
 
 const base64Format = (photo) => {
   return `data:image/jpeg;base64,${photo}`;
@@ -44,9 +42,9 @@ const associateStudentsWithProfiles = computed(() => {
 onMounted(async () => {
   await studentsStore.getStudentProfile();
   await teamsStore.getTeam(router.currentRoute.value.params.id);
+  await rankingStore.getRankingByTeamId(router.currentRoute.value.params.edition);
 });
 </script>
-
 <template>
   <div class="pa-6 d-flex flex-column ga-6">
     <v-row class="d-flex justify-center">
@@ -66,6 +64,10 @@ onMounted(async () => {
           <p>
             {{ teamsStore?.team?.project?.description }}
           </p>
+        </div>
+
+        <div>
+          <h2 class="font-weight-bold">Nota: {{ rankingStore?.ranking?.final_grade }}</h2>
         </div>
 
         <v-btn @click="() => redirectToProject(teamsStore?.team?.project?.repository_link)" variant="outlined"

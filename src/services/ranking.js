@@ -25,6 +25,10 @@ class RankingService {
     const { data } = await api.get(`/rankings/?edition_id=${editionId}`)
     return data
   }
+  async getRankingByTeamId(teamId) {
+    const { data } = await api.get(`/rankings/?team_id=${teamId}`)
+    return data
+  }
 }
 
 export default new RankingService()

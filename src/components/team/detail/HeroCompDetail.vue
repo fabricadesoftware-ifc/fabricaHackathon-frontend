@@ -9,7 +9,8 @@ import RoundCardCode from "@/components/global/card/RoundCardCode.vue";
 
 import ConsoleLine from 'vue-material-design-icons/ConsoleLine.vue';
 import CubeOutline from 'vue-material-design-icons/CubeOutline.vue';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
+
 
 const base64Format = (photo) => {
   if (photo == null) {
