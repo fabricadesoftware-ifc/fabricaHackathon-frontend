@@ -5,21 +5,13 @@ const toast = useToast()
 
 class EditionService {
   async getEditions() {
-    try {
-      const { data } = await api.get('/editions/')
-      return data
-    } catch {
-      toast.error('Impossível verificar edições! Verique suas credenciais ou tente mais tarde.')
-    }
+    const { data } = await api.get('/editions/')
+    return data
   }
 
   async getEdition(id) {
-    try {
-      const { data } = await api.get(`/editions/${id}/`)
-      return data
-    } catch {
-      toast.error('Impossível verificar edição! Verique suas credenciais ou tente mais tarde.')
-    }
+    const { data } = await api.get(`/editions/${id}/`)
+    return data
   }
 
   async createEdition(edition) {

@@ -1,14 +1,17 @@
 <script setup>
-import { onMounted, computed } from 'vue';
+import { onMounted, computed, ref } from 'vue';
 import { useTeamStore } from '@/stores/team';
 import { useStudentStore } from '@/stores/student';
 import { useRankingStore } from '@/stores/ranking';
 import router from '@/router';
-import ranking from '@/services/ranking';
+import { useEditionStore } from '@/stores/edition';
 
 const teamsStore = useTeamStore();
 const studentsStore = useStudentStore();
 const rankingStore = useRankingStore();
+const editionStore = useEditionStore();
+
+const ranking = ref()
 
 const base64Format = (photo) => {
   return `data:image/jpeg;base64,${photo}`;
@@ -42,7 +45,12 @@ const associateStudentsWithProfiles = computed(() => {
 onMounted(async () => {
   await studentsStore.getStudentProfile();
   await teamsStore.getTeam(router.currentRoute.value.params.id);
-  await rankingStore.getRankingByTeamId(router.currentRoute.value.params.edition);
+  await editionStore.getEdition(router.currentRoute.value.params.edition)
+  const now = new Date()
+  if (editionStore.edition.finish_date <= now) {
+    await rankingStore.getRankingByTeamId(router.currentRoute.value.params.edition);
+    ranking.value = rankingStore.ranking
+  }
 });
 </script>
 <template>
@@ -67,7 +75,7 @@ onMounted(async () => {
         </div>
 
         <div>
-          <h2 class="font-weight-bold">Nota: {{ rankingStore?.ranking?.final_grade }}</h2>
+          <h2 class="font-weight-bold">Nota: {{ ranking?.final_grade ?? 'Sem Nota' }}</h2>
         </div>
 
         <v-btn @click="() => redirectToProject(teamsStore?.team?.project?.repository_link)" variant="outlined"

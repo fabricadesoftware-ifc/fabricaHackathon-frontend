@@ -77,8 +77,8 @@ export const useTeamStore = defineStore('team', () => {
 
   const getTeamsByEdition = async (editionId) => {
     try {
-      const data = teams.value.filter((team) => team.editionId === editionId)
-      teamsByEdition.value = data
+      const data = await teamService.getTeamsByEdition(editionId)
+      teams.value = data
     } catch (error) {
       console.error(error)
     }

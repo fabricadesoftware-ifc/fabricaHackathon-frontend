@@ -1,6 +1,4 @@
 <script setup>
-import edition from '@/services/edition';
-import student from '@/services/student';
 import { useAuthStore } from '@/stores/auth';
 import { useCategoryStore } from '@/stores/category';
 import { useEditionStore } from '@/stores/edition';

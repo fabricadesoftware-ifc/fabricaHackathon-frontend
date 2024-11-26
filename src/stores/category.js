@@ -20,7 +20,6 @@ export const useCategoryStore = defineStore('category', () => {
   const getEditionCategories = async (edition) => {
     try {
       const data = await editionService.getEdition(edition)
-      console.log(data)
       categories.value = data.categories
     } catch (error) {
       console.error(error)

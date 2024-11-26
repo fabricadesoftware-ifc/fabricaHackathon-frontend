@@ -14,16 +14,16 @@ const router = useRouter()
 
 onMounted(async () => {
   const teamData = await teamStore.getTeamByStudent(router.currentRoute.value.params.edition)
-  if (teamData[0] != null) {
-    router.push('/editions/' + router.currentRoute.value.params.edition + '/teams/' + teamData[0].id)
-    toast.warning('Você já possui um time cadastrado')
-  }
   if (authStore.data_user.user_type !== 'student') {
     router.push({
       name: 'yearEdition', params: {
         edition: router.currentRoute.value.params.edition,
       }
     });
+  }
+  if (teamData[0] != null) {
+    router.push('/editions/' + router.currentRoute.value.params.edition + '/teams/' + teamData[0].id)
+    toast.warning('Você já possui um time cadastrado')
   }
 });
 

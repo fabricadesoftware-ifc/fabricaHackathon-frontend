@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onMounted } from 'vue'
+import { reactive, onMounted, computed } from 'vue'
 import { useTeamStore } from '@/stores/team'
 import { useProjectStore } from '@/stores/project'
 import { useRoute } from 'vue-router'
@@ -7,11 +7,13 @@ import GradientInput from '@/components/global/input/GradientInput.vue'
 import OrangeButton from '@/components/global/button/OrangeButton.vue'
 import router from '@/router'
 import { useToast } from 'vue-toastification'
+import { useCategoryStore } from '@/stores/category'
 
 const toast = useToast()
 
 const teamStore = useTeamStore()
 const projectStore = useProjectStore()
+const categoryStore = useCategoryStore()
 
 const route = useRoute()
 
@@ -21,7 +23,8 @@ const dataProject = reactive({
   deploy_link: '',
   repository_link: '',
   photo_file: null,
-  team_id: 0
+  team_id: null,
+  category: null,
 })
 
 const handleFileChange = (event) => {
@@ -37,6 +40,7 @@ const createProject = async () => {
   formData.append('description', dataProject.description)
   formData.append('deploy_link', dataProject.deploy_link)
   formData.append('repository_link', dataProject.repository_link)
+  formData.append('category', dataProject.category)
   formData.append('team_id', Number(dataProject.team_id))
 
   if (dataProject.photo_file) {
@@ -44,10 +48,29 @@ const createProject = async () => {
   }
 
   await projectStore.createProject(formData)
+
+  toast.success('Projeto adicionado com sucesso!')
+
+  router.push({
+    name: 'detailsProject', params: {
+      edition: router.currentRoute.value.params.edition,
+      id: dataProject.team_id
+    }
+  })
 }
+
+const categories = computed(() => {
+  return categoryStore.categories.map((category) => {
+    return {
+      title: category.name,
+      value: category.id
+    }
+  })
+})
 
 onMounted(async () => {
   const teamData = await teamStore.getTeamByStudent(route.params.edition)
+  await categoryStore.getEditionCategories(route.params.edition)
   if (teamData[0].project != null) {
     router.push('/home')
     toast.warning('Você já possui um projeto cadastrado')
@@ -60,17 +83,17 @@ onMounted(async () => {
 
 <template>
   <section>
-    {{ dataProject }}
     <router-link to="/home" class="logo">
       <img src="/public/logoHackaton.png" alt="teams" />
     </router-link>
     <div class="form d-flex justify-center align-center">
       <h1 style="text-align: center" class="gradientOrange">Projeto</h1>
       <form @submit.prevent="">
-        <GradientInput v-model:text="dataProject.name" label="Nome do Projeto" />
-        <GradientInput v-model:text="dataProject.deploy_link" label="Deploy Link" />
-        <GradientInput v-model:text="dataProject.repository_link" label="Repository Link" />
-        <GradientInput v-model:text="dataProject.description" label="Descrição do Projeto" />
+        <v-text-field variant="outlined" v-model="dataProject.name" label="Nome do Projeto" />
+        <v-select v-model="dataProject.category" :items="categories" label="Categoria" variant="outlined" />
+        <v-text-field variant="outlined" v-model="dataProject.deploy_link" label="Deploy Link" />
+        <v-text-field variant="outlined" v-model="dataProject.repository_link" label="Repository Link" />
+        <v-text-field variant="outlined" v-model="dataProject.description" label="Descrição do Projeto" />
         <div class="send">
           <v-file-input @change="handleFileChange" label="Imagem do Projeto" class="w-100 col-12 col-md-6"
             variant="outlined" :min-width="200" />

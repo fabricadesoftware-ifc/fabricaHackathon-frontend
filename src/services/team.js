@@ -5,21 +5,13 @@ const toast = useToast()
 
 class TeamService {
   async getTeams() {
-    try {
-      const { data } = await api.get('/teams/')
-      return data
-    } catch {
-      toast.error('Impossível verificar equipes! Verique suas credenciais ou tente mais tarde.')
-    }
+    const { data } = await api.get('/teams/')
+    return data
   }
 
   async getTeam(id) {
-    try {
-      const { data } = await api.get(`/teams/${id}/`)
-      return data
-    } catch {
-      toast.error('Impossível verificar equipe! Verique suas credenciais ou tente mais tarde.')
-    }
+    const { data } = await api.get(`/teams/${id}/`)
+    return data
   }
 
   async createTeam(team) {
@@ -74,12 +66,13 @@ class TeamService {
   }
 
   async getTeamByStudent(student_id, edition_id) {
-    try {
-      const { data } = await api.get(`/teams/?student_id=${student_id}&edition_id=${edition_id}`)
-      return data
-    } catch {
-      toast.error('Impossível verificar equipe! Verique suas credenciais ou tente mais tarde.')
-    }
+    const { data } = await api.get(`/teams/?student_id=${student_id}&edition_id=${edition_id}`)
+    return data
+  }
+
+  async getTeamsByEdition(editionId) {
+    const { data } = await api.get(`/teams/?edition_id=${editionId}`)
+    return data
   }
 }
 

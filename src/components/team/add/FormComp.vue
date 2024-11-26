@@ -7,20 +7,20 @@ import GradientInput from '@/components/global/input/GradientInput.vue'
 import GradientSelect from '@/components/global/input/GradientSelect.vue'
 import OrangeButton from '@/components/global/button/OrangeButton.vue'
 import ModalAddComp from '@/components/team/add/ModalAddComp.vue'
-import router from '@/router'
 import RoundButton from '@/components/global/button/RoundButton.vue'
+import { useRouter } from 'vue-router'
 
 const teamStore = useTeamStore()
 const classInfoStore = useClassInfoStore()
 const categoryStore = useCategoryStore()
 const showModal = ref(false)
 const members = ref([])
+const router = useRouter()
 
 const edition = ref(router.currentRoute.value.params.edition)
 
 const dados = reactive({
   name: '',
-  categoria: '',
   turma: '',
   students: [],
   leader: '',
@@ -35,7 +35,11 @@ function addMember(data) {
 
 const createTeam = async () => {
   await teamStore.createTeam(dados)
-  router.push({ name: 'home' })
+  router.push({
+    name: 'yearEdition', params: {
+      edition: router.currentRoute.value.params.edition,
+    }
+  })
 }
 
 onMounted(async () => {
@@ -54,30 +58,9 @@ onMounted(async () => {
     <div class="form">
       <h1 style="text-align: center" class="gradientOrange">Cadastrar Equipe</h1>
       <form @submit.prevent>
-        <GradientInput v-model:text="dados.name" label="Nome da Equipe" />
-        <GradientSelect label="Categoria" v-model:option="dados.categoria">
-          <option disabled value="">Selecione uma categoria</option>
-          <option v-for="category in categoryStore.categories" :key="category.id" :value="category.id">
-            {{ category.name }}
-          </option>
-        </GradientSelect>
-
-        <div class="select-with-button">
-          <p class="integrantes">Integrantes:</p>
-          <div class="listMembers">
-            <div class="itemContainer">
-              <div v-for="(item) in members" :key="item.id" class="itemMember">
-                <p>{{ item.user.name }}</p>
-                <p>{{ item.class_info.name }}</p>
-              </div>
-            </div>
-            <span class="buttonLine">
-              <RoundButton @click="showModal = true" class="roundButton">
-                <template v-slot:default>+</template>
-              </RoundButton>
-            </span>
-          </div>
-        </div>
+        <v-text-field variant="outlined" v-model="dados.name" label="Nome da Equipe" />
+        <v-btn @click="showModal = true" color="grey" class="w-100 py-6 d-flex " variant="outlined">Adicionar
+          Membros</v-btn>
         <OrangeButton label="Enviar" @click="createTeam" />
       </form>
     </div>
