@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onBeforeMount } from 'vue';
+import { ref, onMounted, onBeforeMount, computed } from 'vue';
 import { useToast } from 'vue-toastification';
 import { useTeamStore } from '@/stores/team';
 import { useEditionStore } from '@/stores/edition';
@@ -7,16 +7,19 @@ import { useAuthStore } from '@/stores/auth';
 import { useAvaliationStore } from '@/stores/avaliation';
 import ArrowTopRight from 'vue-material-design-icons/ArrowTopRight.vue';
 import router from '@/router';
+import { useRankingStore } from '@/stores/ranking';
+import { isAxiosError } from 'axios';
 
 const toast = useToast();
 const teamStore = useTeamStore();
 const authStore = useAuthStore();
 const editionStore = useEditionStore();
 const avaliationStore = useAvaliationStore();
+const rankingStore = useRankingStore()
 const currentTeam = ref(null);
 const teamId = ref(router.currentRoute.value.params.id);
 
-const avaliations = ref([]);
+const avaliations = ref([])
 
 const gradeRules = ref([
   (v) => v >= 0 && v <= 10 || 'Nota inválida',
@@ -25,13 +28,22 @@ const gradeRules = ref([
   (v) => v !== undefined || 'Campo obrigatório',
 ]);
 
+onBeforeMount(async () => {
+  const existingAvaliations = await avaliationStore.getTeamAvaliationsByAvaliator(parseInt(authStore.data_user.user_id), teamId.value)
+  if (existingAvaliations.length > 0) {
+    toast.warning('Você já avaliou este projeto')
+    router.push({
+      name: 'evaluateEdition', params: {
+        edition: router.currentRoute.value.params.edition
+      }
+    })
+  }
+})
+
 onMounted(async () => {
-  await teamStore.getTeams();
   await teamStore.getTeam(teamId.value);
-  await editionStore.getEditions();
-  await editionStore.getEdition(router.currentRoute.value.params.edition);
-  await avaliationStore.getAvaliations()
   currentTeam.value = teamStore.team;
+  await editionStore.getEdition(router.currentRoute.value.params.edition);
 
   if (editionStore.edition?.criteria?.length) {
     avaliations.value = editionStore.edition.criteria.map((criterion) => ({
@@ -40,10 +52,18 @@ onMounted(async () => {
       team: teamId,
       criterion: criterion.id,
     }));
-  } else {
-    console.error("Critérios não foram carregados corretamente.");
   }
 });
+
+const validateField = (rules, value) => {
+  let errors = rules.map((rule) => {
+    return rule(value);
+  });
+  if (errors.some((error) => error != true && error != undefined)) {
+    return false
+  }
+  return true
+};
 
 const sendEvaluations = async () => {
   try {
@@ -51,60 +71,58 @@ const sendEvaluations = async () => {
       toast.error("Não há avaliações para enviar.");
       return;
     }
-    console.log(avaliations.value)
-    const allAvaliationsExist = avaliations.value.every((avaliation) => avaliation.grade !== undefined);
-    console.log(allAvaliationsExist)
-    if (!allAvaliationsExist) {
-      toast.error("Avaliações incompletas. Por favor, preencha todos os campos e tente novamente");
-      throw new Error("Avaliações incompletas.");
-      return;
+
+    const errors = avaliations.value.map((avaliation) => {
+      const error = validateField(gradeRules.value, parseInt(avaliation.grade));
+      return error
+    });
+    if (!errors.some((error) => error != true && error != undefined)) {
+      const allAvaliationsExist = avaliations.value.every((avaliation) => avaliation.grade !== undefined);
+      if (!allAvaliationsExist) {
+        toast.error("Avaliações incompletas. Por favor, preencha todos os campos e tente novamente");
+        throw new Error("Avaliações incompletas.");
+      }
+      await avaliationStore.insertAllAvaliations(avaliations.value);
     }
-    await avaliationStore.insertAllAvaliations(avaliations.value);
+    router.push({
+      name: 'evaluateEdition', params: {
+        edition: router.currentRoute.value.params.edition
+      }
+    })
   } catch (error) {
     console.error("Erro ao enviar avaliações:", error);
   }
 };
-
-const verifyGrade = (grade, index) => {
-  console.log(grade, index);
-  if (grade > 10) {
-    avaliations.value[index].grade = grade.slice(0, 2);
-  } else if (grade < 0) {
-    avaliations.value[index].grade = 0;
-  } else {
-    avaliations.value[index].grade = grade;
-  }
-}
 </script>
 
 <template>
   <section>
     <div class="container">
-      <div class="title">
+      <div class="title w-100 d-flex justify-space-between">
         <h1>CRITÉRIOS</h1>
+        <h1>NOTAS</h1>
       </div>
-      <div class="criterion" v-for="(item, index) in editionStore.edition.criteria" :key="item.id">
-        <div class="title">
-          <p>{{ item.description }}</p>
-          <span>({{ (item.weight) * 100 }}%)</span>
+      <v-form @submit.prevent="sendEvaluations">
+        <div class="d-flex w-100 justify-space-between" v-for="(item, index) in editionStore.edition.criteria"
+          :key="item.id" v-if="avaliations.length > 0">
+          <div class="title">
+            <p>{{ item.description }}</p>
+            <span>({{ (item.weight) * 100 }}%)</span>
+          </div>
+          <div class="input w-25">
+            <v-text-field variant="outlined" placeholder="Insira a Nota da Equipe" type="number"
+              v-model="avaliations[index].grade" :rules="gradeRules">
+              <template #label>{{ item.description }}</template>
+            </v-text-field>
+          </div>
         </div>
-        <div class="input">
-          <v-text-field placeholder="Insira a Nota da Equipe" type="number" v-model="avaliations[index].grade"
-            :rules="gradeRules">
-            <template #label>{{ item.description }}</template>
-          </v-text-field>
-          <!-- <input type="number" class="inputCriterion" placeholder="Insira a Nota da Equipe"
-            :value="avaliations[index].grade" min="0" max="10"
-            @input="(event) => verifyGrade(event.target.value, index)" /> -->
+        <div class="w-100 d-flex justify-center">
+          <v-btn type="submit" class="mx-6 d-flex py-6 text-h6 mt-16 bg-deep-orange-accent-4 text-white"
+            variant="tonal">Enviar
+            Avaliações</v-btn>
         </div>
-      </div>
+      </v-form>
     </div>
-    <button @click="sendEvaluations">
-      <span>Enviar</span>
-      <span class="roundSpan">
-        <ArrowTopRight size="20" />
-      </span>
-    </button>
   </section>
 </template>
 
@@ -183,34 +201,6 @@ span {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-button {
-  padding: .8rem 2rem;
-  background: radial-gradient(147.74% 409.03% at -2.67% 59.14%, rgba(254, 92, 43, 0.37) 0%, #FE5C2B 100%);
-  border: 1px solid transparent;
-  border-radius: 50px;
-  position: relative;
-  font-size: 1rem;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  width: 140px;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0 auto;
-}
-
-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 50px;
-  padding: 1.5px;
 }
 
 .roundSpan {

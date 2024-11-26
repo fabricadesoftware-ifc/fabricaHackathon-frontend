@@ -16,8 +16,6 @@ const currentOpenEdition = ref(null)
 
 const items = ref([
   { title: 'Home', icon: Home, path: '/home' },
-  { title: 'Adicionar Time', icon: AccountGroupOutline, path: '/editions' },
-  { title: 'Projeto', icon: CodeGreaterThan, path: '/editions/1/project/add/' },
   { title: 'Perfil', icon: Account, path: '/profile' },
 ])
 

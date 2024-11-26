@@ -60,24 +60,27 @@ onMounted(async () => {
   }
 
   teams.value = teamStore.teams;
-  console.log(teams.value)
   categories.value = categoryStore.categories;
 });
 
 </script>
 
 <template>
-  <div class="d-flex justify-center mt-16">
-    <v-btn v-if="verifyEdition" color="red" class="mx-6 w-100 py-6 font-weight-bold text-h6 d-flex mt-16"
+  <div class="d-flex justify-center mt-16 ga-n12 align-center">
+    <v-btn v-if="verifyEdition" color="red" class="mx-6 w-33 py-6 font-weight-bold text-h6 d-flex mt-16"
       @click="() => router.push({ name: 'addTeam', params: { edition: route.params.edition } })"
       variant="outlined">Cadastrar Time</v-btn>
+    <v-btn v-if="verifyEdition" color="red" class="mx-6 w-33 py-6 font-weight-bold text-h6 d-flex mt-16"
+      @click="() => router.push({ name: 'addProject', params: { edition: route.params.edition } })"
+      variant="outlined">Cadastrar Projeto</v-btn>
   </div>
   <div v-if="categories.length > 0">
     <h1 class="text-left my-12 mx-6 text-white">CATEGORIAS</h1>
 
     <div v-for="category in categories" :key="category.id">
-      <h2 class="mt-16 mb-6 mx-6" v-if="getCategoryProjects(category.id).length > 0">{{ category.name }}</h2>
-      <v-row>
+      <h2 class="mt-16 mb-6 mx-6">{{ category.name }}</h2>
+      <p v-if="!getCategoryProjects(category.id).length > 0" class="px-6">Sem projetos nesta categoria</p>
+      <v-row v-else>
         <v-col cols="12" md="6" lg="4" v-for="team in getCategoryProjects(category.id)" :key="team.id">
           <v-card class="mx-4 rounded-xl h-100">
             <v-img class="mt-0 card-image h-100" :src="base64Format(team.project.project_photo_base64_code)"
@@ -98,7 +101,8 @@ onMounted(async () => {
   </div>
   <div v-else>
     <h1 class="text-left my-12 mx-6 text-white">EQUIPES GANHADORAS</h1>
-    <v-row>
+    <p v-if="teams.length == 0">Nenhum projeto encontrado</p>
+    <v-row v-else>
       <v-col cols="12" md="6" lg="4" v-for="team in teams" :key="team.id">
         <v-card class="mx-4 rounded-xl h-100">
           <v-img class="mt-0 card-image h-100" :src="base64Format(team.project.project_photo_base64_code)"

@@ -47,7 +47,8 @@ onMounted(async () => {
   await teamsStore.getTeam(router.currentRoute.value.params.id);
   await editionStore.getEdition(router.currentRoute.value.params.edition)
   const now = new Date()
-  if (editionStore.edition.finish_date <= now) {
+  const editionFinishDate = new Date(editionStore.edition.finish_date)
+  if (editionFinishDate <= now) {
     await rankingStore.getRankingByTeamId(router.currentRoute.value.params.edition);
     ranking.value = rankingStore.ranking
   }
@@ -75,7 +76,7 @@ onMounted(async () => {
         </div>
 
         <div>
-          <h2 class="font-weight-bold">Nota: {{ ranking?.final_grade ?? 'Sem Nota' }}</h2>
+          <h2 class="font-weight-bold">Nota: {{ ranking?.final_grade ?? 'Nota indisponível' }}</h2>
         </div>
 
         <v-btn @click="() => redirectToProject(teamsStore?.team?.project?.repository_link)" variant="outlined"
