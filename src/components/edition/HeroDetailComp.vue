@@ -1,23 +1,22 @@
 <script setup>
-import { onMounted, ref } from 'vue';
-import { useEditionStore } from '@/stores/edition';
-import { prepareEditionTitle } from '@/composables/edition/editionUtils';
-import router from '@/router';
+import { onMounted, ref } from 'vue'
+import { useEditionStore } from '@/stores/edition'
+import { prepareEditionTitle } from '@/composables/edition/editionUtils'
+import router from '@/router'
 
-import RoundCardCode from '../global/card/RoundCardCode.vue';
-import SquareCardBox from '../global/card/SquareCardBox.vue';
-import GradientBall from '../global/card/GradientBall.vue';
-import BallCard from '../global/card/BallCard.vue';
-import CubeOutline from "vue-material-design-icons/CubeOutline.vue";
-import ConsoleLine from "vue-material-design-icons/ConsoleLine.vue";
+import RoundCardCode from '../global/card/RoundCardCode.vue'
+import SquareCardBox from '../global/card/SquareCardBox.vue'
+import BallCard from '../global/card/BallCard.vue'
+import CubeOutline from 'vue-material-design-icons/CubeOutline.vue'
+import ConsoleLine from 'vue-material-design-icons/ConsoleLine.vue'
 
-const useEdition = useEditionStore();
+const useEdition = useEditionStore()
 const editionTitle = ref('')
 
 onMounted(async () => {
-  await useEdition.getEdition(router.currentRoute.value.params.edition);
-  editionTitle.value = prepareEditionTitle(useEdition.edition);
-});
+  await useEdition.getEdition(router.currentRoute.value.params.edition)
+  editionTitle.value = prepareEditionTitle(useEdition.edition)
+})
 </script>
 
 <template>
@@ -64,7 +63,7 @@ section {
 }
 
 .gradient {
-  background: linear-gradient(85.58deg, rgba(254, 92, 43, 0.38) 8%, #FE5C2B 139.33%);
+  background: linear-gradient(85.58deg, rgba(254, 92, 43, 0.38) 8%, #fe5c2b 139.33%);
   background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 6rem;
@@ -86,20 +85,20 @@ section {
   gap: 1rem;
 }
 
-.cards1>*:nth-child(2) {
+.cards1 > *:nth-child(2) {
   margin-right: 10%;
 }
 
-.cards1>*:first-child {
+.cards1 > *:first-child {
   justify-self: end;
   align-self: end;
 }
 
-.cards1>*:last-child {
+.cards1 > *:last-child {
   justify-self: center;
 }
 
-.cards2>*:first-child {
+.cards2 > *:first-child {
   justify-self: center;
   align-self: center;
 }

@@ -1,47 +1,49 @@
 <script setup>
-import { onMounted, shallowRef, computed, ref } from 'vue';
+import { onMounted, computed, ref } from 'vue'
 
-import { formattedDate, parseDate } from '@/composables/edition/editionUtils';
+import { formattedDate, parseDate } from '@/composables/edition/editionUtils'
 
 const props = defineProps({
   start_date: {
     type: String,
-    required: true,
+    required: true
   },
   finish_date: {
     type: String,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 
-const currentDate = ref(null);
+const currentDate = ref(null)
 
 const state = computed(() => {
-  if (!currentDate.value) return 'soon';
+  if (!currentDate.value) return 'soon'
 
-  const now = parseDate(formattedDate(currentDate.value));
-  const start = parseDate(formattedDate(props.start_date));
-  const finish = parseDate(formattedDate(props.finish_date));
+  const now = parseDate(formattedDate(currentDate.value))
+  const start = parseDate(formattedDate(props.start_date))
+  const finish = parseDate(formattedDate(props.finish_date))
 
   if (now < start) {
-    return 'soon';
+    return 'soon'
   } else if (now > finish) {
-    return 'past';
+    return 'past'
   } else {
-    return 'now';
+    return 'now'
   }
-});
+})
 
 onMounted(() => {
-  currentDate.value = new Date();
-});
-
+  currentDate.value = new Date()
+})
 </script>
 
 <template>
   <div class="container-indicator">
     <div class="box-indicator">
-      <div class="default-ball" :class="state === 'past' ? 'past' : state === 'soon' ? 'soon' : 'now'"></div>
+      <div
+        class="default-ball"
+        :class="state === 'past' ? 'past' : state === 'soon' ? 'soon' : 'now'"
+      ></div>
       <p class="reactive-text-indicator">
         {{ state === 'soon' ? 'NÃO INICIADO' : state === 'past' ? 'FINALIZADO' : 'EM ANDAMENTO' }}
       </p>
@@ -78,7 +80,6 @@ onMounted(() => {
 }
 
 .past {
-
   background-color: #666666;
 }
 
@@ -100,7 +101,7 @@ onMounted(() => {
   border-radius: 24px;
   align-items: center;
   padding: 4px 15px;
-  background-color: rgba(0, 0, 0, 0.50);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .reactive-text-indicator {

@@ -1,10 +1,9 @@
 <script setup>
-import { StateIndicator1 } from '@/components';
-import { onMounted } from 'vue';
+import { StateIndicator1 } from '@/components'
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
   object: Object
-});
+})
 </script>
 
 <template>
@@ -92,7 +91,7 @@ button {
   display: flex;
   justify-content: space-between;
   font-weight: 600;
-  font-size: .75rem;
+  font-size: 0.75rem;
 }
 
 p {

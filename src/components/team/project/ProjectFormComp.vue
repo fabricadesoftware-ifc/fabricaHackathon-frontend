@@ -3,7 +3,6 @@ import { reactive, onMounted, computed } from 'vue'
 import { useTeamStore } from '@/stores/team'
 import { useProjectStore } from '@/stores/project'
 import { useRoute } from 'vue-router'
-import GradientInput from '@/components/global/input/GradientInput.vue'
 import OrangeButton from '@/components/global/button/OrangeButton.vue'
 import router from '@/router'
 import { useToast } from 'vue-toastification'
@@ -24,7 +23,7 @@ const dataProject = reactive({
   repository_link: '',
   photo_file: null,
   team_id: null,
-  category: null,
+  category: null
 })
 
 const handleFileChange = (event) => {
@@ -52,7 +51,8 @@ const createProject = async () => {
   toast.success('Projeto adicionado com sucesso!')
 
   router.push({
-    name: 'detailsProject', params: {
+    name: 'detailsProject',
+    params: {
       edition: router.currentRoute.value.params.edition,
       id: dataProject.team_id
     }
@@ -74,8 +74,7 @@ onMounted(async () => {
   if (teamData[0].project != null) {
     router.push('/home')
     toast.warning('Você já possui um projeto cadastrado')
-  }
-  else {
+  } else {
     dataProject.team_id = teamData[0].id
   }
 })
@@ -90,14 +89,32 @@ onMounted(async () => {
       <h1 style="text-align: center" class="gradientOrange">Projeto</h1>
       <form @submit.prevent="">
         <v-text-field variant="outlined" v-model="dataProject.name" label="Nome do Projeto" />
-        <v-select v-model="dataProject.category" :items="categories" label="Categoria" variant="outlined" />
+        <v-select
+          v-model="dataProject.category"
+          :items="categories"
+          label="Categoria"
+          variant="outlined"
+        />
         <v-text-field variant="outlined" v-model="dataProject.deploy_link" label="Deploy Link" />
-        <v-text-field variant="outlined" v-model="dataProject.repository_link" label="Repository Link" />
-        <v-text-field variant="outlined" v-model="dataProject.description" label="Descrição do Projeto" />
+        <v-text-field
+          variant="outlined"
+          v-model="dataProject.repository_link"
+          label="Repository Link"
+        />
+        <v-text-field
+          variant="outlined"
+          v-model="dataProject.description"
+          label="Descrição do Projeto"
+        />
         <div class="send">
-          <v-file-input @change="handleFileChange" label="Imagem do Projeto" class="w-100 col-12 col-md-6"
-            variant="outlined" :min-width="200" />
-          <div class="a" style="width: 100%;">
+          <v-file-input
+            @change="handleFileChange"
+            label="Imagem do Projeto"
+            class="w-100 col-12 col-md-6"
+            variant="outlined"
+            :min-width="200"
+          />
+          <div class="a" style="width: 100%">
             <OrangeButton label="Enviar" @click="createProject(dataProject)" />
           </div>
         </div>
@@ -125,7 +142,7 @@ section {
   justify-content: end;
 }
 
-.logo>img {
+.logo > img {
   margin: 20px 50px 0 0;
   width: 25%;
 }

@@ -1,20 +1,15 @@
 <script setup>
-import { useRouter } from 'vue-router';
-import { useTheme } from 'vuetify'
-
-const theme = useTheme()
-
+import { useRouter } from 'vue-router'
 const router = useRouter()
 const routes = router.getRoutes()
-
 </script>
 
 <template>
   <div>
     <p>DevNav</p>
-    <router-link v-for="route, index in routes" :to="route.path">
+    <router-link v-for="(route, index) in routes" :to="route.path" :key="index">
       {{ route.name }}
-      <br>
+      <br />
     </router-link>
   </div>
   <RouterView />

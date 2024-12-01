@@ -1,65 +1,64 @@
 <script setup>
-import { onMounted, computed, ref } from 'vue';
-import { useTeamStore } from '@/stores/team';
-import { useStudentStore } from '@/stores/student';
-import { useRankingStore } from '@/stores/ranking';
-import router from '@/router';
-import { useEditionStore } from '@/stores/edition';
+import { onMounted, computed, ref } from 'vue'
+import { useTeamStore } from '@/stores/team'
+import { useStudentStore } from '@/stores/student'
+import { useRankingStore } from '@/stores/ranking'
+import router from '@/router'
+import { useEditionStore } from '@/stores/edition'
 
-const teamsStore = useTeamStore();
-const studentsStore = useStudentStore();
-const rankingStore = useRankingStore();
-const editionStore = useEditionStore();
+const teamsStore = useTeamStore()
+const studentsStore = useStudentStore()
+const rankingStore = useRankingStore()
+const editionStore = useEditionStore()
 
 const ranking = ref()
 
 const base64Format = (photo) => {
-  return `data:image/jpeg;base64,${photo}`;
-};
+  return `data:image/jpeg;base64,${photo}`
+}
 
 const redirectToProject = (link) => {
   if (link) {
-    window.open(link, '_blank');
+    window.open(link, '_blank')
   } else {
-    window.open("https://google.com", '_blank');
+    window.open('https://google.com', '_blank')
   }
-};
-
-const redirectToSocialMedia = (socialMedia) => {
-  window.open(socialMedia, '_blank');
-};
+}
 
 const associateStudentsWithProfiles = computed(() => {
-  const users = teamsStore.team?.students || [];
-  const studentProfiles = studentsStore.studentProfiles || [];
+  const users = teamsStore.team?.students || []
+  const studentProfiles = studentsStore.studentProfiles || []
 
-  return users.map(user => {
-    const profile = studentProfiles.find(profile => profile.user.id === user.id);
+  return users.map((user) => {
+    const profile = studentProfiles.find((profile) => profile.user.id === user.id)
     return {
       ...user,
-      studentProfile: profile || null,
-    };
-  });
-});
+      studentProfile: profile || null
+    }
+  })
+})
 
 onMounted(async () => {
-  await studentsStore.getStudentProfile();
-  await teamsStore.getTeam(router.currentRoute.value.params.id);
+  await studentsStore.getStudentProfile()
+  await teamsStore.getTeam(router.currentRoute.value.params.id)
   await editionStore.getEdition(router.currentRoute.value.params.edition)
   const now = new Date()
   const editionFinishDate = new Date(editionStore.edition.finish_date)
   if (editionFinishDate <= now) {
-    await rankingStore.getRankingByTeamId(router.currentRoute.value.params.edition);
+    await rankingStore.getRankingByTeamId(router.currentRoute.value.params.edition)
     ranking.value = rankingStore.ranking
   }
-});
+})
 </script>
 <template>
   <div class="pa-6 d-flex flex-column ga-6">
     <v-row class="d-flex justify-center">
       <v-col cols="12" lg="6" class="d-flex justify-center">
-        <v-img height="300" :src="base64Format(teamsStore?.team?.project?.project_photo_base64_code)"
-          lazy-src="https://img.freepik.com/vetores-premium/geometrico-minimo-criativo-com-papel-de-parede-de-fundo-de-cor-branca-e-cinza-abstrato-de-formas-dinamicas_176697-503.jpg?semt=ais_hybrid">
+        <v-img
+          height="300"
+          :src="base64Format(teamsStore?.team?.project?.project_photo_base64_code)"
+          lazy-src="https://img.freepik.com/vetores-premium/geometrico-minimo-criativo-com-papel-de-parede-de-fundo-de-cor-branca-e-cinza-abstrato-de-formas-dinamicas_176697-503.jpg?semt=ais_hybrid"
+        >
           <template v-slot:placeholder>
             <div class="d-flex align-center justify-center fill-height">
               <v-progress-circular color="grey-lighten-4" indeterminate></v-progress-circular>
@@ -79,10 +78,18 @@ onMounted(async () => {
           <h2 class="font-weight-bold">Nota: {{ ranking?.final_grade ?? 'Nota indisponível' }}</h2>
         </div>
 
-        <v-btn @click="() => redirectToProject(teamsStore?.team?.project?.repository_link)" variant="outlined"
-          class="ma-6">Acessar Repositório</v-btn>
-        <v-btn @click="() => redirectToProject(teamsStore?.team?.project?.presentation_link)" variant="outlined"
-          class="ma-6">Apresentação</v-btn>
+        <v-btn
+          @click="() => redirectToProject(teamsStore?.team?.project?.repository_link)"
+          variant="outlined"
+          class="ma-6"
+          >Acessar Repositório</v-btn
+        >
+        <v-btn
+          @click="() => redirectToProject(teamsStore?.team?.project?.presentation_link)"
+          variant="outlined"
+          class="ma-6"
+          >Apresentação</v-btn
+        >
       </v-col>
     </v-row>
 
@@ -102,21 +109,34 @@ onMounted(async () => {
             <v-col cols="12" class="d-flex justify-center">
               <v-row class="d-flex justify-center">
                 <v-col cols="4" class="d-flex justify-center">
-                  <v-btn v-if="student.studentProfile?.github" class="rounded-xl"
-                    @click="() => window.open(student.studentProfile?.github, '_blank')" icon="mdi-github"
-                    variant="outlined" color="white">
+                  <v-btn
+                    v-if="student?.github"
+                    class="rounded-xl"
+                    @click="() => window.open(student.studentProfile?.github, '_blank')"
+                    icon="mdi-github"
+                    variant="outlined"
+                    color="white"
+                  >
                   </v-btn>
                 </v-col>
                 <v-col cols="4" class="d-flex justify-center">
-                  <v-btn v-if="student.studentProfile?.linkedin"
-                    @click="window.open(student.studentProfile?.linkedin, '_blank')" icon="mdi-linkedin"
-                    variant="outlined" color="blue">
+                  <v-btn
+                    v-if="student?.linkedin"
+                    @click="window.open(student.studentProfile?.linkedin, '_blank')"
+                    icon="mdi-linkedin"
+                    variant="outlined"
+                    color="blue"
+                  >
                   </v-btn>
                 </v-col>
                 <v-col cols="4" class="d-flex justify-center">
-                  <v-btn v-if="student.studentProfile?.instagram"
-                    @click="window.open(student.studentProfile?.instagram, '_blank')" icon="mdi-instagram"
-                    variant="outlined" color="pink">
+                  <v-btn
+                    v-if="student?.instagram"
+                    @click="window.open(student.studentProfile?.instagram, '_blank')"
+                    icon="mdi-instagram"
+                    variant="outlined"
+                    color="pink"
+                  >
                   </v-btn>
                 </v-col>
               </v-row>

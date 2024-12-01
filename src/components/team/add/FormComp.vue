@@ -3,11 +3,8 @@ import { reactive, ref, onMounted } from 'vue'
 import { useTeamStore } from '@/stores/team'
 import { useClassInfoStore } from '@/stores/classInfo'
 import { useCategoryStore } from '@/stores/category'
-import GradientInput from '@/components/global/input/GradientInput.vue'
-import GradientSelect from '@/components/global/input/GradientSelect.vue'
 import OrangeButton from '@/components/global/button/OrangeButton.vue'
 import ModalAddComp from '@/components/team/add/ModalAddComp.vue'
-import RoundButton from '@/components/global/button/RoundButton.vue'
 import { useRouter } from 'vue-router'
 
 const teamStore = useTeamStore()
@@ -36,8 +33,9 @@ function addMember(data) {
 const createTeam = async () => {
   await teamStore.createTeam(dados)
   router.push({
-    name: 'yearEdition', params: {
-      edition: router.currentRoute.value.params.edition,
+    name: 'yearEdition',
+    params: {
+      edition: router.currentRoute.value.params.edition
     }
   })
 }
@@ -49,7 +47,12 @@ onMounted(async () => {
 </script>
 
 <template>
-  <ModalAddComp v-model:isOpen="showModal" v-model:team="members" @add-student="addMember" :edition="edition" />
+  <ModalAddComp
+    v-model:isOpen="showModal"
+    v-model:team="members"
+    @add-student="addMember"
+    :edition="edition"
+  />
 
   <section>
     <router-link to="/home" class="logo">
@@ -59,8 +62,9 @@ onMounted(async () => {
       <h1 style="text-align: center" class="gradientOrange">Cadastrar Equipe</h1>
       <form @submit.prevent>
         <v-text-field variant="outlined" v-model="dados.name" label="Nome da Equipe" />
-        <v-btn @click="showModal = true" color="grey" class="w-100 py-6 d-flex " variant="outlined">Adicionar
-          Membros</v-btn>
+        <v-btn @click="showModal = true" color="grey" class="w-100 py-6 d-flex" variant="outlined"
+          >Adicionar Membros</v-btn
+        >
         <OrangeButton label="Enviar" @click="createTeam" />
       </form>
     </div>
@@ -94,7 +98,7 @@ section {
   margin: 30px 0px 0px 30px;
 }
 
-.logo>img {
+.logo > img {
   width: 100%;
 }
 

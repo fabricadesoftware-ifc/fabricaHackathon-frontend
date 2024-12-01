@@ -1,5 +1,5 @@
 <script setup>
-import { StateIndicator1, StateIndicator2 } from '@/components/index';
+import { StateIndicator1 } from '@/components/index'
 import ArrowRight from 'vue-material-design-icons/ArrowRight.vue'
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
@@ -8,18 +8,19 @@ const props = defineProps({
 
 const base64Format = (photo) => {
   if (!photo) {
-    return 'https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg';
+    return 'https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg'
   } else {
-    return photo;
+    return photo
   }
-};
-
+}
 </script>
 
 <template>
   <article :style="{ backgroundImage: `url(${base64Format(object.img)})` }">
-    <StateIndicator1 :start_date="props.object.start_date" :finish_date="props.object.finish_date" />
-    <!-- <StateIndicator2 :start_date="object.start_date" :finish_date="object.finish_date" /> -->
+    <StateIndicator1
+      :start_date="props.object.start_date"
+      :finish_date="props.object.finish_date"
+    />
     <div class="allBlur">
       <div class="info">
         <div class="text">

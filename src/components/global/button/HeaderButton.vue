@@ -1,9 +1,7 @@
 <script setup>
-import ArrowTopRight from "vue-material-design-icons/ArrowTopRight.vue";
-
 defineProps({
-  text: String,
-});
+  text: String
+})
 </script>
 
 <template>
