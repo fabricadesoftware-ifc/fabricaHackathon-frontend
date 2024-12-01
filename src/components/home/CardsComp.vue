@@ -1,21 +1,22 @@
 <script setup>
-import { onMounted, ref } from "vue";
-import { prepareEditions } from "@/composables/edition/editionUtils";
-import { useEditionStore } from "@/stores/edition";
-import { useClassInfoStore } from "@/stores/classInfo";
-import CardEditionHome from "../global/card/CardEditionHome.vue";
+import { onMounted, ref } from 'vue'
+import { prepareEditions } from '@/composables/edition/editionUtils'
+import { useEditionStore } from '@/stores/edition'
+import { useClassInfoStore } from '@/stores/classInfo'
+import CardEditionHome from '../global/card/CardEditionHome.vue'
 
-const editionStore = useEditionStore();
-const classesInfoStore = useClassInfoStore();
-const formatEditions = ref([]);
-
+const editionStore = useEditionStore()
+const classesInfoStore = useClassInfoStore()
+const formatEditions = ref([])
 
 onMounted(async () => {
-  await editionStore.getEditions();
-  await classesInfoStore.getClassesInfo();
-  formatEditions.value = prepareEditions(editionStore.editions, classesInfoStore.classesInfo).slice(0, 3);
-});
-
+  await editionStore.getEditions()
+  await classesInfoStore.getClassesInfo()
+  formatEditions.value = prepareEditions(editionStore.editions, classesInfoStore.classesInfo).slice(
+    0,
+    3
+  )
+})
 </script>
 
 <template>
@@ -32,12 +33,12 @@ onMounted(async () => {
   height: 50vh;
 }
 
-.cardsComp>* {
+.cardsComp > * {
   flex: 1;
   transition: flex-grow 0.3s ease-in-out;
 }
 
-.cardsComp>*:hover {
+.cardsComp > *:hover {
   flex-grow: 1.5;
 }
 </style>

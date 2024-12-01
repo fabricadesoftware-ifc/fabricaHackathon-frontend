@@ -4,7 +4,7 @@ import editionService from '@/services/edition'
 
 export const useEditionStore = defineStore('edition', () => {
   const editions = ref([])
-  const edition = ref([])
+  const edition = ref({})
   const newEdition = ref([])
   const avaliatorEditions = ref([])
 
