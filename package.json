@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "start": "serve -s dist"
+    "start": "vite preview --port 8080",
+    "heroku-postbuild": "npm install && npm run build"
   },
   "dependencies": {
     "@vueuse/core": "^11.1.0",
