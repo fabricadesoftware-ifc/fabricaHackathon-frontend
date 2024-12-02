@@ -55,6 +55,7 @@ export const useStudentStore = defineStore('student', () => {
 
   const updateStudentProfile = async (student) => {
     try {
+      console.log(student)
       const data = studentService.updateStudentProfile(student)
       return data
     } catch (error) {

@@ -1,278 +1,145 @@
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useStudentStore } from '@/stores/student'
-import Account from 'vue-material-design-icons/Account.vue'
 import Github from 'vue-material-design-icons/Github.vue'
 import Instagram from 'vue-material-design-icons/Instagram.vue'
 import Linkedin from 'vue-material-design-icons/Linkedin.vue'
 import Whatsapp from 'vue-material-design-icons/Whatsapp.vue'
-import Pencil from 'vue-material-design-icons/Pencil.vue'
 import EmailOutline from 'vue-material-design-icons/EmailOutline.vue'
 
 const isEditable = ref(false)
 const authStore = useAuthStore()
 const studentStore = useStudentStore()
 
-const studentProfileCopy = reactive({
-  ...authStore.student_profile_data
+const studentProfileCopy = computed(() => {
+  return {
+    id: studentStore?.student?.id,
+    whatsapp: studentStore?.student?.whatsapp,
+    instagram: studentStore?.student?.instagram,
+    linkedin: studentStore?.student?.linkedin,
+    github: studentStore?.student?.github
+  }
+})
+
+const studentEmail = computed(() => {
+  return {
+    id: authStore.data_user.user_id,
+    email: authStore.data_user.email
+  }
 })
 
 const toggleEdit = () => {
   isEditable.value = !isEditable.value
 }
 
-function saveProfile() {
-  studentStore.updateStudentProfile(studentProfileCopy)
-  authStore.student_profile_data = studentProfileCopy
+async function saveProfile() {
+  await authStore.updateUser(studentEmail.value)
+  await studentStore.updateStudentProfile(studentProfileCopy.value)
   isEditable.value = !isEditable.value
 }
 
-onMounted(() => {
-  studentStore.getStudentProfile()
+onMounted(async () => {
+  await studentStore.getStudentProfile(authStore.data_user.student_profile_id)
 })
 </script>
 
 <template>
-  <section>
-    <div class="title">
-      <div class="icon">
-        <Account size="100%" style="color: #fe5c2b" />
-      </div>
-      <div class="info">
-        <h1>{{ authStore.data_user.name }}</h1>
-        <span class="desc">
-          <p>Matricula: {{ authStore.student_profile_data.registration }}</p>
-          <p>Curso: Informática</p>
-        </span>
-      </div>
-    </div>
-    <div class="data_info">
-      <div class="data1">
-        <h3>Dados Pessoais:</h3>
-        <p>
-          <span>
-            <EmailOutline style="color: #fe5c2b" />
-            Email:
-          </span>
-          <span>{{ authStore?.data_user.email }}</span>
-        </p>
-        <span>
-          <Whatsapp style="color: #fe5c2b" />
-          WhatsApp:
-        </span>
-        <div class="input">
-          <input
-            type="number"
-            :disabled="!isEditable"
-            v-model="studentProfileCopy.whatsapp"
-            :class="{ editable: isEditable, nonEditable: !isEditable }"
-          />
-        </div>
-      </div>
-      <div class="data2">
-        <h3>Informações de Contato:</h3>
-        <span>
-          <Instagram style="color: #fe5c2b" />
-          Instagram:
-        </span>
-        <div class="input">
-          <input
-            type="text"
-            :disabled="!isEditable"
-            v-model="studentProfileCopy.instagram"
-            :class="{ editable: isEditable, nonEditable: !isEditable }"
-          />
-        </div>
-        <span>
-          <Linkedin style="color: #fe5c2b" />
-          Linkedin:
-        </span>
-        <div class="input">
-          <input
-            type="text"
-            :disabled="!isEditable"
-            v-model="studentProfileCopy.linkedin"
-            :class="{ editable: isEditable, nonEditable: !isEditable }"
-          />
-        </div>
-        <span>
-          <Github style="color: #fe5c2b" />
-          Github:
-        </span>
-        <div class="input">
-          <input
-            type="text"
-            :disabled="!isEditable"
-            v-model="studentProfileCopy.github"
-            :class="{ editable: isEditable, nonEditable: !isEditable }"
-          />
-        </div>
-      </div>
-    </div>
-    <div class="button">
-      <div class="widthButton">
-        <button class="confirm" @click="toggleEdit">
-          <Pencil style="color: #fe5c2b" />
-        </button>
-        <button class="confirm" v-if="isEditable" @click="saveProfile">Confirmar</button>
-      </div>
-    </div>
-  </section>
+  <v-container class="d-flex align-center" height="500px">
+    <v-row class="d-flex justify-center align-center">
+      <v-card class="w-50 pa-6">
+        <v-card-title class="mb-6">
+          {{ authStore.data_user.name }}
+        </v-card-title>
+        <v-card-text>
+          <v-row class="data_info">
+            <v-col class="data1">
+              <div class="d-flex ga-3 align-center">
+                <span class="d-flex align-center ga-3">
+                  <EmailOutline />
+                </span>
+                <div class="input">
+                  <input
+                    v-model="studentEmail.email"
+                    :disabled="!isEditable"
+                    class="editable pa-2"
+                    type="email"
+                    placeholder="E-mail"
+                  />
+                </div>
+              </div>
+              <div class="d-flex align-center ga-3">
+                <span class="d-flex align-center ga-3">
+                  <Whatsapp />
+                </span>
+                <div class="input">
+                  <input
+                    v-model="studentProfileCopy.whatsapp"
+                    :disabled="!isEditable"
+                    class="editable pa-2"
+                    type="number"
+                    placeholder="Whatsapp"
+                  />
+                </div>
+              </div>
+              <div class="d-flex align-center ga-3">
+                <span class="d-flex align-center ga-3">
+                  <Instagram />
+                </span>
+                <div class="input">
+                  <input
+                    v-model="studentProfileCopy.instagram"
+                    :disabled="!isEditable"
+                    class="editable pa-2"
+                    type="text"
+                    placeholder="Instagram"
+                  />
+                </div>
+              </div>
+            </v-col>
+            <v-col class="data2">
+              <div class="d-flex align-center ga-3">
+                <span class="d-flex align-center ga-3">
+                  <Linkedin />
+                </span>
+                <div class="input">
+                  <input
+                    v-model="studentProfileCopy.linkedin"
+                    :disabled="!isEditable"
+                    class="editable pa-2"
+                    type="text"
+                    placeholder="Linkedin"
+                  />
+                </div>
+              </div>
+              <div class="d-flex align-center ga-3">
+                <span class="d-flex align-center ga-3">
+                  <Github />
+                </span>
+                <div class="input">
+                  <input
+                    v-model="studentProfileCopy.github"
+                    :disabled="!isEditable"
+                    class="editable pa-2"
+                    type="text"
+                    placeholder="Github"
+                  />
+                </div>
+              </div>
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn v-if="!isEditable" @click="toggleEdit" color="orange" type="flat">
+            <v-icon>mdi-pencil</v-icon>
+            Editar
+          </v-btn>
+          <v-btn v-if="isEditable" @click="saveProfile" color="orange">
+            <v-icon>mdi-content-save</v-icon>
+            Salvar
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-row>
+  </v-container>
 </template>
-
-<style scoped>
-section {
-  background-color: #1a1a1e;
-  margin: 10% auto 0;
-  border: 1px solid #535353;
-  border-radius: 9px;
-  padding: 2rem;
-  width: 90vw;
-  max-width: 800px;
-}
-
-@media (min-width: 1440px) {
-  section {
-    width: 45vw;
-  }
-
-  .data_info {
-    gap: 3rem;
-  }
-
-  .data2 > p {
-    grid-template-columns: 0.9fr 2fr;
-  }
-}
-
-span {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.icon {
-  width: 15%;
-}
-
-.desc {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  font-size: 10pt;
-  text-align: left;
-}
-
-.info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-button.confirm {
-  background-color: #1a1a1e;
-  padding: 0.8rem;
-  border-radius: 9px;
-  color: white;
-  border: 1px solid #535353;
-  cursor: pointer;
-  transition: 0.3s ease-in-out;
-}
-
-button.confirm:hover {
-  background-color: #535353;
-}
-
-.title {
-  color: white;
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-}
-
-.button {
-  width: 100%;
-  display: flex;
-  justify-content: start;
-  margin: 25px auto 0;
-}
-
-.widthButton {
-  width: 25%;
-  display: flex;
-  gap: 1rem;
-  justify-content: start;
-}
-
-.data_info {
-  width: 100%;
-  display: flex;
-  margin: 10px auto;
-  color: white;
-  gap: 1rem;
-}
-
-.data1 {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  text-align: left;
-  width: 40%;
-}
-
-.data2 {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  text-align: left;
-  width: 60%;
-}
-
-.data1 > p,
-.data2 > p {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  text-align: left;
-}
-
-.data2 > p {
-  display: grid;
-  grid-template-columns: 1.1fr 2fr;
-  align-items: center;
-  gap: 1rem;
-  text-align: left;
-}
-
-p > span {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-input {
-  background-color: transparent;
-  color: white;
-  border: 0;
-  outline: none;
-  width: 100%;
-  text-align: left;
-}
-
-input[type='number']::-webkit-inner-spin-button {
-  appearance: none;
-}
-
-.input {
-  width: 80%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  text-align: left;
-}
-
-.editable {
-  border-bottom: 2px solid #535353;
-}
-</style>

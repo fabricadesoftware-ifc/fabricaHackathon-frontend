@@ -94,7 +94,7 @@ onMounted(async () => {
     <v-row class="d-flex justify-center w-100">
       <v-col v-for="student in associateStudentsWithProfiles" :key="student.id" cols="" lg="3">
         <v-card class="pa-4 h-100 d-flex rounded" outlined variant="outlined">
-          <v-row>
+          <v-row class="d-flex">
             <v-col cols="12" class="d-flex justify-center">
               <v-avatar size="100">
                 <v-icon size="100">mdi-account</v-icon>

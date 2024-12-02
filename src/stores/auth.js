@@ -49,6 +49,15 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  const updateUser = async (user) => {
+    try {
+      const data = await authService.updateUser(user)
+      return data
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const logout = () => {
     isLogged.value = false
     token.value = {}
@@ -64,6 +73,7 @@ export const useAuthStore = defineStore('auth', () => {
     data_user,
     student_profile_data,
     createAuthentication,
+    updateUser,
     logout
   }
 })
