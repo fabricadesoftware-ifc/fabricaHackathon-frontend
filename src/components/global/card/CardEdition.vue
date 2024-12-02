@@ -1,5 +1,6 @@
 <script setup>
 import { StateIndicator1 } from '@/components'
+import getImage from '@/composables/image'
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
   object: Object
@@ -7,9 +8,8 @@ const props = defineProps({
 </script>
 
 <template>
-  <article :style="{ backgroundImage: `url(${object.img})` }">
+  <article :style="{ backgroundImage: `url(${getImage(object.img)})` }">
     <StateIndicator1 :start_date="object.start_date" :finish_date="object.finish_date" />
-    <!-- <StateIndicator2 :start_date="object.start_date" :finish_date="object.finish_date" /> -->
     <div class="allBlur">
       <div class="info">
         <div class="text">

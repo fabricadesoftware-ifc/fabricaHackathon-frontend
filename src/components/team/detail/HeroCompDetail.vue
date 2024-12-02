@@ -10,18 +10,10 @@ import RoundCardCode from '@/components/global/card/RoundCardCode.vue'
 import ConsoleLine from 'vue-material-design-icons/ConsoleLine.vue'
 import CubeOutline from 'vue-material-design-icons/CubeOutline.vue'
 import { onMounted } from 'vue'
-
-const base64Format = (photo) => {
-  if (!photo) {
-    return 'https://img.freepik.com/vetores-premium/geometrico-minimo-criativo-com-papel-de-parede-de-fundo-de-cor-branca-e-cinza-abstrato-de-formas-dinamicas_176697-503.jpg?semt=ais_hybrid'
-  } else {
-    return photo
-  }
-}
+import getImage from '@/composables/image'
 
 onMounted(async () => {
   await teamsStore.getTeam(router.currentRoute.value.params.id)
-  console.log(teamsStore.team.photo_base64_code)
 })
 </script>
 
@@ -31,9 +23,7 @@ onMounted(async () => {
   <BallCard y="20%" x="95%" />
   <BallCard y="70%" x="90%" />
 
-  <section
-    :style="{ backgroundImage: `url(${base64Format(teamsStore?.team?.photo_base64_code)})` }"
-  >
+  <section :style="{ backgroundImage: `url(${getImage(teamsStore?.team?.photo?.url)})` }">
     <div class="allBlur">
       <div class="container">
         <div class="row1">

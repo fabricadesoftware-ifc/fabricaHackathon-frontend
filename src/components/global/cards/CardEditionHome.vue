@@ -1,24 +1,15 @@
 <script setup>
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
-  object: Object,
-});
+  object: Object
+})
 
-const base64Format = (photo) => {
-
-  if (photo == null) {
-    return 'https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg';
-  }
-  else {
-    return `data:image/jpeg;base64,${photo}`;;
-  }
-};
-
-import ArrowRight from "vue-material-design-icons/ArrowRight.vue";
+import getImage from '@/composables/image'
+import ArrowRight from 'vue-material-design-icons/ArrowRight.vue'
 </script>
 
 <template>
-  <article :style="{ backgroundImage: `url(${base64Format(object.img)})` }">
+  <article :style="{ backgroundImage: `url(${getImage(object.img)})` }">
     <div class="allBlur">
       <div class="info">
         <div class="text">

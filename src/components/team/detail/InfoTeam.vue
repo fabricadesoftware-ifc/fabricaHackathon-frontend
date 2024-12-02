@@ -1,49 +1,42 @@
 <script setup>
-import { onMounted, computed } from 'vue';
-import { useTeamStore } from '@/stores/team';
-import { useStudentStore } from '@/stores/student';
-import router from '@/router';
-import RoundButtonGradient from '@/components/global/buttons/RoundButtonGradient.vue';
-import Instagram from 'vue-material-design-icons/Instagram.vue';
-import Github from 'vue-material-design-icons/Github.vue';
-import Linkedin from 'vue-material-design-icons/Linkedin.vue';
+import { onMounted, computed } from 'vue'
+import { useTeamStore } from '@/stores/team'
+import { useStudentStore } from '@/stores/student'
+import router from '@/router'
+import RoundButtonGradient from '@/components/global/buttons/RoundButtonGradient.vue'
+import Instagram from 'vue-material-design-icons/Instagram.vue'
+import Github from 'vue-material-design-icons/Github.vue'
+import Linkedin from 'vue-material-design-icons/Linkedin.vue'
+import getImage from '@/composables/image'
 
-const teamsStore = useTeamStore();
-const studentsStore = useStudentStore();
-
-const base64Format = (photo) => {
-  if (!photo) {
-    return 'https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg';
-  } else {
-    return `data:image/jpeg;base64,${photo}`;
-  }
-};
+const teamsStore = useTeamStore()
+const studentsStore = useStudentStore()
 
 const redirectToProject = () => {
   if (teamsStore.team?.project?.repository_link) {
-    window.open(teamsStore.team?.project?.repository_link, '_blank');
+    window.open(teamsStore.team?.project?.repository_link, '_blank')
   } else {
-    window.open("https://google.com", '_blank');
+    window.open('https://google.com', '_blank')
   }
-};
+}
 
 const associateStudentsWithProfiles = computed(() => {
-  const users = teamsStore.team?.students || [];
-  const studentProfiles = studentsStore.studentProfiles || [];
+  const users = teamsStore.team?.students || []
+  const studentProfiles = studentsStore.studentProfiles || []
 
-  return users.map(user => {
-    const profile = studentProfiles.find(profile => profile.user.id === user.id);
+  return users.map((user) => {
+    const profile = studentProfiles.find((profile) => profile.user.id === user.id)
     return {
       ...user,
-      studentProfile: profile || null,
-    };
-  });
-});
+      studentProfile: profile || null
+    }
+  })
+})
 
 onMounted(async () => {
-  await studentsStore.getStudentProfile();
-  await teamsStore.getTeam(router.currentRoute.value.params.id);
-});
+  await studentsStore.getStudentProfile()
+  await teamsStore.getTeam(router.currentRoute.value.params.id)
+})
 </script>
 
 <template>
@@ -59,7 +52,7 @@ onMounted(async () => {
         <div>
           <h2>NOTA</h2>
         </div>
-        <div style="display: flex; align-items: center; gap: 1rem;">
+        <div style="display: flex; align-items: center; gap: 1rem">
           <h2>{{ teamsStore.team?.project?.name?.toUpperCase() }}</h2>
           <RoundButtonGradient @click="redirectToProject" />
         </div>
@@ -72,17 +65,18 @@ onMounted(async () => {
         </div>
         <div class="rowThree">
           <div v-for="item in associateStudentsWithProfiles" :key="item.id">
-            <div class="member">{{ item.studentProfile?.user?.name }}
+            <div class="member">
+              {{ item.studentProfile?.user?.name }}
               <!-- {{ item }} -->
               <div class="iconsInfo">
                 <a :href="item.instagram">
-                  <Instagram size="20" style="color: magenta;" />
+                  <Instagram size="20" style="color: magenta" />
                 </a>
                 <a :href="item.github">
-                  <Github size="20" style="color: #c1c1c1;" />
+                  <Github size="20" style="color: #c1c1c1" />
                 </a>
                 <a :href="item.linkedin">
-                  <Linkedin size="20" style="color: blue;" />
+                  <Linkedin size="20" style="color: blue" />
                 </a>
               </div>
             </div>
@@ -94,7 +88,11 @@ onMounted(async () => {
       </div>
     </div>
     <div class="image">
-      <img :src="base64Format(teamsStore.team?.project?.project_photo_base64?.photo_base64)" alt="Imagem do Projeto">
+      <img
+        :src="getImage(teamsStore.team?.project?.photo?.url)"
+        alt="Imagem do Projeto"
+        lazy-src="https://img.freepik.com/vetores-premium/geometrico-minimo-criativo-com-papel-de-parede-de-fundo-de-cor-branca-e-cinza-abstrato-de-formas-dinamicas_176697-503.jpg?semt=ais_hybrid"
+      />
     </div>
   </section>
 </template>
@@ -130,7 +128,7 @@ section {
   border-radius: 15px;
 }
 
-.titles>div>h2 {
+.titles > div > h2 {
   font-size: 3rem;
   font-weight: 300;
   color: #fff;
@@ -143,13 +141,13 @@ section {
   align-items: flex-start;
 }
 
-.infos>div {
+.infos > div {
   display: flex;
   align-items: flex-start;
 }
 
 p {
-  color: #7D7D7D;
+  color: #7d7d7d;
   margin: 0;
 }
 
@@ -166,7 +164,7 @@ p {
 
 .iconsInfo {
   display: flex;
-  gap: .5rem;
+  gap: 0.5rem;
 }
 
 .rowOne {

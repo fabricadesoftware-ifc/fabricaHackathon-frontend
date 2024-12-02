@@ -1,9 +1,8 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useEditionStore } from '@/stores/edition'
 import { useClassInfoStore } from '@/stores/classInfo'
 import CardEdition from '../global/card/CardEdition.vue'
-import ArrowTopRight from 'vue-material-design-icons/ArrowTopRight.vue'
 
 import { prepareEditions } from '@/composables/edition/editionUtils'
 
@@ -12,8 +11,6 @@ const classInfoStore = useClassInfoStore()
 
 const years = ref([])
 const editionsByYear = ref({})
-const displayedYearsCount = ref(3)
-const showMore = ref(false)
 
 const populateEditionsByYear = (editions) => {
   editions.forEach((edition) => {
@@ -35,30 +32,20 @@ onMounted(async () => {
   const editions = prepareEditions(editionsStore.editions, classInfoStore.classesInfo)
   populateEditionsByYear(editions)
 })
-
-const filteredYears = computed(() => {
-  return showMore.value ? years.value : years.value.slice(0, displayedYearsCount.value)
-})
-
-const toggleShowMore = () => {
-  showMore.value = !showMore.value
-}
 </script>
 <template>
   <section>
     <div class="container">
-      <article v-for="year in filteredYears" :key="year">
+      <article v-for="year in years" :key="year">
         <h2>/{{ year }}</h2>
         <div class="cards">
-          <CardEdition v-for="edition in editionsByYear[year]" :key="edition.title + edition.year" :object="edition" />
+          <CardEdition
+            v-for="edition in editionsByYear[year]"
+            :key="edition.title + edition.year"
+            :object="edition"
+          />
         </div>
       </article>
-      <button @click="toggleShowMore">
-        {{ showMore ? 'VER MENOS' : 'VER MAIS' }}
-        <span class="roundSpan">
-          <ArrowTopRight size="20" />
-        </span>
-      </button>
     </div>
   </section>
 </template>
@@ -66,9 +53,7 @@ const toggleShowMore = () => {
 <style scoped>
 section {
   width: 100%;
-  background: radial-gradient(97.57% 210.75% at 0.9% 2.98%,
-      #121212 0%,
-      #000000 100%);
+  background: radial-gradient(97.57% 210.75% at 0.9% 2.98%, #121212 0%, #000000 100%);
   padding: 3rem 0;
 }
 
@@ -106,9 +91,11 @@ button::before {
   bottom: 0;
   border-radius: 50px;
   padding: 1.5px;
-  background: linear-gradient(114.55deg,
-      rgba(255, 255, 255, 0.9) 2.13%,
-      rgba(255, 255, 255, 0) 98.14%);
+  background: linear-gradient(
+    114.55deg,
+    rgba(255, 255, 255, 0.9) 2.13%,
+    rgba(255, 255, 255, 0) 98.14%
+  );
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
@@ -147,9 +134,11 @@ button::before {
   bottom: 0;
   border-radius: 50%;
   padding: 1px;
-  background: linear-gradient(114.55deg,
-      rgba(255, 255, 255, 0.9) 2.13%,
-      rgba(255, 255, 255, 0) 98.14%);
+  background: linear-gradient(
+    114.55deg,
+    rgba(255, 255, 255, 0.9) 2.13%,
+    rgba(255, 255, 255, 0) 98.14%
+  );
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
@@ -160,7 +149,7 @@ button::before {
   -webkit-mask-composite: destination-out;
 }
 
-button:hover>.roundSpan {
+button:hover > .roundSpan {
   background: white !important;
   color: black !important;
 }

@@ -1,17 +1,17 @@
 <script setup>
-import { useRouter } from 'vue-router'
-const router = useRouter()
-const routes = router.getRoutes()
+// import { useRouter } from 'vue-router'
+// const router = useRouter()
+// const routes = router.getRoutes()
 </script>
 
 <template>
-  <div>
+  <!-- <div>
     <p>DevNav</p>
     <router-link v-for="(route, index) in routes" :to="route.path" :key="index">
       {{ route.name }}
       <br />
     </router-link>
-  </div>
+  </div> -->
   <RouterView />
 </template>
 

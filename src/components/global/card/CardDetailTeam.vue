@@ -1,28 +1,29 @@
 <script setup>
-import { useRoute } from 'vue-router';
-import Medal from 'vue-material-design-icons/Medal.vue';
-import { onMounted } from 'vue';
+import { useRoute } from 'vue-router'
+import Medal from 'vue-material-design-icons/Medal.vue'
+import { onMounted } from 'vue'
+import getImage from '@/composables/image'
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
   object: Object,
   edition: Number,
   project: Object,
-  indexTeam: Number,
-});
+  indexTeam: Number
+})
 
 function upperCase(string) {
-  return string.toUpperCase();
+  return string.toUpperCase()
 }
 
 function formatPodium(value) {
   if (value === 0) {
-    return { color: '#Daa520', class: '1º' };
+    return { color: '#Daa520', class: '1º' }
   } else if (value === 1) {
-    return { color: '#C0C0C0', class: '2º' };
+    return { color: '#C0C0C0', class: '2º' }
   } else if (value === 2) {
-    return { color: '#cd7f32', class: '3º' };
+    return { color: '#cd7f32', class: '3º' }
   } else {
-    return { color: '#ffffff', class: `${value + 1}º` };
+    return { color: '#ffffff', class: `${value + 1}º` }
   }
 }
 
@@ -30,18 +31,19 @@ onMounted(() => {
   console.log(props.object)
 })
 
-const route = useRoute();
+const route = useRoute()
 </script>
-
 
 <template>
   <!-- <p style="">{{ object.project }}</p> -->
   <article
-    :style="{ backgroundImage: `url(data:image/jpeg;base64,${(props.object.project.project_photo_base64_code) ? props.object.project.project_photo_base64_code : props.object.img}` }">
+    :style="{ backgroundImage: `url(${getImage(props.object.photo.url ?? props.object.img)})` }"
+  >
     <div class="allBlur">
       <div class="podium">
-        <p :style="{ color: formatPodium(indexTeam).color, fontWeight: 700 }">{{ formatPodium(indexTeam).class
-          }}</p>
+        <p :style="{ color: formatPodium(indexTeam).color, fontWeight: 700 }">
+          {{ formatPodium(indexTeam).class }}
+        </p>
         <Medal :style="{ color: formatPodium(indexTeam).color }" />
       </div>
       <div class="info">
@@ -60,7 +62,6 @@ const route = useRoute();
     </div>
   </article>
 </template>
-
 
 <style scoped>
 article {
@@ -124,7 +125,7 @@ button {
   display: flex;
   justify-content: space-between;
   font-weight: 600;
-  font-size: .75rem;
+  font-size: 0.75rem;
 }
 
 p {
@@ -153,7 +154,7 @@ button:hover {
   margin-bottom: 1rem;
 }
 
-.podium>p {
+.podium > p {
   font-size: 1.5rem;
   font-weight: bold;
   margin: 0;

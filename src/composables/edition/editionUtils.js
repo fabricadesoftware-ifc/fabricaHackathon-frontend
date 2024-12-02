@@ -46,7 +46,7 @@ export const prepareEditions = (editions, classesInfo, evaluate = false) => {
     name: `${edition.year}/${edition.semester} - ${getClassNames(edition, classesInfo).join(', ')}`,
     description: formatEditionDescription(edition),
     route: evaluate ? `/evaluate/${edition.id}` : `/editions/${edition.id}`,
-    img: `data:image/jpeg;base64,${edition.photo_base64_code}`,
+    img: edition?.photo?.url,
     year: edition.year,
     start_date: edition.start_date,
     finish_date: edition.finish_date

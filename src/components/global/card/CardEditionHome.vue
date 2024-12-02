@@ -1,22 +1,15 @@
 <script setup>
 import { StateIndicator1 } from '@/components/index'
+import getImage from '@/composables/image'
 import ArrowRight from 'vue-material-design-icons/ArrowRight.vue'
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
   object: Object
 })
-
-const base64Format = (photo) => {
-  if (!photo) {
-    return 'https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg'
-  } else {
-    return photo
-  }
-}
 </script>
 
 <template>
-  <article :style="{ backgroundImage: `url(${base64Format(object.img)})` }">
+  <article :style="{ backgroundImage: `url(${getImage(object.img)})` }">
     <StateIndicator1
       :start_date="props.object.start_date"
       :finish_date="props.object.finish_date"

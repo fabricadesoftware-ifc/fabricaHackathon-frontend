@@ -1,4 +1,5 @@
 <script setup>
+import getImage from '@/composables/image'
 import { useAuthStore } from '@/stores/auth'
 import { useCategoryStore } from '@/stores/category'
 import { useEditionStore } from '@/stores/edition'
@@ -22,14 +23,6 @@ const getCategoryProjects = (categoryId) => {
   return rankings.value
     .filter((rank) => rank.team.project.category === categoryId)
     .sort((a, b) => a.final_grade - b.final_grade)
-}
-
-const base64Format = (photo) => {
-  if (!photo) {
-    return 'https://www.portaldoholanda.com.br/sites/default/files/imagecache/portal2014_fotonoticiagrande/portaldoholanda-626973-imagem-foto-amazonas.jpg'
-  } else {
-    return `data:image/jpeg;base64,${photo}`
-  }
 }
 
 const verifyEdition = computed(() => {
@@ -91,7 +84,8 @@ onMounted(async () => {
         <v-card class="mx-4 rounded-xl h-100">
           <v-img
             class="mt-0 card-image h-100"
-            :src="base64Format(rank.team.project.project_photo_base64_code)"
+            :src="getImage(rank.team?.project?.photo?.url)"
+            lazy-src="https://img.freepik.com/vetores-premium/geometrico-minimo-criativo-com-papel-de-parede-de-fundo-de-cor-branca-e-cinza-abstrato-de-formas-dinamicas_176697-503.jpg?semt=ais_hybrid"
             cover
           ></v-img>
           <div
@@ -151,7 +145,8 @@ onMounted(async () => {
           <v-card class="mx-4 rounded-xl h-100">
             <v-img
               class="mt-0 card-image h-100"
-              :src="base64Format(rank.team.project.project_photo_base64_code)"
+              :src="getImage(rank.team?.project?.photo?.url)"
+              lazy-src="https://img.freepik.com/vetores-premium/geometrico-minimo-criativo-com-papel-de-parede-de-fundo-de-cor-branca-e-cinza-abstrato-de-formas-dinamicas_176697-503.jpg?semt=ais_hybrid"
               cover
             ></v-img>
             <div
