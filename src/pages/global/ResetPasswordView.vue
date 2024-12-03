@@ -17,7 +17,7 @@ const resetPassword = async () => {
     }
     await authStore.resetPassword(password.value)
     toast.success('Senha alterada com sucesso')
-    router.push('/auth/login')
+    router.push('/auth')
   } catch (error) {
     console.error(error)
   }
