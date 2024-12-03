@@ -19,6 +19,7 @@ const resetPassword = async () => {
     toast.success('Senha alterada com sucesso')
     router.push('/auth')
   } catch (error) {
+    toast.error('Erro ao alterar senha')
     console.error(error)
   }
 }
