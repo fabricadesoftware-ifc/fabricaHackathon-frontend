@@ -19,6 +19,15 @@ const sendEmail = async () => {
 
 <template>
   <div class="w-100 h-100">
+    <v-btn
+      color="deep-orange"
+      class="ma-6"
+      rounded="xl"
+      variant="elevated"
+      @click="$router.push('/home')"
+    >
+      <v-icon color="white">mdi-arrow-left</v-icon>
+    </v-btn>
     <v-row class="d-flex align-center justify-center w-100 ma-0">
       <v-col cols="12" md="6">
         <v-card>
