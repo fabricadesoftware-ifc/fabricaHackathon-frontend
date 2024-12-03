@@ -11,6 +11,7 @@ export const useAuthStore = defineStore('auth', () => {
   const token = useStorage('token', {}, sessionStorage)
   const data_user = useStorage('data_user', {}, sessionStorage)
   const student_profile_data = useStorage('student_profile', {}, sessionStorage)
+  const resetPasswordToken = useStorage('resetPasswordToken', '', sessionStorage)
   const user = reactive({
     email: '',
     password: ''
@@ -66,6 +67,38 @@ export const useAuthStore = defineStore('auth', () => {
     router.push('/auth')
   }
 
+  const sendForgetPasswordEmail = async (email) => {
+    try {
+      const data = await authService.sendForgetPasswordEmail(email)
+      return data
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const verifyToken = async (token) => {
+    try {
+      const data = await authService.verifyToken(token)
+      resetPasswordToken.value = token
+      return data
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const resetPassword = async (password) => {
+    try {
+      console.log(resetPasswordToken.value)
+      const response = await authService.resetPassword({
+        new_password: password,
+        token: resetPasswordToken.value
+      })
+      return response
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return {
     isLogged,
     token,
@@ -74,6 +107,9 @@ export const useAuthStore = defineStore('auth', () => {
     student_profile_data,
     createAuthentication,
     updateUser,
-    logout
+    logout,
+    sendForgetPasswordEmail,
+    verifyToken,
+    resetPassword
   }
 })

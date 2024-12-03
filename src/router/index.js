@@ -83,6 +83,21 @@ const router = createRouter({
           name: 'profile',
           component: () => import('../pages/global/ProfileView.vue'),
           meta: { requiresAuth: true, requiresStudent: true }
+        },
+        {
+          path: '/auth/forgot-password',
+          name: 'forgotPassword',
+          component: () => import('../pages/global/ForgotPasswordView.vue')
+        },
+        {
+          path: '/auth/reset-password',
+          name: 'resetPassword',
+          component: () => import('../pages/global/ResetPasswordView.vue')
+        },
+        {
+          path: '/auth/verify-token',
+          name: 'verifyToken',
+          component: () => import('../pages/global/VerifyTokenView.vue')
         }
       ]
     }
