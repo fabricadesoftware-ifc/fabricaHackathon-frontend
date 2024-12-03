@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onMounted, computed } from 'vue'
+import { reactive, onMounted, computed, ref } from 'vue'
 import { useTeamStore } from '@/stores/team'
 import { useProjectStore } from '@/stores/project'
 import { useRoute } from 'vue-router'
@@ -13,6 +13,7 @@ const toast = useToast()
 const teamStore = useTeamStore()
 const projectStore = useProjectStore()
 const categoryStore = useCategoryStore()
+const team = ref()
 
 const route = useRoute()
 
@@ -34,19 +35,15 @@ const handleFileChange = (event) => {
 }
 
 const createProject = async () => {
-  const formData = new FormData()
-  formData.append('name', dataProject.name)
-  formData.append('description', dataProject.description)
-  formData.append('deploy_link', dataProject.deploy_link)
-  formData.append('repository_link', dataProject.repository_link)
-  formData.append('category', dataProject.category)
-  formData.append('team_id', Number(dataProject.team_id))
+  // const formData = new FormData()
+  // formData.append('name', dataProject.name)
+  // formData.append('description', dataProject.description)
+  // formData.append('deploy_link', dataProject.deploy_link)
+  // formData.append('repository_link', dataProject.repository_link)
+  // formData.append('category', dataProject.category)
+  // formData.append('team_id', Number(dataProject.team_id))
 
-  if (dataProject.photo_file) {
-    formData.append('photo_file', dataProject.photo_file)
-  }
-
-  await projectStore.createProject(formData)
+  await projectStore.createProject(dataProject)
 
   toast.success('Projeto adicionado com sucesso!')
 
@@ -69,13 +66,16 @@ const categories = computed(() => {
 })
 
 onMounted(async () => {
-  const teamData = await teamStore.getTeamByStudent(route.params.edition)
+  team.value = await teamStore.getTeamByStudent(route.params.edition)
   await categoryStore.getEditionCategories(route.params.edition)
-  if (teamData[0].project != null) {
+  if (team.value[0]?.project != null) {
     router.push('/home')
     toast.warning('Você já possui um projeto cadastrado')
+  } else if (team.value[0]?.id == null) {
+    router.push('/home')
+    toast.warning('Você não está em um time')
   } else {
-    dataProject.team_id = teamData[0].id
+    dataProject.team_id = team.value[0]?.id
   }
 })
 </script>

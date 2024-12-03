@@ -20,7 +20,7 @@ const teams = ref([])
 const categories = ref([])
 
 const getCategoryProjects = (categoryId) => {
-  return teams.value.filter((team) => team.project.category === categoryId)
+  return teams.value.filter((team) => team?.project?.category === categoryId)
 }
 
 const verifyEdition = computed(() => {
@@ -33,6 +33,7 @@ const verifyEdition = computed(() => {
   if (classes && studentStore.student.class_info?.id) {
     isUserClass = classes.some((cl) => cl?.id === studentStore.student.class_info.id)
   }
+
   if (
     editionStore.edition.applications_accepted &&
     start_date < today &&

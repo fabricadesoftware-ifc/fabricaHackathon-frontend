@@ -16,7 +16,6 @@ class TeamService {
 
   async createTeam(team) {
     try {
-      console.log(team)
       const { data } = await api.post('/teams/', team)
       toast.success('Equipe criada com sucesso!')
       return data

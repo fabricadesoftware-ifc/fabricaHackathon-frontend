@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import ProjectService from '@/services/project'
+import { useImageStore } from './image'
 
 export const useProjectStore = defineStore('project', () => {
   const projects = ref([])
   const project = ref([])
   const projectsByEdition = ref([])
+  const imageStore = useImageStore()
 
   const getProjects = async () => {
     try {
@@ -36,7 +38,18 @@ export const useProjectStore = defineStore('project', () => {
 
   const createProject = async (project) => {
     try {
-      const data = await ProjectService.createProject(project)
+      let newProject = {
+        ...project,
+        team_id: Number(project.team_id)
+      }
+      if (project.photo_file) {
+        const formData = new FormData()
+        formData.append('file', project.photo_file)
+        formData.append('description', project.name)
+        const image = await imageStore.postImage(formData)
+        newProject.photo = image.attachment_key
+      }
+      const data = await ProjectService.createProject(newProject)
       return data
     } catch (error) {
       console.error(error)
